@@ -4,7 +4,7 @@ import path from 'node:path';
 import { adjudicate } from './adjudicator.js';
 import { checkSteps } from './checker.js';
 import { compileProcedure } from './compiler.js';
-import { uploadFile } from './gemini.js';
+import { appendDebugLog, uploadFile } from './gemini.js';
 import { localize } from './localizer.js';
 import { evaluateSteps } from './rules.js';
 import {
@@ -81,15 +81,18 @@ export async function runPipeline(
   const durationS = videoInfo.duration_s;
 
   // 3. Upload video via Files API
+  appendDebugLog(`[pipeline] ${recordingId} stage=upload`);
   const videoUri = await uploadFile(videoPath, 'video/mp4');
 
   // 4. Localize step windows (unless --no-localizer or --decisions-only-full)
   let windows: StepWindow[] = [];
   if (!options.noLocalizer && !options.decisionsOnlyFull) {
+    appendDebugLog(`[pipeline] ${recordingId} stage=localize (${procedure.steps.length} steps)`);
     const loc = await localize(videoUri, procedure, durationS, config);
     windows = loc.windows;
     totalCost += loc.costUsd;
     errors.push(...loc.notes);
+    appendDebugLog(`[pipeline] ${recordingId} stage=localize_done found=${windows.filter((w) => w.found).length}/${windows.length} cost=$${loc.costUsd.toFixed(4)}`);
   } else {
     windows = procedure.steps.map((s) => ({
       step_id: s.step_id,
@@ -101,6 +104,7 @@ export async function runPipeline(
   }
 
   // 5. Decisions checks (full video + per-step clips)
+  appendDebugLog(`[pipeline] ${recordingId} stage=checkSteps`);
   const checkOut = await checkSteps(
     videoUri,
     videoPath,
@@ -115,12 +119,14 @@ export async function runPipeline(
     },
   );
   totalCost += checkOut.costUsd;
+  appendDebugLog(`[pipeline] ${recordingId} stage=checkSteps_done cost=$${checkOut.costUsd.toFixed(4)}`);
 
   // 6. Deterministic rules
   let verdicts = evaluateSteps(procedure, windows, checkOut.checks, config);
 
   // 7. Carbon adjudication (unless --no-carbon)
   if (!options.noCarbon) {
+    appendDebugLog(`[pipeline] ${recordingId} stage=adjudicate`);
     const adj = await adjudicate(
       procedure,
       videoPath,
@@ -134,6 +140,7 @@ export async function runPipeline(
     );
     verdicts = adj.verdicts;
     totalCost += adj.costUsd;
+    appendDebugLog(`[pipeline] ${recordingId} stage=adjudicate_done cost=$${adj.costUsd.toFixed(4)}`);
   }
 
   const latencyS = Number(((Date.now() - startedMs) / 1000).toFixed(3));

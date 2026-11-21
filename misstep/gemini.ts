@@ -12,7 +12,7 @@ import { computeCacheKey, hashFileSha256, readCache, writeCache } from './cache.
 import { assertWithinBudget, recordSpend, type UsageInfo } from './cost.js';
 import { getEnvSettings } from './settings.js';
 
-function appendDebugLog(msg: string): void {
+export function appendDebugLog(msg: string): void {
   try {
     const runsDir = getEnvSettings().runsDir;
     fs.mkdirSync(runsDir, { recursive: true });
@@ -66,6 +66,18 @@ export function isGeminiConfigured(): boolean {
 }
 
 function createStandardClient(): GoogleGenAI {
+  return new GoogleGenAI({
+    apiKey: getApiKey(),
+    httpOptions: {
+      timeout: 180_000,
+      headers: {
+        'User-Agent': 'aistudio-build',
+      },
+    },
+  });
+}
+
+function createUploadClient(): GoogleGenAI {
   return new GoogleGenAI({
     apiKey: getApiKey(),
     httpOptions: {
@@ -216,6 +228,8 @@ export async function generateJson<T = unknown>(
   }
 
   assertWithinBudget();
+  const t0 = Date.now();
+  appendDebugLog(`[generateJson] START ${opts.model} mediaRes=${opts.mediaResolution ?? 'default'} thinking=${opts.thinkingLevel ?? 'default'}`);
 
   const res = await getSemaphore().run(() =>
     withRetry(async () => {
@@ -245,6 +259,7 @@ export async function generateJson<T = unknown>(
   const parsed = JSON.parse(rawText) as T;
   const usage = extractUsage(res.usageMetadata);
   const costUsd = recordSpend(opts.model, usage);
+  appendDebugLog(`[generateJson] DONE ${opts.model} in ${((Date.now() - t0) / 1000).toFixed(1)}s cost=$${costUsd.toFixed(4)}`);
 
   writeCache(opts.model, cacheKey, { data: parsed, usage, rawText });
   return {
@@ -340,6 +355,9 @@ export async function decide(
   }
 
   assertWithinBudget();
+  const t0 = Date.now();
+  const qCount = Object.keys(questions).length;
+  appendDebugLog(`[decide] START qCount=${qCount}`);
 
   const response = await getSemaphore().run(() =>
     withRetry(async () => {
@@ -367,6 +385,7 @@ export async function decide(
     outputTokens: 0,
   };
   const costUsd = recordSpend(model, usage);
+  appendDebugLog(`[decide] DONE qCount=${qCount} in ${((Date.now() - t0) / 1000).toFixed(1)}s cost=$${costUsd.toFixed(4)}`);
   writeCache(model, cacheKey, { answers, usage });
 
   return { answers, usage, costUsd, cached: false };
@@ -379,7 +398,7 @@ export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Prom
   const cacheKey = computeCacheKey('files-api', { fileHash, mimeType });
   const hit = readCache<{ uri: string; name: string }>('files-api', cacheKey);
 
-  const ai = createStandardClient();
+  const ai = createUploadClient();
   if (hit?.name) {
     try {
       const existing = await ai.files.get({ name: hit.name });

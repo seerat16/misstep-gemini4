@@ -205,7 +205,7 @@ export const LOCALIZER_GEMINI_SCHEMA: Schema = {
       end_s: { type: Type.NUMBER, nullable: true },
       note: { type: Type.STRING },
     },
-    required: ['step_id', 'found'],
+    required: ['step_id', 'found', 'start_s', 'end_s'],
   },
 };
 

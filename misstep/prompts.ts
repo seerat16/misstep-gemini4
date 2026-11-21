@@ -17,7 +17,8 @@ export const LOCALIZER_PROMPT = `You are given a video of a person performing a 
 For EVERY step, report whether it is performed in the video and, if so, the time window of its main occurrence (start_s, end_s in seconds from the start of the video).
 The person may skip steps, do them out of order, do them partially, or repeat them. Report what actually happens, not the listed order.
 Do NOT judge whether a step was done correctly; only locate it.
-If a step is not performed, set found=false and leave the times empty.
+When found=true, ALWAYS provide both start_s and end_s (use at least a 5-second window covering the action).
+If a step is not performed, set found=false and set start_s=null and end_s=null.
 Use the transcript/audio to find candidate moments, then inspect frames to confirm.
 Steps:
 {steps_with_ids_and_evidence}

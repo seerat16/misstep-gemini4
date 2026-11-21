@@ -80,6 +80,11 @@ export async function localize(
     let endS = typeof raw.end_s === 'number' && Number.isFinite(raw.end_s) ? raw.end_s : null;
     let note = raw.note ?? '';
 
+    if (found && startS !== null && endS === null) {
+      endS = Math.min(durationS > 0 ? durationS : startS + 20, startS + 20);
+      note = `${note} [synthesized end_s=+20s]`.trim();
+    }
+
     if (found && startS !== null && endS !== null) {
       startS = Math.max(0, Math.min(durationS, startS));
       endS = Math.max(0, Math.min(durationS, endS));
