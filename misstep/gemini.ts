@@ -1,5 +1,7 @@
+import { execFile } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { promisify } from 'node:util';
 import {
   GoogleGenAI,
   MediaResolution,
@@ -50,6 +52,7 @@ function getSemaphore(): AsyncSemaphore {
   }
   return semaphoreInstance;
 }
+const uploadSemaphore = new AsyncSemaphore(2);
 
 function getApiKey(): string {
   const key = process.env.GEMINI_API_KEY || '';
@@ -102,8 +105,24 @@ function createDecisionsClient(): GoogleGenAI {
   });
 }
 
+function collectErrorText(err: unknown): string {
+  const parts: string[] = [];
+  let cur: unknown = err;
+  for (let i = 0; i < 3 && cur; i++) {
+    if (cur instanceof Error) {
+      const code = (cur as { code?: string | number }).code;
+      parts.push(`${cur.message} ${code ? String(code) : ''}`);
+      cur = (cur as { cause?: unknown }).cause;
+    } else {
+      parts.push(String(cur));
+      break;
+    }
+  }
+  return parts.join(' | ');
+}
+
 function isRetryableError(err: unknown): boolean {
-  const msg = err instanceof Error ? err.message : String(err);
+  const msg = collectErrorText(err);
   const status = (err as { status?: number; code?: number })?.status ?? (err as { code?: number })?.code;
   if (status === 400 || status === 401 || status === 403 || status === 404) {
     return false;
@@ -112,7 +131,7 @@ function isRetryableError(err: unknown): boolean {
     return true;
   }
   return (
-    /429|500|503|504|RESOURCE_EXHAUSTED|UNAVAILABLE|DEADLINE_EXCEEDED|ETIMEDOUT|ECONNRESET|timeout/i.test(
+    /429|500|503|504|RESOURCE_EXHAUSTED|UNAVAILABLE|DEADLINE_EXCEEDED|ETIMEDOUT|ECONNRESET|ECONNABORTED|EPIPE|EAI_AGAIN|ENOTFOUND|UND_ERR|fetch failed|socket|timeout/i.test(
       msg,
     ) && !/400|INVALID_ARGUMENT|PERMISSION_DENIED|NOT_FOUND/i.test(msg)
   );
@@ -391,59 +410,136 @@ export async function decide(
   return { answers, usage, costUsd, cached: false };
 }
 
+const execFileAsync = promisify(execFile);
+const inFlightUploads = new Map<string, Promise<string>>();
+
+async function prepareUploadPath(absPath: string, fileHash: string, mimeType: string): Promise<string> {
+  if (mimeType !== 'video/mp4') return absPath;
+  const sizeBytes = fs.statSync(absPath).size;
+  if (sizeBytes <= 25 * 1024 * 1024) return absPath;
+
+  const proxyDir = path.join(getEnvSettings().cacheDir, 'upload_proxies');
+  fs.mkdirSync(proxyDir, { recursive: true });
+  const proxyPath = path.join(proxyDir, `${fileHash.slice(0, 16)}.mp4`);
+  if (fs.existsSync(proxyPath) && fs.statSync(proxyPath).size > 50_000) {
+    return proxyPath;
+  }
+
+  const tmpPath = `${proxyPath}.${process.pid}.${Date.now()}.tmp.mp4`;
+  try {
+    const t0 = Date.now();
+    await execFileAsync(
+      'ffmpeg',
+      [
+        '-y',
+        '-i',
+        absPath,
+        '-r',
+        '1',
+        '-c:v',
+        'libx264',
+        '-preset',
+        'veryfast',
+        '-crf',
+        '28',
+        '-c:a',
+        'aac',
+        '-ac',
+        '1',
+        '-b:a',
+        '32k',
+        '-movflags',
+        '+faststart',
+        tmpPath,
+      ],
+      { maxBuffer: 10 * 1024 * 1024 },
+    );
+    fs.renameSync(tmpPath, proxyPath);
+    const origMb = (sizeBytes / (1024 * 1024)).toFixed(1);
+    const proxyMb = (fs.statSync(proxyPath).size / (1024 * 1024)).toFixed(1);
+    appendDebugLog(
+      `[uploadFile] PROXY ${path.basename(absPath)} ${origMb}MB -> ${proxyMb}MB in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+    );
+    return proxyPath;
+  } catch (err) {
+    try {
+      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
+    } catch {
+      // ignore
+    }
+    appendDebugLog(
+      `[uploadFile] proxy fallback to original for ${path.basename(absPath)}: ${err instanceof Error ? err.message : String(err)}`,
+    );
+    return absPath;
+  }
+}
+
 export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Promise<string> {
   const absPath = path.resolve(filePath);
-  const sizeMb = (fs.statSync(absPath).size / (1024 * 1024)).toFixed(2);
   const fileHash = hashFileSha256(absPath);
   const cacheKey = computeCacheKey('files-api', { fileHash, mimeType });
-  const hit = readCache<{ uri: string; name: string }>('files-api', cacheKey);
 
-  const ai = createUploadClient();
-  if (hit?.name) {
-    try {
-      const existing = await ai.files.get({ name: hit.name });
-      if (existing.state === 'ACTIVE' && existing.uri) {
-        appendDebugLog(`[uploadFile] cache hit ACTIVE ${path.basename(absPath)} -> ${existing.uri}`);
-        return existing.uri;
+  const pending = inFlightUploads.get(cacheKey);
+  if (pending) return pending;
+
+  const task = (async (): Promise<string> => {
+    const hit = readCache<{ uri: string; name: string }>('files-api', cacheKey);
+    const ai = createUploadClient();
+    if (hit?.name) {
+      try {
+        const existing = await ai.files.get({ name: hit.name });
+        if (existing.state === 'ACTIVE' && existing.uri) {
+          appendDebugLog(`[uploadFile] cache hit ACTIVE ${path.basename(absPath)} -> ${existing.uri}`);
+          return existing.uri;
+        }
+      } catch {
+        // expired or deleted; re-upload below
       }
-    } catch {
-      // expired or deleted; re-upload below
     }
-  }
 
-  appendDebugLog(`[uploadFile] START ${path.basename(absPath)} (${sizeMb} MB)`);
-  const t0 = Date.now();
-  const uploaded = await getSemaphore().run(() =>
-    withRetry(
-      async () =>
-        await ai.files.upload({
-          file: absPath,
-          config: { mimeType },
-        }),
-      `uploadFile:${path.basename(absPath)}`,
-    ),
-  );
-  appendDebugLog(
-    `[uploadFile] UPLOADED ${path.basename(absPath)} in ${((Date.now() - t0) / 1000).toFixed(1)}s name=${uploaded.name} state=${uploaded.state}`,
-  );
+    const uploadPath = await prepareUploadPath(absPath, fileHash, mimeType);
+    const sizeMb = (fs.statSync(uploadPath).size / (1024 * 1024)).toFixed(2);
+    appendDebugLog(`[uploadFile] START ${path.basename(absPath)} (${sizeMb} MB)`);
+    const t0 = Date.now();
+    const uploaded = await uploadSemaphore.run(() =>
+      withRetry(
+        async () =>
+          await ai.files.upload({
+            file: uploadPath,
+            config: { mimeType },
+          }),
+        `uploadFile:${path.basename(absPath)}`,
+      ),
+    );
+    appendDebugLog(
+      `[uploadFile] UPLOADED ${path.basename(absPath)} in ${((Date.now() - t0) / 1000).toFixed(1)}s name=${uploaded.name} state=${uploaded.state}`,
+    );
 
-  let current = uploaded;
-  const started = Date.now();
-  while (current.state === 'PROCESSING') {
-    if (Date.now() - started > 300_000) {
-      throw new Error(`Timed out waiting for uploaded file ${current.name} to become ACTIVE`);
+    let current = uploaded;
+    const started = Date.now();
+    while (current.state === 'PROCESSING') {
+      if (Date.now() - started > 300_000) {
+        throw new Error(`Timed out waiting for uploaded file ${current.name} to become ACTIVE`);
+      }
+      await new Promise((r) => setTimeout(r, 2000));
+      current = await ai.files.get({ name: current.name! });
     }
-    await new Promise((r) => setTimeout(r, 2000));
-    current = await ai.files.get({ name: current.name! });
-  }
 
-  if (current.state !== 'ACTIVE' || !current.uri) {
-    throw new Error(`Uploaded file ${current.name} failed with state=${current.state}`);
-  }
+    if (current.state !== 'ACTIVE' || !current.uri) {
+      throw new Error(`Uploaded file ${current.name} failed with state=${current.state}`);
+    }
 
-  appendDebugLog(`[uploadFile] ACTIVE ${path.basename(absPath)} -> ${current.uri}`);
-  writeCache('files-api', cacheKey, { uri: current.uri, name: current.name });
-  return current.uri;
+    appendDebugLog(`[uploadFile] ACTIVE ${path.basename(absPath)} -> ${current.uri}`);
+    writeCache('files-api', cacheKey, { uri: current.uri, name: current.name });
+    return current.uri;
+  })();
+
+  inFlightUploads.set(cacheKey, task);
+  try {
+    return await task;
+  } finally {
+    inFlightUploads.delete(cacheKey);
+  }
 }
 
 export async function tts(
