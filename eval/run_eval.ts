@@ -145,11 +145,18 @@ export async function runEval(args: RunEvalArgs): Promise<{
   fs.copyFileSync(configPath, path.join(runDir, 'config.yaml'));
 
   const logLines: string[] = [];
+  const evalDebugPath = path.join(env.runsDir, 'eval_debug.log');
   const log = (msg: string) => {
     const line = `[${new Date().toISOString()}] ${msg}`;
     logLines.push(line);
     console.log(line);
+    try {
+      fs.appendFileSync(evalDebugPath, line + '\n', 'utf-8');
+    } catch {
+      // ignore
+    }
   };
+  log(`Starting eval system=${args.system} split=${args.split} limit=${args.limit ?? 'all'}`);
 
   // Dev base rate for B0
   const devGoldSteps = splits.dev
@@ -162,41 +169,57 @@ export async function runEval(args: RunEvalArgs): Promise<{
       : 0.25;
 
   const recipes = loadRecipes();
+  const procedureCache = new Map<string, Procedure>();
+  const neededActivities = Array.from(
+    new Set(
+      targetIds
+        .map((id) => goldById.get(id)?.activity_id)
+        .filter((aid): aid is string => Boolean(aid)),
+    ),
+  );
+  await Promise.all(
+    neededActivities.map(async (aid) => {
+      const procPath = path.join(env.dataDir, 'procedures', `${aid}.json`);
+      if (fs.existsSync(procPath)) {
+        procedureCache.set(aid, ProcedureSchema.parse(JSON.parse(fs.readFileSync(procPath, 'utf-8'))));
+      } else if (recipes[aid]) {
+        const fixedIds = recipes[aid].map(([sid]) => sid);
+        const procText = procedureFromRecipe(aid);
+        const compiled = await compileProcedure(
+          { text: procText },
+          'cc4d',
+          aid,
+          fixedIds,
+          configPath,
+        );
+        procedureCache.set(aid, compiled.procedure);
+        log(`Compiled procedure ${aid} (${compiled.procedure.steps.length} steps, $${compiled.costUsd.toFixed(4)})`);
+      }
+    }),
+  );
+
   const results: RunResult[] = [];
   const failures: FailureRecord[] = [];
+  const queue = [...targetIds];
+  const workerCount = args.system === 'B0' ? 1 : Math.min(3, Math.max(1, env.concurrency));
 
-  for (const recId of targetIds) {
+  async function runOneRecording(recId: string): Promise<void> {
     const g = goldById.get(recId);
     if (!g) {
       log(`Skipping ${recId}: missing in gold.jsonl`);
-      continue;
+      return;
     }
 
     const videoPath = path.join(env.dataDir, 'videos', `${recId}.mp4`);
     if (args.system !== 'B0' && !fs.existsSync(videoPath)) {
       log(`Skipping ${recId}: video not found at ${videoPath}`);
-      continue;
+      return;
     }
 
-    // Load or compile procedure for activity
-    const procPath = path.join(env.dataDir, 'procedures', `${g.activity_id}.json`);
-    let procedure: Procedure;
-    if (fs.existsSync(procPath)) {
-      procedure = ProcedureSchema.parse(JSON.parse(fs.readFileSync(procPath, 'utf-8')));
-    } else if (recipes[g.activity_id]) {
-      const fixedIds = recipes[g.activity_id].map(([sid]) => sid);
-      const procText = procedureFromRecipe(g.activity_id);
-      const compiled = await compileProcedure(
-        { text: procText },
-        'cc4d',
-        g.activity_id,
-        fixedIds,
-        configPath,
-      );
-      procedure = compiled.procedure;
-    } else {
+    const procedure = procedureCache.get(g.activity_id);
+    if (!procedure) {
       log(`Skipping ${recId}: activity ${g.activity_id} missing from recipes`);
-      continue;
+      return;
     }
 
     let res: RunResult;
@@ -252,6 +275,15 @@ export async function runEval(args: RunEvalArgs): Promise<{
 
     log(`Finished ${recId} (${args.system}): cost=$${res.cost_usd.toFixed(4)}, latency=${res.latency_s}s`);
   }
+
+  await Promise.all(
+    Array.from({ length: workerCount }, async () => {
+      while (queue.length > 0) {
+        const nextId = queue.shift();
+        if (nextId) await runOneRecording(nextId);
+      }
+    }),
+  );
 
   fs.writeFileSync(
     path.join(runDir, 'results.jsonl'),

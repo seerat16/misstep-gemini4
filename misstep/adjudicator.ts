@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import type { Part } from '@google/genai';
-import { generateJson } from './gemini.js';
+import { generateJson, uploadFile } from './gemini.js';
 import { ADJUDICATOR_PROMPT, fillTemplate } from './prompts.js';
 import { applyCarbonDecision } from './rules.js';
 import {
@@ -66,7 +66,21 @@ export async function adjudicate(
           config.media.clip_pad_s,
           durationS,
         );
-        const clipBase64 = fs.readFileSync(clipPath).toString('base64');
+        const clipSize = fs.statSync(clipPath).size;
+        const videoPart: Part =
+          clipSize > 10 * 1024 * 1024
+            ? {
+                fileData: {
+                  fileUri: await uploadFile(clipPath, 'video/mp4'),
+                  mimeType: 'video/mp4',
+                },
+              }
+            : {
+                inlineData: {
+                  data: fs.readFileSync(clipPath).toString('base64'),
+                  mimeType: 'video/mp4',
+                },
+              };
 
         const prompt = fillTemplate(ADJUDICATOR_PROMPT, {
           step_id: step.step_id,
@@ -84,15 +98,7 @@ export async function adjudicate(
           categories: v.categories.join(', ') || 'none',
         });
 
-        const parts: Part[] = [
-          {
-            inlineData: {
-              data: clipBase64,
-              mimeType: 'video/mp4',
-            },
-          },
-          { text: prompt },
-        ];
+        const parts: Part[] = [videoPart, { text: prompt }];
 
         const res = await generateJson<AdjudicatorVerdict>({
           model: config.models.adjudicator,

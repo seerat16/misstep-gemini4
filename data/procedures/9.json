@@ -1,0 +1,282 @@
+{
+  "procedure_id": "9",
+  "title": "Microwave Mug French Toast",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "99",
+      "text": "Cut or tear-Cut or tear 1 slices of bread into bite-size pieces",
+      "visible_evidence": [
+        "hands tearing or cutting a slice of bread",
+        "bite-size bread pieces on a work surface"
+      ],
+      "quantity": {
+        "item": "bread",
+        "amount": "1",
+        "unit": "slices"
+      },
+      "checks": [
+        {
+          "check_id": "c99_1",
+          "text": "The bread is divided into bite-size pieces",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "94",
+      "text": "melt-In a large mug, melt 1 tablespoon of softened butter in the microwave for about 30 seconds",
+      "visible_evidence": [
+        "butter placed inside a large mug",
+        "mug placed in the microwave",
+        "liquid melted butter at the bottom of the mug"
+      ],
+      "quantity": {
+        "item": "softened butter",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "c94_1",
+          "text": "The butter is placed in a large mug",
+          "category": "preparation"
+        },
+        {
+          "check_id": "c94_2",
+          "text": "The mug is microwaved for about 30 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "c94_3",
+          "text": "The butter is melted into a liquid",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "98",
+      "text": "Roll-Roll the butter around in the mug to coat it",
+      "visible_evidence": [
+        "hands tilting and rotating the mug",
+        "melted butter coating the inner sides of the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c98_1",
+          "text": "The mug is rotated so the melted butter coats the inner walls",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "94"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "101",
+      "text": "whisk-In the mug, whisk one egg with a fork until well blended",
+      "visible_evidence": [
+        "egg cracked into the mug",
+        "fork whisking the egg inside the mug",
+        "uniformly blended yellow egg liquid in the mug"
+      ],
+      "quantity": {
+        "item": "egg",
+        "amount": "one",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "c101_1",
+          "text": "A fork is used to whisk the egg inside the mug",
+          "category": "technique"
+        },
+        {
+          "check_id": "c101_2",
+          "text": "The egg yolk and white are blended into a uniform liquid",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "98"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "95",
+      "text": "Sprinkle-Sprinkle 1/4 teaspoon cinnamon over the egg",
+      "visible_evidence": [
+        "measuring spoon sprinkling cinnamon into the mug",
+        "cinnamon visible on top of the egg mixture"
+      ],
+      "quantity": {
+        "item": "cinnamon",
+        "amount": "1/4",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "c95_1",
+          "text": "Cinnamon is sprinkled over the egg in the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "101"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "100",
+      "text": "Add-Add 1/4 teaspoon vanilla extract to the mug",
+      "visible_evidence": [
+        "measuring spoon pouring dark liquid into the mug"
+      ],
+      "quantity": {
+        "item": "vanilla extract",
+        "amount": "1/4",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "c100_1",
+          "text": "Vanilla extract is added to the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "101"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "93",
+      "text": "stir-stir the mug",
+      "visible_evidence": [
+        "utensil stirring the liquid inside the mug",
+        "cinnamon and vanilla mixed throughout the egg"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c93_1",
+          "text": "The contents of the mug are stirred together with a utensil",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "95",
+        "100"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "92",
+      "text": "add-add bread pieces to the egg mixture in the mug, pressing the bread down into the egg",
+      "visible_evidence": [
+        "bread pieces dropped into the mug",
+        "hand or utensil pressing the bread down into the egg mixture"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c92_1",
+          "text": "The bread pieces are added to the egg mixture in the mug",
+          "category": "preparation"
+        },
+        {
+          "check_id": "c92_2",
+          "text": "The bread pieces are pressed down into the egg liquid",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "99",
+        "93"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "91",
+      "text": "Microwave-Microwave on high for 90 seconds until the egg is cooked through",
+      "visible_evidence": [
+        "mug placed inside the microwave",
+        "cooked solid egg and bread mixture in the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c91_1",
+          "text": "The mug is microwaved for 90 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "c91_2",
+          "text": "The egg mixture is solid and cooked through",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "92"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "97",
+      "text": "Put-Put the mug's contents on a plate",
+      "visible_evidence": [
+        "mug tipped or emptied onto a plate",
+        "cooked mixture resting on a plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c97_1",
+          "text": "The cooked contents are transferred from the mug onto a plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "91"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "96",
+      "text": "cut-cut the contents on plate, and serve",
+      "visible_evidence": [
+        "utensil cutting the cooked mixture on the plate",
+        "cut portions arranged on the plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "c96_1",
+          "text": "The cooked contents on the plate are cut into pieces",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "97"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

@@ -1,0 +1,333 @@
+{
+  "procedure_id": "21",
+  "title": "Banana Pancakes",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "225",
+      "text": "Add-Add 1 banana to a blender",
+      "visible_evidence": [
+        "peeled banana placed into blender jug",
+        "banana visible inside blender"
+      ],
+      "quantity": {
+        "item": "banana",
+        "amount": "1",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "225_1",
+          "text": "The banana is peeled before entering the blender",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "229",
+      "text": "Add-1 egg to a blender",
+      "visible_evidence": [
+        "egg cracked over blender jug",
+        "raw egg yolk and white inside blender"
+      ],
+      "quantity": {
+        "item": "egg",
+        "amount": "1",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "229_1",
+          "text": "The egg is cracked open with the shell kept out of the blender",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "221",
+      "text": "Add-1/2 tsp baking powder to a blender",
+      "visible_evidence": [
+        "measuring spoon scooping baking powder",
+        "baking powder tipped into blender jug"
+      ],
+      "quantity": {
+        "item": "baking powder",
+        "amount": "1/2",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "221_1",
+          "text": "The baking powder is scooped with a measuring teaspoon into the blender",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "232",
+      "text": "Add-1 heaped tbsp flour to a blender",
+      "visible_evidence": [
+        "tablespoon mounded with flour held over blender",
+        "flour tipped into blender jug"
+      ],
+      "quantity": {
+        "item": "flour",
+        "amount": "1",
+        "unit": "heaped tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "232_1",
+          "text": "The flour forms a mound above the rim of the tablespoon",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "227",
+      "text": "blitz-blitz the blender for 20 seconds",
+      "visible_evidence": [
+        "blender lid secured on jug",
+        "blender blades spinning ingredients into smooth batter"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "227_1",
+          "text": "The blender runs for approximately 20 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "227_2",
+          "text": "The ingredients blend into a smooth uniform batter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "225",
+        "229",
+        "221",
+        "232"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "223",
+      "text": "Melt-Melt a small knob of butter in a non-stick frying pan over low-medium heat",
+      "visible_evidence": [
+        "small piece of butter placed in frying pan",
+        "butter melting into liquid on pan surface",
+        "stove burner set to low-medium"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "223_1",
+          "text": "The butter fully melts across the non-stick frying pan surface",
+          "category": "technique"
+        },
+        {
+          "check_id": "223_2",
+          "text": "The stove control is set to a low-medium heat level",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "231",
+      "text": "Pour-Pour three little puddles straight from the blender into the frying pan",
+      "visible_evidence": [
+        "blender jug tilted over frying pan",
+        "small round puddles of batter in frying pan"
+      ],
+      "quantity": {
+        "item": "little puddles of batter",
+        "amount": "three",
+        "unit": "puddles"
+      },
+      "checks": [
+        {
+          "check_id": "231_1",
+          "text": "The batter is poured directly from the blender jug into the pan",
+          "category": "technique"
+        },
+        {
+          "check_id": "231_2",
+          "text": "The batter puddles are spaced apart as separate small rounds",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "227",
+        "223"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "226",
+      "text": "Cook-Cook for 1 min or until the tops start to bubble",
+      "visible_evidence": [
+        "pancake puddles cooking undisturbed in pan",
+        "small bubbles forming on the top surfaces of the pancakes"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "226_1",
+          "text": "The pancakes cook for about 1 minute until bubbles appear on the top surfaces",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "231"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "233",
+      "text": "Chop-Chop 1 strawberry",
+      "visible_evidence": [
+        "strawberry placed on cutting board",
+        "knife slicing strawberry into small pieces"
+      ],
+      "quantity": {
+        "item": "strawberry",
+        "amount": "1",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "233_1",
+          "text": "The strawberry is cut into small pieces on a cutting surface",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "228",
+      "text": "Flip-Flip the pancakes with a fork or a fish slice spatula",
+      "visible_evidence": [
+        "fork or fish slice spatula sliding under each pancake",
+        "pancakes turned over showing browned side on top"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "228_1",
+          "text": "Each pancake is turned over using a fork or fish slice spatula",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "226"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "230",
+      "text": "cook-cook for 20-30 seconds more",
+      "visible_evidence": [
+        "flipped pancakes remaining in heated frying pan",
+        "steam rising lightly from cooking pancakes"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "230_1",
+          "text": "The flipped pancakes remain cooking in the pan for 20 to 30 seconds",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "228"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "234",
+      "text": "Transfer-Transfer to a plate",
+      "visible_evidence": [
+        "cooked pancakes lifted from frying pan",
+        "pancakes placed onto a serving plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "234_1",
+          "text": "All cooked pancakes are moved from the frying pan onto a plate",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "230"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "222",
+      "text": "Serve-Serve the pancakes with chopped strawberries",
+      "visible_evidence": [
+        "chopped strawberry pieces placed onto or beside the plated pancakes"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "222_1",
+          "text": "The chopped strawberry pieces are placed on the plate with the pancakes",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "234",
+        "233"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "224",
+      "text": "splash-splash maple syrup on plate",
+      "visible_evidence": [
+        "maple syrup container tilted over plate",
+        "maple syrup drizzled onto plate and pancakes"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "224_1",
+          "text": "Maple syrup is poured onto the plate with the pancakes",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "234"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

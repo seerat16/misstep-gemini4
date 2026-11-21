@@ -12,6 +12,16 @@ import { computeCacheKey, hashFileSha256, readCache, writeCache } from './cache.
 import { assertWithinBudget, recordSpend, type UsageInfo } from './cost.js';
 import { getEnvSettings } from './settings.js';
 
+function appendDebugLog(msg: string): void {
+  try {
+    const runsDir = getEnvSettings().runsDir;
+    fs.mkdirSync(runsDir, { recursive: true });
+    fs.appendFileSync(path.join(runsDir, 'eval_debug.log'), `[${new Date().toISOString()}] ${msg}\n`, 'utf-8');
+  } catch {
+    // ignore logging failure
+  }
+}
+
 class AsyncSemaphore {
   private queue: Array<() => void> = [];
   private active = 0;
@@ -105,14 +115,17 @@ async function withRetry<T>(fn: () => Promise<T>, label: string): Promise<T> {
       return await fn();
     } catch (err) {
       lastErr = err;
+      const errMsg = err instanceof Error ? err.message : String(err);
       if (!isRetryableError(err) || attempt === BACKOFF_MS.length) {
         if (!isRetryableError(err)) {
           console.error(`[gemini] non-retryable error in ${label}:`, err);
         }
+        appendDebugLog(`[gemini] FAIL ${label} (attempt ${attempt + 1}): ${errMsg}`);
         throw err;
       }
       const waitMs = BACKOFF_MS[attempt];
       console.warn(`[gemini] retry ${attempt + 1}/${BACKOFF_MS.length} for ${label} in ${waitMs}ms`);
+      appendDebugLog(`[gemini] RETRY ${label} (${attempt + 1}/${BACKOFF_MS.length}) in ${waitMs}ms: ${errMsg}`);
       await new Promise((r) => setTimeout(r, waitMs));
     }
   }
@@ -361,15 +374,17 @@ export async function decide(
 
 export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Promise<string> {
   const absPath = path.resolve(filePath);
+  const sizeMb = (fs.statSync(absPath).size / (1024 * 1024)).toFixed(2);
   const fileHash = hashFileSha256(absPath);
   const cacheKey = computeCacheKey('files-api', { fileHash, mimeType });
-  const hit = readCache<{ uri: string; name: string }>( 'files-api', cacheKey);
+  const hit = readCache<{ uri: string; name: string }>('files-api', cacheKey);
 
   const ai = createStandardClient();
   if (hit?.name) {
     try {
       const existing = await ai.files.get({ name: hit.name });
       if (existing.state === 'ACTIVE' && existing.uri) {
+        appendDebugLog(`[uploadFile] cache hit ACTIVE ${path.basename(absPath)} -> ${existing.uri}`);
         return existing.uri;
       }
     } catch {
@@ -377,6 +392,8 @@ export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Prom
     }
   }
 
+  appendDebugLog(`[uploadFile] START ${path.basename(absPath)} (${sizeMb} MB)`);
+  const t0 = Date.now();
   const uploaded = await getSemaphore().run(() =>
     withRetry(
       async () =>
@@ -386,6 +403,9 @@ export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Prom
         }),
       `uploadFile:${path.basename(absPath)}`,
     ),
+  );
+  appendDebugLog(
+    `[uploadFile] UPLOADED ${path.basename(absPath)} in ${((Date.now() - t0) / 1000).toFixed(1)}s name=${uploaded.name} state=${uploaded.state}`,
   );
 
   let current = uploaded;
@@ -402,6 +422,7 @@ export async function uploadFile(filePath: string, mimeType = 'video/mp4'): Prom
     throw new Error(`Uploaded file ${current.name} failed with state=${current.state}`);
   }
 
+  appendDebugLog(`[uploadFile] ACTIVE ${path.basename(absPath)} -> ${current.uri}`);
   writeCache('files-api', cacheKey, { uri: current.uri, name: current.name });
   return current.uri;
 }

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import {
   decide,
+  uploadFile,
   type DecisionAnswerChoice,
   type DecisionAnswerNoul,
   type DecisionInputBlock,
@@ -198,7 +199,21 @@ export async function checkSteps(
             config.media.clip_pad_s,
             durationS,
           );
-          const clipBytes = fs.readFileSync(clippedPath).toString('base64');
+          const clipSize = fs.statSync(clippedPath).size;
+          const clipVideoBlock: DecisionInputBlock =
+            clipSize > 10 * 1024 * 1024
+              ? {
+                  type: 'video',
+                  uri: await uploadFile(clippedPath, 'video/mp4'),
+                  mime_type: 'video/mp4',
+                  resolution: config.media.clip_resolution,
+                }
+              : {
+                  type: 'video',
+                  data: fs.readFileSync(clippedPath).toString('base64'),
+                  mime_type: 'video/mp4',
+                  resolution: config.media.clip_resolution,
+                };
 
           const clipQuestions: Record<string, DecisionQuestion> = {};
           const doneKey = sanitizeQuestionKey(`S${step.step_id}_done`);
@@ -215,17 +230,7 @@ export async function checkSteps(
             questionTexts[step.step_id][chk.check_id] = cText;
           }
 
-          const clipRes = await decide(
-            [
-              {
-                type: 'video',
-                data: clipBytes,
-                mime_type: 'video/mp4',
-                resolution: config.media.clip_resolution,
-              },
-            ],
-            clipQuestions,
-          );
+          const clipRes = await decide([clipVideoBlock], clipQuestions);
           totalCost += clipRes.costUsd;
 
           const doneAns = clipRes.answers[doneKey];
@@ -253,15 +258,13 @@ export async function checkSteps(
             });
             questionTexts[step.step_id].measurement = mText;
 
+            const measVideoBlock: DecisionInputBlock = {
+              ...clipVideoBlock,
+              resolution: config.media.measurement_resolution,
+            };
+
             const measRes = await decide(
-              [
-                {
-                  type: 'video',
-                  data: clipBytes,
-                  mime_type: 'video/mp4',
-                  resolution: config.media.measurement_resolution,
-                },
-              ],
+              [measVideoBlock],
               {
                 [mKey]: {
                   type: 'choice',

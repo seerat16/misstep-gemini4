@@ -1,0 +1,461 @@
+{
+  "procedure_id": "26",
+  "title": "Microwave Mug Cake with Chocolate Frosting",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "304",
+      "text": "Measure and add-1/4 tsp baking powder to the bowl",
+      "visible_evidence": [
+        "measuring spoon scooping baking powder",
+        "baking powder tipped into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "baking powder",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "304_1",
+          "text": "Baking powder is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "303",
+      "text": "Place-Place the paper cupcake liner inside the mug",
+      "visible_evidence": [
+        "hand holding a paper cupcake liner",
+        "paper liner seated inside the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "303_1",
+          "text": "The paper cupcake liner sits inside the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "310",
+      "text": "Measure and add-a pinch of salt to the mixing bowl",
+      "visible_evidence": [
+        "fingers pinching salt",
+        "salt sprinkled into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "a",
+        "unit": "pinch"
+      },
+      "checks": [
+        {
+          "check_id": "310_1",
+          "text": "Salt is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "297",
+      "text": "Measure and add-1.5 tbsp sugar to the mixing bowl",
+      "visible_evidence": [
+        "measuring spoon scooping sugar",
+        "sugar emptied into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "sugar",
+        "amount": "1.5",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "297_1",
+          "text": "Sugar is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "301",
+      "text": "Set-Set aside the lined mug",
+      "visible_evidence": [
+        "hand moving the lined mug away from the center workspace",
+        "lined mug resting to the side"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "301_1",
+          "text": "The lined mug is placed to the side of the workspace",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "303"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "299",
+      "text": "Measure and add-Measure and add 2 tbsp flour to the mixing bowl",
+      "visible_evidence": [
+        "measuring spoon scooping flour",
+        "flour emptied into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "flour",
+        "amount": "2",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "299_1",
+          "text": "Flour is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "308",
+      "text": "Whisk-Whisk to combine mixture of flour, sugar and baking powder in the bowl",
+      "visible_evidence": [
+        "hand whisking dry powders in the bowl",
+        "uniformly blended dry mixture in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "308_1",
+          "text": "A whisk stirs the dry ingredients in the bowl until evenly combined",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "304",
+        "310",
+        "297",
+        "299"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "296",
+      "text": "Measure and add-2 tbsp water to the bowl",
+      "visible_evidence": [
+        "measuring spoon filled with water",
+        "water poured into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "water",
+        "amount": "2",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "296_1",
+          "text": "Water is poured into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "308"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "313",
+      "text": "Measure and add-1/4 tsp vanilla extract to the bowl",
+      "visible_evidence": [
+        "measuring spoon filled with dark liquid vanilla extract",
+        "vanilla extract poured into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "vanilla extract",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "313_1",
+          "text": "Vanilla extract is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "308"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "300",
+      "text": "Measure and add-Measure and add 2 tsp vegetable oil to the bowl",
+      "visible_evidence": [
+        "measuring spoon filled with vegetable oil",
+        "vegetable oil poured into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "vegetable oil",
+        "amount": "2",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "300_1",
+          "text": "Vegetable oil is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "308"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "294",
+      "text": "Whisk-Whisk batter until no lumps remain",
+      "visible_evidence": [
+        "hand vigorously whisking wet batter in the bowl",
+        "smooth batter inside the mixing bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "294_1",
+          "text": "The whisked batter appears smooth and uniform in texture",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "308",
+        "296",
+        "313",
+        "300"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "307",
+      "text": "Pour-Pour batter into prepared mug",
+      "visible_evidence": [
+        "mixing bowl tilted over the lined mug",
+        "batter flowing into the paper liner inside the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "307_1",
+          "text": "The batter is poured inside the paper-lined mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "294",
+        "303"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "312",
+      "text": "Microwave-Microwave the mug and batter on high power for 60 seconds. Check if the cake is done by inserting and toothpick into the center of the cake and then removing it. If wet batter clings to the toothpick, microwave for an additional 5 seconds. If the toothpick comes out clean, continue",
+      "visible_evidence": [
+        "mug placed inside microwave and heated",
+        "toothpick inserted into the center of the cooked cake and pulled out",
+        "clean toothpick after removal"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "312_1",
+          "text": "The mug is heated in the microwave on high power for 60 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "312_2",
+          "text": "A toothpick is inserted into the center of the cake and comes out clean",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "307"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "309",
+      "text": "Invert-Invert the mug to release the cake onto a plate",
+      "visible_evidence": [
+        "mug turned upside down over a plate",
+        "cake resting on the plate after lifting the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "309_1",
+          "text": "The mug is inverted over a plate so the cake releases onto the plate",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "312"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "305",
+      "text": "Allow-Allow to cool until it is no longer hot to the touch",
+      "visible_evidence": [
+        "cake sitting untouched on the plate",
+        "elapsed waiting period before handling the cake"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "305_1",
+          "text": "The cake rests undisturbed on the plate for a cooling period before handling",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "309"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "295",
+      "text": "remove-then carefully remove the paper liner",
+      "visible_evidence": [
+        "hands peeling the paper cupcake liner off the cake",
+        "unwrapped cake sitting on the plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "295_1",
+          "text": "The paper liner is peeled completely off the cake while keeping the cake intact",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "305"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "298",
+      "text": "Scoop-While the cake is cooling, prepare to pipe the frosting. Scoop 4 spoonfuls of chocolate frosting into a zip-top bag",
+      "visible_evidence": [
+        "spoon scooping chocolate frosting",
+        "chocolate frosting deposited inside an open zip-top bag"
+      ],
+      "quantity": {
+        "item": "chocolate frosting",
+        "amount": "4",
+        "unit": "spoonfuls"
+      },
+      "checks": [
+        {
+          "check_id": "298_1",
+          "text": "Chocolate frosting is placed inside a zip-top bag",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "311",
+      "text": "seal-seal zip top bag, removing as much air as possible",
+      "visible_evidence": [
+        "hands pressing the zip-top bag flat to push out air",
+        "fingers zipping the top edge of the bag closed"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "311_1",
+          "text": "The zip-top bag is pressed flat to expel air and sealed shut along the zipper",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "298"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "306",
+      "text": "cut-Use scissors to cut one corner from the bag to create a small opening 1/4 inch in diameter",
+      "visible_evidence": [
+        "scissors snipping one bottom corner of the frosting bag",
+        "small opening at the corner of the zip-top bag"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "306_1",
+          "text": "Scissors cut one corner of the zip-top bag to create a small 1/4-inch opening",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "311"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "302",
+      "text": "Squeeze-Squeeze the frosting through the opening to apply small dollops of frosting to the plate in a circle around the base of the cake",
+      "visible_evidence": [
+        "hands squeezing the zip-top bag over the plate",
+        "small dollops of chocolate frosting forming a ring around the cake base"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "302_1",
+          "text": "Small dollops of frosting are piped onto the plate in a circle around the base of the cake",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "306",
+        "295"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

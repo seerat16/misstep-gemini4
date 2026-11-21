@@ -10,7 +10,7 @@ import { runEval, type EvalSystem } from './eval/run_eval.js';
 import { runStressLadder } from './eval/stress.js';
 import { compileProcedure } from './misstep/compiler.js';
 import { readSpendLedger } from './misstep/cost.js';
-import { isGeminiConfigured } from './misstep/gemini.js';
+import { isGeminiConfigured, uploadFile } from './misstep/gemini.js';
 import { liveSessionManager } from './misstep/live.js';
 import { runPipeline } from './misstep/pipeline.js';
 import { getEnvSettings, loadConfig } from './misstep/settings.js';
@@ -289,6 +289,21 @@ app.post('/api/report/generate', (req, res) => {
   }
 });
 
+interface EvalJob {
+  job_id: string;
+  system: EvalSystem;
+  split: 'dev' | 'test';
+  limit?: number;
+  status: 'running' | 'completed' | 'failed';
+  started_at: string;
+  finished_at?: string;
+  runDir?: string;
+  scores?: unknown;
+  error?: string;
+}
+
+const evalJobs = new Map<string, EvalJob>();
+
 app.post('/api/eval/run', async (req, res) => {
   try {
     const system = (req.body?.system || 'misstep') as EvalSystem;
@@ -299,6 +314,67 @@ app.post('/api/eval/run', async (req, res) => {
     res.json(out);
   } catch (err) {
     res.status(400).json({ error: err instanceof Error ? err.message : String(err) });
+  }
+});
+
+app.post('/api/eval/start', (req, res) => {
+  const system = (req.body?.system || 'misstep') as EvalSystem;
+  const split = req.body?.split === 'test' ? 'test' : 'dev';
+  const limit = typeof req.body?.limit === 'number' ? req.body.limit : undefined;
+  const isFinal = Boolean(req.body?.final);
+  const jobId = `job_${system}_${split}_${Date.now()}`;
+  const job: EvalJob = {
+    job_id: jobId,
+    system,
+    split,
+    limit,
+    status: 'running',
+    started_at: new Date().toISOString(),
+  };
+  evalJobs.set(jobId, job);
+
+  runEval({ system, split, limit, final: isFinal })
+    .then((out) => {
+      job.status = 'completed';
+      job.finished_at = new Date().toISOString();
+      job.runDir = out.runDir;
+      job.scores = out.scores;
+    })
+    .catch((err) => {
+      job.status = 'failed';
+      job.finished_at = new Date().toISOString();
+      job.error = err instanceof Error ? err.message : String(err);
+    });
+
+  res.json(job);
+});
+
+app.get('/api/eval/jobs', (_req, res) => {
+  res.json({ jobs: Array.from(evalJobs.values()) });
+});
+
+app.get('/api/eval/jobs/:id', (req, res) => {
+  const job = evalJobs.get(req.params.id);
+  if (!job) return res.status(404).json({ error: 'Job not found' });
+  return res.json(job);
+});
+
+app.post('/api/debug/upload-check', async (req, res) => {
+  const t0 = Date.now();
+  try {
+    const filePath = String(req.body?.filePath || '');
+    const resolved = path.resolve(filePath);
+    if (!isPathInside(process.cwd(), resolved) || !fs.existsSync(resolved)) {
+      return res.status(400).json({ ok: false, error: 'Invalid filePath' });
+    }
+    const uri = await uploadFile(resolved, 'video/mp4');
+    return res.json({ ok: true, uri, elapsed_s: Number(((Date.now() - t0) / 1000).toFixed(2)) });
+  } catch (err) {
+    return res.status(500).json({
+      ok: false,
+      error: err instanceof Error ? err.message : String(err),
+      elapsed_s: Number(((Date.now() - t0) / 1000).toFixed(2)),
+    });
   }
 });
 
@@ -340,6 +416,9 @@ app.post('/api/smoke', async (_req, res) => {
   }
 });
 
-app.listen(PORT, HOST, () => {
+const server = app.listen(PORT, HOST, () => {
   console.log(`Misstep server listening on http://${HOST}:${PORT}`);
 });
+server.requestTimeout = 0;
+server.headersTimeout = 120_000;
+server.keepAliveTimeout = 120_000;
