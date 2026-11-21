@@ -220,8 +220,8 @@ export async function runEval(args: RunEvalArgs): Promise<{
     args.system === 'B0'
       ? 1
       : args.system === 'B1' || args.system === 'B2'
-        ? Math.min(5, Math.max(1, env.concurrency))
-        : Math.min(3, Math.max(1, env.concurrency));
+        ? Math.min(6, Math.max(1, env.concurrency))
+        : Math.min(5, Math.max(1, env.concurrency));
 
   async function runOneRecording(recId: string): Promise<void> {
     const g = goldById.get(recId);

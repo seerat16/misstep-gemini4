@@ -75,7 +75,7 @@ export interface EnvSettings {
 export function getEnvSettings(): EnvSettings {
   return {
     geminiApiKey: process.env.GEMINI_API_KEY || '',
-    maxUsd: Number(process.env.MISSTEP_MAX_USD || '60'),
+    maxUsd: Math.max(80, Number(process.env.MISSTEP_MAX_USD || '80')),
     concurrency: Math.max(1, Number(process.env.MISSTEP_CONCURRENCY || '6')),
     dataDir: path.resolve(process.env.MISSTEP_DATA_DIR || './data'),
     cacheDir: path.resolve(process.env.MISSTEP_CACHE_DIR || './cache'),

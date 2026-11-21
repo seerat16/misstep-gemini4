@@ -48,11 +48,11 @@ class AsyncSemaphore {
 let semaphoreInstance: AsyncSemaphore | null = null;
 function getSemaphore(): AsyncSemaphore {
   if (!semaphoreInstance) {
-    semaphoreInstance = new AsyncSemaphore(getEnvSettings().concurrency);
+    semaphoreInstance = new AsyncSemaphore(Math.max(8, getEnvSettings().concurrency));
   }
   return semaphoreInstance;
 }
-const uploadSemaphore = new AsyncSemaphore(2);
+const uploadSemaphore = new AsyncSemaphore(3);
 
 function getApiKey(): string {
   const key = process.env.GEMINI_API_KEY || '';
