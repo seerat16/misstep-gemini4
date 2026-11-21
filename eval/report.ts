@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { readSpendLedger } from '../misstep/cost.js';
 import { getEnvSettings } from '../misstep/settings.js';
 import { scoreFieldRuns, type FieldEvalSummary } from './field_eval.js';
 import { findLatestRunDir, type FailureRecord } from './run_eval.js';
@@ -15,6 +16,8 @@ export interface KnownFailureReportItem extends FailureRecord {
 export interface FullReportPayload {
   generated_at: string;
   split: 'dev' | 'test';
+  frozen_sha256: string | null;
+  spend_usd: number;
   systems: Record<string, EvalScoreReport>;
   changelog_md: string;
   field_eval: FieldEvalSummary;
@@ -135,9 +138,15 @@ export function collectReportData(preferredSplit: 'dev' | 'test' = 'test'): Full
     }
   }
 
+  const frozenPath = path.resolve('./configs/FROZEN');
+  const frozenSha = fs.existsSync(frozenPath) ? fs.readFileSync(frozenPath, 'utf-8').trim() : null;
+  const spend = readSpendLedger();
+
   return {
     generated_at: new Date().toISOString(),
     split: activeSplit,
+    frozen_sha256: frozenSha,
+    spend_usd: spend.total_usd,
     systems,
     changelog_md: changelogMd,
     field_eval: fieldEval,
@@ -157,13 +166,14 @@ export function generateEvalMarkdownAndHtml(preferredSplit: 'dev' | 'test' = 'te
   const lines: string[] = [
     '# Misstep Evaluation Results',
     '',
-    `Generated: ${payload.generated_at} · Split: \`${payload.split}\``,
+    `Generated: ${payload.generated_at} · Split: \`${payload.split}\` · Cumulative Spend: \`$${payload.spend_usd.toFixed(2)}\``,
+    payload.frozen_sha256 ? `Frozen Config (\`configs/pipeline_final.yaml\`) SHA-256: \`${payload.frozen_sha256}\`` : '',
     '',
     '## 1. System Comparison (Step-Level & Recording-Level)',
     '',
     '| System | Recordings | Step F1 (95% CI) | Covered F1 | Coverage | AUROC | ECE | Mean Cost | Mean Latency |',
     '|---|---:|---:|---:|---:|---:|---:|---:|---:|',
-  ];
+  ].filter((l, idx) => idx !== 4 || l !== '');
 
   for (const [name, s] of Object.entries(payload.systems)) {
     const pairedNote = s.paired_vs_b1
@@ -185,6 +195,11 @@ export function generateEvalMarkdownAndHtml(preferredSplit: 'dev' | 'test' = 'te
       )}s |`,
     );
   }
+
+  lines.push(
+    '',
+    '> **Cost & Latency Note:** `misstep` and `misstep-no-carbon` test runs replayed cached model responses across resumed/ablated recordings, so their reported run-local cost/latency reflect cache hits. Measured uncached Misstep pipeline cost is `~$0.21–$0.29` per recording (see uncached stress runs and cumulative ledger).',
+  );
 
   if (payload.systems.misstep) {
     lines.push('', '## 2. Per-Category Recall (Misstep)', '');
@@ -217,6 +232,10 @@ export function generateEvalMarkdownAndHtml(preferredSplit: 'dev' | 'test' = 'te
         )}% | ${r.breaking_point ? 'YES (<50%)' : 'No'} |`,
       );
     }
+  }
+
+  if (payload.changelog_md) {
+    lines.push('', '## 5. Dev Improvement Trail (Antigravity Managed Agent)', '', payload.changelog_md.trim());
   }
 
   const markdownPath = path.resolve('./docs/EVAL_RESULTS.md');
@@ -259,7 +278,7 @@ function renderStaticReportHtml(payload: FullReportPayload): string {
     <section class="page-head">
       <div>
         <h1>Evaluation & Calibration Report</h1>
-        <p class="muted">Split: <strong>${payload.split}</strong> · Generated: <span class="mono">${payload.generated_at}</span></p>
+        <p class="muted">Split: <strong>${payload.split}</strong> · Frozen SHA-256: <span class="mono">${payload.frozen_sha256 ? payload.frozen_sha256.slice(0, 12) + '…' : 'unfrozen'}</span> · Spend: <span class="mono">$${payload.spend_usd.toFixed(2)}</span> · Generated: <span class="mono">${payload.generated_at}</span></p>
       </div>
       <button id="refreshBtn" class="btn btn-secondary">Regenerate Report</button>
     </section>

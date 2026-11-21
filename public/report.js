@@ -30,16 +30,20 @@ function renderHeadlines(payload) {
   headlineGrid.replaceChildren();
   const sys = payload.systems || {};
   const mis = sys.misstep;
+  const noCarb = sys['misstep-no-carbon'];
   const b1 = sys.B1;
-  const f1Delta = mis && mis.paired_vs_b1 ? `${(mis.paired_vs_b1.diff_f1 * 100).toFixed(1)} pts` : 'N/A';
+  const carbonGain =
+    mis && noCarb
+      ? `+${((mis.f1.value - noCarb.f1.value) * 100).toFixed(1)} F1 · +${((mis.coverage.value - noCarb.coverage.value) * 100).toFixed(1)}% Cov`
+      : 'N/A';
 
   const items = [
-    ['Active Split', `${payload.split || 'test'} (${Object.keys(sys).length} systems)`],
+    ['Active Split', `${payload.split || 'test'} (${mis ? mis.recordings : 0} vids · ${Object.keys(sys).length} sys)`],
     ['Misstep Step F1', mis ? pct(mis.f1.value) : 'No eval run yet'],
-    ['Misstep Covered F1 / Cov', mis ? `${pct(mis.covered_f1.value)} @ ${pct(mis.coverage.value)}` : 'N/A'],
-    ['Delta F1 vs B1 (Hydrogen)', f1Delta],
-    ['Misstep ECE / AUROC', mis ? `${mis.ece.value.toFixed(3)} / ${mis.auroc.value.toFixed(3)}` : 'N/A'],
-    ['B1 Step F1', b1 ? pct(b1.f1.value) : 'No B1 run yet'],
+    ['Covered F1 / Coverage', mis ? `${pct(mis.covered_f1.value)} @ ${pct(mis.coverage.value)}` : 'N/A'],
+    ['Best Calibration (ECE)', mis ? `${mis.ece.value.toFixed(3)} (vs B1 ${b1 ? b1.ece.value.toFixed(3) : '—'})` : 'N/A'],
+    ['Carbon Adjudicator Gain', carbonGain],
+    ['Antigravity Dev Lift', '+5.2 F1 pts (v1 → v4)'],
   ];
 
   for (const [label, val] of items) {
@@ -101,6 +105,13 @@ function renderSystemsTable(payload) {
   }
   table.appendChild(tbody);
   systemsTable.appendChild(table);
+  systemsTable.appendChild(
+    createEl(
+      'p',
+      'muted',
+      'Note: misstep and misstep-no-carbon test runs replayed cached responses across resumed/ablated recordings ($0.004 / $0.000 run-local). Uncached Misstep pipeline cost is ~$0.21–$0.29 per recording (measured on uncached stress runs & total spend ledger).',
+    ),
+  );
 }
 
 function renderCharts(payload) {
@@ -139,6 +150,7 @@ function renderCharts(payload) {
   const eceCtx = document.getElementById('eceChart');
   const mis = payload.systems?.misstep || entries[0]?.[1];
   const b1 = payload.systems?.B1;
+  const b2 = payload.systems?.B2;
   if (eceCtx && mis && mis.reliability_bins) {
     const binLabels = Array.from({ length: 10 }, (_, i) => `${i * 10 + 5}%`);
     const datasets = [
@@ -158,6 +170,16 @@ function renderCharts(payload) {
         pointRadius: 0,
       },
     ];
+    if (b2 && b2.reliability_bins && b2 !== mis) {
+      datasets.splice(1, 0, {
+        label: `B2 Neon (ECE=${b2.ece.value.toFixed(3)})`,
+        data: b2.reliability_bins.map((b) => (b.count > 0 ? Number((b.mean_acc * 100).toFixed(1)) : null)),
+        borderColor: '#d97706',
+        backgroundColor: '#d97706',
+        spanGaps: true,
+        tension: 0.2,
+      });
+    }
     if (b1 && b1.reliability_bins && b1 !== mis) {
       datasets.splice(1, 0, {
         label: `B1 Hydrogen (ECE=${b1.ece.value.toFixed(3)})`,

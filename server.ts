@@ -218,6 +218,57 @@ app.post(
   },
 );
 
+app.get('/api/sample-analysis', (_req, res) => {
+  try {
+    const { runsDir, dataDir } = getEnvSettings();
+    const devBase = path.join(runsDir, 'dev', 'misstep');
+    if (!fs.existsSync(devBase)) {
+      return res.status(404).json({ error: 'No dev runs available.' });
+    }
+    const dirs = fs.readdirSync(devBase).sort().reverse();
+    const latestDir = dirs.find((d) => fs.existsSync(path.join(devBase, d, 'results.jsonl')));
+    if (!latestDir) {
+      return res.status(404).json({ error: 'No completed dev results found.' });
+    }
+    const lines = fs
+      .readFileSync(path.join(devBase, latestDir, 'results.jsonl'), 'utf-8')
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .map((l) => JSON.parse(l) as { recording_id: string; procedure_id: string; verdicts: Array<{ status: string; decided_by: string }> });
+
+    const sample =
+      lines.find((r) => r.recording_id === '21_28') ||
+      lines.find((r) => (r.verdicts || []).some((v) => v.status === 'error')) ||
+      lines[0];
+    if (!sample) {
+      return res.status(404).json({ error: 'No sample recording found.' });
+    }
+
+    const procPath = path.join(dataDir, 'procedures', `${sample.procedure_id}.json`);
+    if (!fs.existsSync(procPath)) {
+      return res.status(404).json({ error: `Compiled procedure ${sample.procedure_id} not found.` });
+    }
+    const procedure = JSON.parse(fs.readFileSync(procPath, 'utf-8')) as {
+      title?: string;
+      steps?: Array<{ step_id: string; text: string }>;
+    };
+    const procedureText = [
+      `RECIPE: ${procedure.title || sample.procedure_id} (CaptainCook4D Recording ${sample.recording_id})`,
+      ...(procedure.steps || []).map((s, idx) => `${idx + 1}. ${s.text}`),
+    ].join('\n');
+
+    return res.json({
+      result: sample,
+      procedure,
+      procedure_text: procedureText,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return res.status(500).json({ error: msg });
+  }
+});
+
 app.get('/api/sessions', (_req, res) => {
   res.json({ sessions: liveSessionManager.listSessions(), field_labels: readFieldGold() });
 });

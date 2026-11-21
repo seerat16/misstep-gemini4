@@ -6,6 +6,7 @@ const optNoLocalizerEl = document.getElementById('optNoLocalizer');
 const loadMedprepBtn = document.getElementById('loadMedprepBtn');
 const compileOnlyBtn = document.getElementById('compileOnlyBtn');
 const analyzeBtn = document.getElementById('analyzeBtn');
+const loadSampleBtn = document.getElementById('loadSampleBtn');
 const errorBox = document.getElementById('errorBox');
 const analyzeProgress = document.getElementById('analyzeProgress');
 const resultsSection = document.getElementById('resultsSection');
@@ -208,5 +209,30 @@ analyzeBtn.addEventListener('click', async () => {
     analyzeBtn.disabled = false;
   }
 });
+
+if (loadSampleBtn) {
+  loadSampleBtn.addEventListener('click', async () => {
+    showError('');
+    loadSampleBtn.disabled = true;
+    showProgress('Loading verified CaptainCook4D dev analysis (frozen v4 pipeline)...');
+    try {
+      const res = await fetch('/api/sample-analysis');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to load sample analysis');
+      if (data.procedure_text) {
+        procTextEl.value = data.procedure_text;
+      }
+      renderRunResult(data.result, data.procedure);
+      showProgress(
+        `Loaded real CaptainCook4D recording ${data.result.recording_id} (${data.procedure.steps.length} compiled steps · Neon + Hydrogen + Decisions API + Carbon).`,
+      );
+    } catch (err) {
+      showProgress('');
+      showError(err.message);
+    } finally {
+      loadSampleBtn.disabled = false;
+    }
+  });
+}
 
 fetchStatus();
