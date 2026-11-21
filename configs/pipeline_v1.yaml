@@ -1,0 +1,54 @@
+version: v1
+models:
+  compiler: gemini-4-neon
+  compiler_thinking: medium
+  localizer: gemini-4-hydrogen
+  localizer_thinking: low
+  localizer_processing: agentic
+  localizer_fps: 0.5
+  decider: gemini-decision-1
+  adjudicator: gemini-4-carbon
+  adjudicator_thinking: medium
+  tts: gemini-3.8-flash-tts
+  tts_voice: Kore
+media:
+  full_video_resolution: low
+  clip_resolution: medium
+  measurement_resolution: high
+  clip_pad_s: 2.0
+  clip_max_s: 120
+thresholds:
+  missing_p_done_max: 0.25
+  present_p_done_min: 0.60
+  order_tolerance_s: 2.0
+  measurement_error_min: 0.60
+  check_false_min: 0.65
+  uncertain_band: [0.35, 0.65]
+adjudicator:
+  enabled: true
+  max_calls_per_video: 6
+  can_veto_errors: true
+  can_create_errors_from_ok: false
+questions:
+  done_full: >-
+    Watch the entire recording. At any point, does the person perform this step: "{step_text}"?
+    Visible evidence of this step would include: {evidence}.
+  done_clip: >-
+    In this clip, does the person perform this step: "{step_text}"?
+  measurement: >-
+    This step requires {amount} {unit} of {item}. In this clip, how much {item} does the person actually use?
+  measurement_options:
+    less: "Clearly less than {amount} {unit}"
+    correct: "About {amount} {unit}"
+    more: "Clearly more than {amount} {unit}"
+    cannot_tell: "The amount cannot be determined from this clip"
+  check: >-
+    In this clip, is the following true: {check_text}
+live:
+  tick_s: 2.0
+  frames_per_tick: 6
+  frame_interval_ms: 500
+  frame_width_px: 640
+  p_done_live: 0.80
+  p_started_live: 0.80
+  consecutive_ticks: 2

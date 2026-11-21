@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Misstep — Field Review &amp; Labeling</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand">Misstep</a>
+    <nav class="nav-links">
+      <a href="/">Analyze</a>
+      <a href="/static/live.html">Live Monitor</a>
+      <a href="/static/review.html" class="active">Field Review</a>
+      <a href="/static/report.html">Eval Report</a>
+    </nav>
+    <div class="topbar-action">
+      <a href="/static/live.html" class="btn btn-primary">New Live Run</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-head">
+      <div>
+        <h1>Field Evaluation Review &amp; Labeling</h1>
+        <p class="muted">Inspect recorded live sessions, captured 6-frame tick strips, spoken alert latency, and record ground-truth labels for field evaluation.</p>
+      </div>
+      <button id="reloadSessionsBtn" class="btn btn-secondary" type="button">Refresh Sessions</button>
+    </section>
+
+    <div id="reviewError" class="alert-banner" hidden></div>
+    <div id="reviewNotice" class="info-banner" hidden></div>
+
+    <section id="fieldSummaryKpis" class="kpi-grid"></section>
+
+    <section class="live-layout">
+      <div>
+        <div class="panel">
+          <h2>Recorded Live Sessions</h2>
+          <div id="sessionsList" class="step-board">
+            <p class="muted">Loading sessions...</p>
+          </div>
+        </div>
+
+        <div id="sessionFramesPanel" class="panel" hidden>
+          <h2>Captured Tick Frames &amp; Alerts</h2>
+          <div id="alertSummaryBox" style="margin-bottom:14px;"></div>
+          <div id="ticksList" class="step-board"></div>
+        </div>
+      </div>
+
+      <div>
+        <div id="labelPanel" class="panel" hidden>
+          <h2 id="labelPanelTitle">Ground-Truth Step Labeling</h2>
+          <div class="field">
+            <label for="mistakeSlipInput">Intended mistake / sealed slip note</label>
+            <input id="mistakeSlipInput" type="text" placeholder="e.g. Run 4: skipped step 3 or put 1 red tablet in MON" />
+          </div>
+          <div id="labelStepsContainer" class="step-board" style="margin-bottom:16px;"></div>
+          <div class="btn-row">
+            <button id="saveLabelBtn" class="btn btn-primary" type="button">Save Field Label &amp; Rescore</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/review.js"></script>
+</body>
+</html>

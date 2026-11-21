@@ -1,0 +1,6 @@
+{
+  "name": "Misstep",
+  "description": "Multimodal procedural error detection and live coaching system using Gemini 4 Neon, Hydrogen, Carbon, Decisions API, 3.8 TTS, and Antigravity Managed Agent.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

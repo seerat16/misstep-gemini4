@@ -1,0 +1,11 @@
+node_modules/
+.env
+.venv/
+data/videos/
+data/cc4d_annotations/
+data/cc4d_downloader/
+cache/
+runs/
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Misstep — Live Procedure Monitor</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand">Misstep</a>
+    <nav class="nav-links">
+      <a href="/">Analyze</a>
+      <a href="/static/live.html" class="active">Live Monitor</a>
+      <a href="/static/review.html">Field Review</a>
+      <a href="/static/report.html">Eval Report</a>
+    </nav>
+    <div class="topbar-action">
+      <button id="loadMedprepLiveBtn" class="btn btn-primary" type="button">Load MedPrep Demo</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-head">
+      <div>
+        <h1 id="statusLine">Step 0 of 0 · Ready</h1>
+        <p class="muted">Overhead webcam sends 640px JPEG frames every 500ms (3s ring buffer) to Gemini Decision 1 every 2s. Spoken alerts fire via 3.8 TTS or browser speechSynthesis.</p>
+      </div>
+      <div class="btn-row">
+        <div class="kpi-card" style="padding:10px 14px;">
+          <div class="kpi-label">Tick Latency</div>
+          <div id="latencyReadout" class="kpi-value" style="font-size:20px;">0 ms</div>
+        </div>
+        <div class="kpi-card" style="padding:10px 14px;">
+          <div class="kpi-label">Session Cost</div>
+          <div id="costReadout" class="kpi-value" style="font-size:20px;">$0.000</div>
+        </div>
+      </div>
+    </section>
+
+    <div id="liveError" class="alert-banner" hidden></div>
+    <div id="liveAlertBanner" class="alert-banner" hidden></div>
+
+    <section class="live-layout">
+      <div>
+        <div class="panel">
+          <div class="video-stage">
+            <video id="webcamVideo" autoplay playsinline muted></video>
+          </div>
+          <canvas id="captureCanvas" hidden></canvas>
+          <div class="btn-row" style="margin-top:14px;">
+            <button id="startBtn" class="btn btn-primary" type="button" disabled>Start</button>
+            <button id="finishBtn" class="btn btn-secondary" type="button" disabled>Finish &amp; Verify Organizer</button>
+            <button id="record60Btn" class="btn btn-secondary" type="button" disabled>Record &amp; Analyze (Fallback)</button>
+            <button id="resetBtn" class="btn btn-danger" type="button">Reset</button>
+          </div>
+          <p id="sessionMeta" class="mono muted" style="font-size:12px;margin-top:10px;">No active session. Click "Load MedPrep Demo" or upload a procedure.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Upload Custom Procedure</h2>
+          <div class="field">
+            <label for="liveProcText">Paste text (or upload PDF/photo)</label>
+            <textarea id="liveProcText" style="min-height:95px;" placeholder="Paste procedure steps..."></textarea>
+          </div>
+          <div class="field">
+            <input id="liveProcFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.md,.txt" />
+          </div>
+          <button id="compileLiveBtn" class="btn btn-secondary" type="button">Compile &amp; Pre-generate Alerts</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h2>Step Board</h2>
+          <div id="stepBoard" class="step-board">
+            <p class="muted">Compile a procedure or load MedPrep to populate steps.</p>
+          </div>
+        </div>
+
+        <div id="finalReportPanel" class="panel" hidden>
+          <h2>Final Compartment Verification (Ultra High + Carbon)</h2>
+          <div id="compartmentSummary" class="info-banner"></div>
+          <div id="compartmentTableWrap"></div>
+          <h3 style="margin-top:16px;font-size:15px;">Alert Timeline</h3>
+          <div id="alertTimeline"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/live.js"></script>
+</body>
+</html>

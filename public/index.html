@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Misstep</title>
+  <meta name="description" content="Multimodal procedural error detection and live coaching system using Gemini 4 Neon, Hydrogen, Carbon, Decisions API, 3.8 TTS, and Antigravity Managed Agent." />
+  <meta property="og:title" content="Misstep" />
+  <meta property="og:description" content="Multimodal procedural error detection and live coaching system using Gemini 4 Neon, Hydrogen, Carbon, Decisions API, 3.8 TTS, and Antigravity Managed Agent." />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="/" class="brand">Misstep</a>
+    <nav class="nav-links">
+      <a href="/" class="active">Analyze</a>
+      <a href="/static/live.html">Live Monitor</a>
+      <a href="/static/review.html">Field Review</a>
+      <a href="/static/report.html">Eval Report</a>
+    </nav>
+    <div class="topbar-action">
+      <a href="/static/live.html" class="btn btn-primary">Launch Live Demo</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="page-head">
+      <div>
+        <h1>Procedural Error Detection &amp; Step Verification</h1>
+        <p class="muted">Compile any written procedure with Gemini 4 Neon, localize steps with Hydrogen, verify every check with Decisions API, and adjudicate edge cases with Carbon.</p>
+      </div>
+      <div id="statusMeta" class="mono muted" style="font-size:12px;">Loading runtime status...</div>
+    </section>
+
+    <div id="errorBox" class="alert-banner" hidden></div>
+
+    <section class="grid-2">
+      <div class="panel">
+        <h2>1. Procedure Input</h2>
+        <div class="btn-row" style="margin-bottom:14px;">
+          <button id="loadMedprepBtn" class="btn btn-secondary" type="button">Load MedPrep Card (Week 47)</button>
+          <button id="compileOnlyBtn" class="btn btn-secondary" type="button">Compile Step Graph Only</button>
+        </div>
+        <div class="field">
+          <label for="procText">Procedure text (or upload PDF / image below)</label>
+          <textarea id="procText" placeholder="Paste numbered steps or load the MedPrep card..."></textarea>
+        </div>
+        <div class="field">
+          <label for="procFile">Optional procedure file (PDF, photo of handwritten/printed card, or .md/.txt)</label>
+          <input id="procFile" type="file" accept=".pdf,.png,.jpg,.jpeg,.md,.txt" />
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>2. Video Upload &amp; Analysis</h2>
+        <div class="field">
+          <label for="videoFile">Recorded procedure video (.mp4 / .mov / .webm)</label>
+          <input id="videoFile" type="file" accept="video/*" />
+        </div>
+        <div class="grid-2" style="gap:10px;margin-bottom:16px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;">
+            <input id="optNoCarbon" type="checkbox" />
+            Skip Carbon adjudicator (--no-carbon)
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;">
+            <input id="optNoLocalizer" type="checkbox" />
+            Skip Hydrogen localizer (--no-localizer)
+          </label>
+        </div>
+        <div class="btn-row">
+          <button id="analyzeBtn" class="btn btn-primary" type="button">Run Offline Analysis</button>
+          <a href="/static/live.html" class="btn btn-secondary">Switch to Live Webcam</a>
+        </div>
+        <div id="analyzeProgress" class="info-banner" style="margin-top:16px;" hidden></div>
+      </div>
+    </section>
+
+    <section id="resultsSection" hidden>
+      <div class="kpi-grid" id="runKpis"></div>
+      <div class="grid-2">
+        <div class="panel">
+          <h2>Compiled Step Graph (Neon)</h2>
+          <div id="compiledSteps" class="step-board"></div>
+        </div>
+        <div class="panel">
+          <h2>Per-Step Verdicts &amp; Evidence</h2>
+          <div id="verdictsBoard" class="step-board"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
