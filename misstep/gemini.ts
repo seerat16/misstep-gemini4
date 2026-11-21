@@ -72,7 +72,7 @@ function createStandardClient(): GoogleGenAI {
   return new GoogleGenAI({
     apiKey: getApiKey(),
     httpOptions: {
-      timeout: 180_000,
+      timeout: 480_000,
       headers: {
         'User-Agent': 'aistudio-build',
       },
@@ -131,7 +131,7 @@ function isRetryableError(err: unknown): boolean {
     return true;
   }
   return (
-    /429|500|503|504|RESOURCE_EXHAUSTED|UNAVAILABLE|DEADLINE_EXCEEDED|ETIMEDOUT|ECONNRESET|ECONNABORTED|EPIPE|EAI_AGAIN|ENOTFOUND|UND_ERR|fetch failed|socket|timeout/i.test(
+    /429|500|503|504|RESOURCE_EXHAUSTED|UNAVAILABLE|DEADLINE_EXCEEDED|ETIMEDOUT|ECONNRESET|ECONNABORTED|EPIPE|EAI_AGAIN|ENOTFOUND|UND_ERR|fetch failed|socket|timeout|aborted|AbortError/i.test(
       msg,
     ) && !/400|INVALID_ARGUMENT|PERMISSION_DENIED|NOT_FOUND/i.test(msg)
   );

@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { getEnvSettings } from '../misstep/settings.js';
@@ -6,6 +7,11 @@ import { findLatestRunDir, type FailureRecord } from './run_eval.js';
 import type { EvalScoreReport } from './score.js';
 import type { StressReport } from './stress.js';
 
+export interface KnownFailureReportItem extends FailureRecord {
+  still_url?: string;
+  summary_sentence?: string;
+}
+
 export interface FullReportPayload {
   generated_at: string;
   split: 'dev' | 'test';
@@ -13,7 +19,7 @@ export interface FullReportPayload {
   changelog_md: string;
   field_eval: FieldEvalSummary;
   stress: StressReport | null;
-  known_failures: FailureRecord[];
+  known_failures: KnownFailureReportItem[];
 }
 
 function readScoresFromLatest(split: 'dev' | 'test', system: string): EvalScoreReport | null {
@@ -62,16 +68,69 @@ export function collectReportData(preferredSplit: 'dev' | 'test' = 'test'): Full
     ? (JSON.parse(fs.readFileSync(stressPath, 'utf-8')) as StressReport)
     : null;
 
+  const { dataDir } = getEnvSettings();
   const devMisstepDir = findLatestRunDir('dev', 'misstep');
-  const knownFailures: FailureRecord[] = [];
+  const knownFailures: KnownFailureReportItem[] = [];
   if (devMisstepDir) {
     const fPath = path.join(devMisstepDir, 'failures.jsonl');
     if (fs.existsSync(fPath)) {
-      for (const line of fs.readFileSync(fPath, 'utf-8').split(/\r?\n/)) {
-        const t = line.trim();
-        if (!t) continue;
-        knownFailures.push(JSON.parse(t) as FailureRecord);
-        if (knownFailures.length >= 3) break;
+      const stillDir = path.join(runsDir, 'report', 'stills');
+      fs.mkdirSync(stillDir, { recursive: true });
+      const seenCats = new Set<string>();
+      const allFailures = fs
+        .readFileSync(fPath, 'utf-8')
+        .split(/\r?\n/)
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .map((l) => JSON.parse(l) as FailureRecord);
+
+      // Prefer 3 diverse failures across categories/kinds
+      const picked: FailureRecord[] = [];
+      for (const f of allFailures) {
+        const key = `${f.kind}:${f.gold_categories[0] ?? 'none'}`;
+        if (!seenCats.has(key)) {
+          seenCats.add(key);
+          picked.push(f);
+        }
+        if (picked.length >= 3) break;
+      }
+      for (const f of allFailures) {
+        if (picked.length >= 3) break;
+        if (!picked.includes(f)) picked.push(f);
+      }
+
+      for (const f of picked) {
+        const item: KnownFailureReportItem = {
+          ...f,
+          summary_sentence:
+            f.kind === 'FN'
+              ? `Missed gold [${f.gold_categories.join(', ') || 'error'}] (predicted ${f.pred_status}, p_error=${f.p_error.toFixed(2)}).`
+              : `False alarm [${f.pred_categories.join(', ') || 'error'}] on clean step (p_error=${f.p_error.toFixed(2)}).`,
+        };
+        const vidPath = path.join(dataDir, 'videos', `${f.recording_id}.mp4`);
+        if (fs.existsSync(vidPath)) {
+          const fname = `${f.recording_id}_${f.step_id}.jpg`.replace(/[^a-zA-Z0-9._-]/g, '_');
+          const outStill = path.join(stillDir, fname);
+          const mid =
+            f.start_s != null && f.end_s != null
+              ? (f.start_s + f.end_s) / 2
+              : f.start_s ?? 10;
+          if (!fs.existsSync(outStill)) {
+            try {
+              execFileSync(
+                'ffmpeg',
+                ['-y', '-ss', String(Math.max(0, mid)), '-i', vidPath, '-frames:v', '1', '-vf', 'scale=640:-2', outStill],
+                { stdio: 'ignore' },
+              );
+            } catch {
+              // ignore still extraction error
+            }
+          }
+          if (fs.existsSync(outStill)) {
+            item.still_url = `/api/report/stills/${fname}`;
+          }
+        }
+        knownFailures.push(item);
       }
     }
   }

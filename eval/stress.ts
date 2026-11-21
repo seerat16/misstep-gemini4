@@ -40,9 +40,12 @@ export interface StressReport {
 export async function runStressLadder(
   conditions: StressCondition[] = ['clean', '240p', '144p', 'low_light', 'occlusion', 'speed_2x', 'spanish'],
   limit = 6,
+  explicitConfigPath?: string,
 ): Promise<StressReport> {
   const env = getEnvSettings();
-  const config = loadConfig();
+  const finalCfg = path.resolve('./configs/pipeline_final.yaml');
+  const activeConfigPath = explicitConfigPath || (fs.existsSync(finalCfg) ? finalCfg : env.configPath);
+  const config = loadConfig(activeConfigPath);
   const splits = readSplits();
   const goldById = new Map(readGoldJsonl().map((g) => [g.recording_id, g]));
 
@@ -63,67 +66,82 @@ export async function runStressLadder(
 
   for (const cond of conditions) {
     const results: RunResult[] = [];
-    for (const g of golds) {
-      const origVideo = path.join(env.dataDir, 'videos', `${g.recording_id}.mp4`);
-      const procPath = path.join(env.dataDir, 'procedures', `${g.activity_id}.json`);
-      if (!fs.existsSync(procPath)) continue;
-      let procedure = ProcedureSchema.parse(JSON.parse(fs.readFileSync(procPath, 'utf-8')));
+    const queue = [...golds];
+    await Promise.all(
+      [0, 1].map(async () => {
+        while (queue.length > 0) {
+          const g = queue.shift();
+          if (!g) break;
+          const origVideo = path.join(env.dataDir, 'videos', `${g.recording_id}.mp4`);
+          const procPath = path.join(env.dataDir, 'procedures', `${g.activity_id}.json`);
+          if (!fs.existsSync(procPath)) continue;
+          let procedure = ProcedureSchema.parse(JSON.parse(fs.readFileSync(procPath, 'utf-8')));
 
-      let videoToRun = origVideo;
-      if (cond === '240p' || cond === '144p' || cond === 'low_light' || cond === 'occlusion' || cond === 'speed_2x') {
-        const stressedPath = path.join(env.cacheDir, 'stress', cond, `${g.recording_id}.mp4`);
-        videoToRun = await applyStressTransform(origVideo, stressedPath, cond);
-      } else if (cond === 'spanish') {
-        const esProcId = `${g.activity_id}_es`;
-        const esProcPath = path.join(env.dataDir, 'procedures', `${esProcId}.json`);
-        if (fs.existsSync(esProcPath)) {
-          procedure = ProcedureSchema.parse(JSON.parse(fs.readFileSync(esProcPath, 'utf-8')));
-        } else {
-          const translated = await generateJson<{ steps: Array<{ step_id: string; text: string }> }>({
-            model: config.models.compiler,
-            parts: [
-              {
-                text: `Translate each step text to Spanish, keeping the exact step_id:\n${procedure.steps
-                  .map((s) => `[${s.step_id}] ${s.text}`)
-                  .join('\n')}`,
-              },
-            ],
-            schema: {
-              type: Type.OBJECT,
-              properties: {
-                steps: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: { step_id: { type: Type.STRING }, text: { type: Type.STRING } },
-                    required: ['step_id', 'text'],
+          let videoToRun = origVideo;
+          if (
+            cond === '240p' ||
+            cond === '144p' ||
+            cond === 'low_light' ||
+            cond === 'occlusion' ||
+            cond === 'speed_2x'
+          ) {
+            const stressedPath = path.join(env.cacheDir, 'stress', cond, `${g.recording_id}.mp4`);
+            videoToRun = await applyStressTransform(origVideo, stressedPath, cond);
+          } else if (cond === 'spanish') {
+            const esProcId = `${g.activity_id}_es`;
+            const esProcPath = path.join(env.dataDir, 'procedures', `${esProcId}.json`);
+            if (fs.existsSync(esProcPath)) {
+              procedure = ProcedureSchema.parse(JSON.parse(fs.readFileSync(esProcPath, 'utf-8')));
+            } else {
+              const translated = await generateJson<{ steps: Array<{ step_id: string; text: string }> }>({
+                model: config.models.compiler,
+                parts: [
+                  {
+                    text: `Translate each step text to Spanish, keeping the exact step_id:\n${procedure.steps
+                      .map((s) => `[${s.step_id}] ${s.text}`)
+                      .join('\n')}`,
                   },
+                ],
+                schema: {
+                  type: Type.OBJECT,
+                  properties: {
+                    steps: {
+                      type: Type.ARRAY,
+                      items: {
+                        type: Type.OBJECT,
+                        properties: { step_id: { type: Type.STRING }, text: { type: Type.STRING } },
+                        required: ['step_id', 'text'],
+                      },
+                    },
+                  },
+                  required: ['steps'],
                 },
-              },
-              required: ['steps'],
-            },
-            thinkingLevel: 'low',
-          });
-          const esText = translated.data.steps
-            .map((s, idx) => `${idx + 1}. [${s.step_id}] ${s.text}`)
-            .join('\n');
-          const compiled = await compileProcedure(
-            { text: esText },
-            'cc4d',
-            esProcId,
-            procedure.steps.map((s) => s.step_id),
-          );
-          procedure = compiled.procedure;
-        }
-      }
+                thinkingLevel: 'low',
+              });
+              const esText = translated.data.steps
+                .map((s, idx) => `${idx + 1}. [${s.step_id}] ${s.text}`)
+                .join('\n');
+              const compiled = await compileProcedure(
+                { text: esText },
+                'cc4d',
+                esProcId,
+                procedure.steps.map((s) => s.step_id),
+                activeConfigPath,
+              );
+              procedure = compiled.procedure;
+            }
+          }
 
-      const out = await runPipeline(procedure, videoToRun, {
-        system: `stress_${cond}`,
-        recordingId: `${g.recording_id}_${cond}`,
-      });
-      // Normalize recording_id back to gold recording_id for scoring
-      results.push({ ...out.result, recording_id: g.recording_id });
-    }
+          const out = await runPipeline(procedure, videoToRun, {
+            system: `stress_${cond}`,
+            configPath: activeConfigPath,
+            recordingId: `${g.recording_id}_${cond}`,
+          });
+          // Normalize recording_id back to gold recording_id for scoring
+          results.push({ ...out.result, recording_id: g.recording_id });
+        }
+      }),
+    );
 
     const scored = scoreSystem(`stress_${cond}`, golds, results, undefined, 200);
     if (cond === 'clean') {

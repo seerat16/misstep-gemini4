@@ -201,7 +201,12 @@ export async function runEval(args: RunEvalArgs): Promise<{
   const results: RunResult[] = [];
   const failures: FailureRecord[] = [];
   const queue = [...targetIds];
-  const workerCount = args.system === 'B0' ? 1 : Math.min(3, Math.max(1, env.concurrency));
+  const workerCount =
+    args.system === 'B0'
+      ? 1
+      : args.system === 'B1' || args.system === 'B2'
+        ? Math.min(5, Math.max(1, env.concurrency))
+        : Math.min(3, Math.max(1, env.concurrency));
 
   async function runOneRecording(recId: string): Promise<void> {
     const g = goldById.get(recId);

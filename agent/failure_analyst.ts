@@ -7,7 +7,7 @@ import {
   type FailureRecord,
 } from '../eval/run_eval.js';
 import type { EvalScoreReport } from '../eval/score.js';
-import { agentInteraction } from '../misstep/gemini.js';
+import { agentInteraction, appendDebugLog } from '../misstep/gemini.js';
 import { FAILURE_ANALYST_PROMPT } from '../misstep/prompts.js';
 import {
   clearConfigCache,
@@ -137,16 +137,50 @@ function readDevScores(): EvalScoreReport | null {
 }
 
 function extractCombinedModelText(interaction: Record<string, unknown>): string {
+  if (typeof interaction.output_text === 'string' && interaction.output_text.trim()) {
+    return interaction.output_text.trim();
+  }
   const steps = (interaction.steps as Array<Record<string, unknown>> | undefined) ?? [];
+  const outputs = (interaction.outputs as Array<Record<string, unknown>> | undefined) ?? [];
   let combined = '';
   for (const step of steps) {
     if (step.type === 'model_output' && Array.isArray(step.content)) {
       for (const c of step.content as Array<{ type?: string; text?: string }>) {
         if (c.type === 'text' && c.text) combined += c.text;
       }
+    } else if (step.type === 'text' && typeof step.text === 'string') {
+      combined += step.text;
     }
   }
-  return combined || String(interaction.output_text ?? '');
+  if (!combined) {
+    for (const out of outputs) {
+      if (out.type === 'text' && typeof out.text === 'string') combined += out.text;
+    }
+  }
+  return combined.trim();
+}
+
+function extractFunctionCalls(interaction: Record<string, unknown>): Array<Record<string, unknown>> {
+  const steps = (interaction.steps as Array<Record<string, unknown>> | undefined) ?? [];
+  const outputs = (interaction.outputs as Array<Record<string, unknown>> | undefined) ?? [];
+  const calls: Array<Record<string, unknown>> = [];
+  for (const s of [...steps, ...outputs]) {
+    if (s.type === 'function_call') {
+      calls.push(s);
+    } else if (s.type === 'model_output' && Array.isArray(s.content)) {
+      for (const c of s.content as Array<Record<string, unknown>>) {
+        if (c.type === 'function_call') calls.push(c);
+      }
+    }
+  }
+  // Deduplicate by id if present
+  const seen = new Set<string>();
+  return calls.filter((c) => {
+    const id = String(c.id ?? `${c.name}_${JSON.stringify(c.arguments ?? {})}`);
+    if (seen.has(id)) return false;
+    seen.add(id);
+    return true;
+  });
 }
 
 export interface AgentRunSummary {
@@ -204,13 +238,14 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
     ...stillParts,
   ];
 
+  appendDebugLog(`[agent] starting Antigravity failure analyst (stills=${stillParts.length}, initialF1=${bestF1})`);
   const transcript: Array<Record<string, unknown>> = [];
   let interaction = await agentInteraction({
     agent: 'antigravity-preview-09-2026',
     agent_config: {
       type: 'antigravity',
       model: 'gemini-4-neon',
-      max_total_tokens: 400000,
+      max_total_tokens: '400000',
     },
     environment: 'remote',
     tools: AGENT_TOOLS,
@@ -218,11 +253,12 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
     store: true,
   });
   transcript.push(interaction);
+  appendDebugLog(`[agent] turn 0 status=${String(interaction.status)} id=${String(interaction.id)}`);
 
   let maxTurns = 12;
   while (interaction.status === 'requires_action' && maxTurns-- > 0) {
-    const steps = (interaction.steps as Array<Record<string, unknown>> | undefined) ?? [];
-    const fnCalls = steps.filter((s) => s.type === 'function_call');
+    const fnCalls = extractFunctionCalls(interaction);
+    appendDebugLog(`[agent] requires_action fnCalls=${fnCalls.map((c) => c.name).join(', ')}`);
     const resultsToReturn: Array<Record<string, unknown>> = [];
 
     for (const call of fnCalls) {

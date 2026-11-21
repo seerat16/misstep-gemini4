@@ -138,27 +138,41 @@ function renderCharts(payload) {
   destroyChart('eceChart');
   const eceCtx = document.getElementById('eceChart');
   const mis = payload.systems?.misstep || entries[0]?.[1];
+  const b1 = payload.systems?.B1;
   if (eceCtx && mis && mis.reliability_bins) {
-    const nonEmpty = mis.reliability_bins.filter((b) => b.count > 0);
+    const binLabels = Array.from({ length: 10 }, (_, i) => `${i * 10 + 5}%`);
+    const datasets = [
+      {
+        label: `Misstep (ECE=${mis.ece.value.toFixed(3)})`,
+        data: mis.reliability_bins.map((b) => (b.count > 0 ? Number((b.mean_acc * 100).toFixed(1)) : null)),
+        borderColor: '#2563eb',
+        backgroundColor: '#2563eb',
+        spanGaps: true,
+        tension: 0.2,
+      },
+      {
+        label: 'Ideal Calibration',
+        data: binLabels.map((_, i) => i * 10 + 5),
+        borderColor: '#94a3b8',
+        borderDash: [5, 5],
+        pointRadius: 0,
+      },
+    ];
+    if (b1 && b1.reliability_bins && b1 !== mis) {
+      datasets.splice(1, 0, {
+        label: `B1 Hydrogen (ECE=${b1.ece.value.toFixed(3)})`,
+        data: b1.reliability_bins.map((b) => (b.count > 0 ? Number((b.mean_acc * 100).toFixed(1)) : null)),
+        borderColor: '#dc2626',
+        backgroundColor: '#dc2626',
+        spanGaps: true,
+        tension: 0.2,
+      });
+    }
     charts.eceChart = new Chart(eceCtx, {
       type: 'line',
       data: {
-        labels: nonEmpty.map((b) => `${(b.mean_conf * 100).toFixed(0)}%`),
-        datasets: [
-          {
-            label: 'Observed Accuracy',
-            data: nonEmpty.map((b) => Number((b.mean_acc * 100).toFixed(1))),
-            borderColor: '#2563eb',
-            backgroundColor: '#2563eb',
-            tension: 0.2,
-          },
-          {
-            label: 'Ideal Calibration',
-            data: nonEmpty.map((b) => Number((b.mean_conf * 100).toFixed(1))),
-            borderColor: '#94a3b8',
-            borderDash: [5, 5],
-          },
-        ],
+        labels: binLabels,
+        datasets,
       },
       options: {
         responsive: true,
@@ -268,13 +282,23 @@ function renderSidePanels(payload) {
     for (const f of failures) {
       const card = createEl('div', 'step-card status-error');
       const head = createEl('div', 'step-card-head');
-      head.appendChild(createEl('span', 'step-title mono', `${f.recording_id} · ${f.step_id} (${f.failure_type})`));
+      head.appendChild(createEl('span', 'step-title mono', `${f.recording_id} · step ${f.step_id} (${f.kind || f.failure_type || 'ERR'})`));
       head.appendChild(createEl('span', 'state-label', `p_error=${Number(f.p_error || 0).toFixed(2)}`));
       card.appendChild(head);
+      if (f.still_url) {
+        const img = document.createElement('img');
+        img.src = f.still_url;
+        img.alt = `Failure frame ${f.recording_id} step ${f.step_id}`;
+        img.style.width = '100%';
+        img.style.maxWidth = '360px';
+        img.style.borderRadius = '6px';
+        img.style.margin = '8px 0';
+        card.appendChild(img);
+      }
       const meta = createEl('div', 'step-meta');
       meta.appendChild(createEl('span', '', `Step: ${f.step_text}`));
       meta.appendChild(createEl('span', 'mono', `Gold: [${(f.gold_categories || []).join(', ')}] vs Pred: ${f.pred_status} [${(f.pred_categories || []).join(', ')}]`));
-      if (f.gold_description) meta.appendChild(createEl('span', '', `Note: ${f.gold_description}`));
+      if (f.summary_sentence) meta.appendChild(createEl('span', '', f.summary_sentence));
       card.appendChild(meta);
       failuresList.appendChild(card);
     }

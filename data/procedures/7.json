@@ -1,0 +1,275 @@
+{
+  "procedure_id": "7",
+  "title": "Microwave Egg Breakfast Burrito",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "77",
+      "text": "add-Extract and add contents of an egg to a microwave-safe bowl",
+      "visible_evidence": [
+        "Hands cracking an egg shell over a bowl",
+        "Raw egg white and yolk dropping into a microwave-safe bowl",
+        "Raw egg resting inside the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "77_1",
+          "text": "The egg contents are inside a microwave-safe bowl",
+          "category": "preparation"
+        },
+        {
+          "check_id": "77_2",
+          "text": "The bowl contains only the liquid egg white and yolk with clean separation from the shell",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "72",
+      "text": "Whisk-Whisk the egg",
+      "visible_evidence": [
+        "Whisk or fork stirring rapidly in the bowl",
+        "Egg yolk and white blended into a uniform yellow liquid"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "72_1",
+          "text": "The egg yolk and white are fully combined into a uniform yellow mixture",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "77"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "81",
+      "text": "Place-Place 8 inch tortilla on a cutting board",
+      "visible_evidence": [
+        "Hand laying a tortilla onto a cutting board",
+        "Flat tortilla resting on the cutting board"
+      ],
+      "quantity": {
+        "item": "tortilla",
+        "amount": "8",
+        "unit": "inch"
+      },
+      "checks": [
+        {
+          "check_id": "81_1",
+          "text": "The tortilla lies flat on top of the cutting board",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "73",
+      "text": "Microwave-Microwave for 3 minutes, stirring in between",
+      "visible_evidence": [
+        "Bowl placed inside microwave with door closed",
+        "Bowl removed midway and egg stirred with a utensil",
+        "Cooked and solidified egg visible in the bowl after microwaving"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "73_1",
+          "text": "The bowl is microwaved for 3 minutes",
+          "category": "timing"
+        },
+        {
+          "check_id": "73_2",
+          "text": "The egg is stirred midway through microwaving",
+          "category": "technique"
+        },
+        {
+          "check_id": "73_3",
+          "text": "The egg is fully cooked and solidified after microwaving",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "72"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "74",
+      "text": "Add-Add 1/2 tbsp sweet and sour sauce to the bowl",
+      "visible_evidence": [
+        "Measuring spoon filled with sweet and sour sauce",
+        "Sweet and sour sauce poured into the bowl with the egg"
+      ],
+      "quantity": {
+        "item": "sweet and sour sauce",
+        "amount": "1/2",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "74_1",
+          "text": "Sweet and sour sauce is added directly into the bowl with the egg",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "73"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "82",
+      "text": "Sprinkle-Sprinkle oregano in the bowl",
+      "visible_evidence": [
+        "Hand shaking oregano container or pinching oregano over the bowl",
+        "Green oregano flakes visible on top of the egg in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "82_1",
+          "text": "Oregano is sprinkled over the contents of the bowl",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "73"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "80",
+      "text": "Add-Add 1 tbsp salsa to the bowl",
+      "visible_evidence": [
+        "Measuring spoon scooping salsa",
+        "Salsa deposited into the bowl with the egg"
+      ],
+      "quantity": {
+        "item": "salsa",
+        "amount": "1",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "80_1",
+          "text": "Salsa is added directly into the bowl with the egg",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "73"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "76",
+      "text": "Mix-Mix the contents of the bowl well",
+      "visible_evidence": [
+        "Utensil stirring the egg, sauce, oregano, and salsa in the bowl",
+        "Evenly coated and blended egg mixture inside the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "76_1",
+          "text": "The egg, sweet and sour sauce, oregano, and salsa are thoroughly combined in the bowl",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "74",
+        "82",
+        "80"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "79",
+      "text": "Pour-Pour egg mixture on top of the tortilla",
+      "visible_evidence": [
+        "Bowl tilted over the tortilla on the cutting board",
+        "Egg mixture resting on top of the tortilla"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "79_1",
+          "text": "The egg mixture is transferred from the bowl onto the tortilla",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "81",
+        "76"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "75",
+      "text": "Sprinkle-Sprinkle 1 tbsp shredded cheddar cheese on top of the egg",
+      "visible_evidence": [
+        "Measuring spoon or hand scattering shredded cheddar cheese",
+        "Shredded cheddar cheese visible on top of the egg mixture on the tortilla"
+      ],
+      "quantity": {
+        "item": "shredded cheddar cheese",
+        "amount": "1",
+        "unit": "tbsp"
+      },
+      "checks": [
+        {
+          "check_id": "75_1",
+          "text": "Shredded cheddar cheese is distributed on top of the egg mixture",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "79"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "78",
+      "text": "Roll-Roll the tortilla from one end to another into a log shape, about 1.5 inches thick. Roll it tight enough to prevent gaps but not so tight that the filling leaks",
+      "visible_evidence": [
+        "Hands rolling the tortilla from one edge to the opposite edge",
+        "Rolled cylindrical tortilla log resting on the cutting board"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "78_1",
+          "text": "The tortilla is rolled from one end to the other into a cylindrical log shape about 1.5 inches thick",
+          "category": "technique"
+        },
+        {
+          "check_id": "78_2",
+          "text": "The rolled tortilla is snug with closed layers and all filling contained inside",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "75"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

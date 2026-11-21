@@ -1,0 +1,341 @@
+{
+  "procedure_id": "4",
+  "title": "Microwave Ramen with Vegetables",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "14",
+      "text": "Peel-Peel 1 garlic clove",
+      "visible_evidence": [
+        "Hands removing papery skin from a garlic clove",
+        "Peeled bare garlic clove and discarded skins on the counter"
+      ],
+      "quantity": {
+        "item": "garlic",
+        "amount": "1",
+        "unit": "clove"
+      },
+      "checks": [
+        {
+          "check_id": "14_1",
+          "text": "The papery outer skin is completely removed from the garlic clove",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "51",
+      "text": "Chop-Chop 1 garlic clove on a cutting board",
+      "visible_evidence": [
+        "Knife cutting a garlic clove on a cutting board",
+        "Small chopped pieces of garlic on the cutting board"
+      ],
+      "quantity": {
+        "item": "garlic",
+        "amount": "1",
+        "unit": "clove"
+      },
+      "checks": [
+        {
+          "check_id": "51_1",
+          "text": "The garlic clove is cut into small pieces on a cutting board",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "14"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "44",
+      "text": "Remove-Remove the noodles from the package(Break Noodles / Keep them as a block)",
+      "visible_evidence": [
+        "Hands tearing open a ramen noodle package",
+        "Dry noodles removed from the wrapper as a block or broken pieces"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "44_1",
+          "text": "The dry noodles are completely out of the plastic wrapper",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "47",
+      "text": "Peel-Peel 1 medium onion",
+      "visible_evidence": [
+        "Hands stripping the dry outer skin off an onion",
+        "Peeled onion with smooth exposed flesh and discarded onion peels"
+      ],
+      "quantity": {
+        "item": "onion",
+        "amount": "1",
+        "unit": "medium"
+      },
+      "checks": [
+        {
+          "check_id": "47_1",
+          "text": "The dry papery skin is completely removed from the onion",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "46",
+      "text": "slice-slice 1/4 medium onion into pieces",
+      "visible_evidence": [
+        "Knife slicing a quartered onion on a cutting board",
+        "Pile of sliced onion pieces"
+      ],
+      "quantity": {
+        "item": "onion",
+        "amount": "1/4",
+        "unit": "medium"
+      },
+      "checks": [
+        {
+          "check_id": "46_1",
+          "text": "The onion portion is cut into distinct sliced pieces",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "47"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "54",
+      "text": "Put-Put all the Vegetables in a microwave-safe bowl",
+      "visible_evidence": [
+        "Hands transferring chopped garlic and sliced onion into a bowl",
+        "Chopped garlic and onion pieces resting inside a microwave-safe bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "54_1",
+          "text": "All prepared garlic and onion pieces are inside a microwave-safe bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "51",
+        "46"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "52",
+      "text": "Add-Add the noodles to the bowl",
+      "visible_evidence": [
+        "Hands placing dry ramen noodles into the bowl",
+        "Dry ramen noodles sitting inside the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "52_1",
+          "text": "The dry ramen noodles are placed inside the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "44"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "55",
+      "text": "cover-cover the noodles with water",
+      "visible_evidence": [
+        "Water being poured into the bowl over the noodles",
+        "Water level reaching above the noodles in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "55_1",
+          "text": "The water level rises high enough to submerge the noodles in the bowl",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "52"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "49",
+      "text": "Cover-Cover with a lid (or paper towel) to prevent splattering",
+      "visible_evidence": [
+        "Hands placing a lid or paper towel over the top of the bowl",
+        "Bowl top fully covered by a lid or paper towel"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "49_1",
+          "text": "A lid or paper towel rests across the entire opening of the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "54",
+        "52",
+        "55"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "45",
+      "text": "Microwave-Microwave the ramen for 4 minutes",
+      "visible_evidence": [
+        "Covered bowl placed inside the microwave",
+        "Microwave door closed and running with timer set",
+        "Bowl removed from the microwave with steam rising"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "45_1",
+          "text": "The microwave timer is set to 4 minutes and runs until finished",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "49"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "50",
+      "text": "Add-Add basil to the bowl",
+      "visible_evidence": [
+        "Hands placing basil leaves into the bowl of ramen",
+        "Green basil leaves visible on top of the ramen in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "50_1",
+          "text": "Basil leaves are present inside the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "45"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "48",
+      "text": "Let-Let the noodles sit for about 1 minute after the microwave stops",
+      "visible_evidence": [
+        "Bowl of cooked ramen sitting undisturbed on the counter or in the microwave",
+        "Hands away from the bowl during the resting period"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "48_1",
+          "text": "The bowl remains undisturbed for about 1 minute after microwaving finishes",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "45"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "53",
+      "text": "Add-Add chopped cilantro to the bowl",
+      "visible_evidence": [
+        "Hands adding chopped cilantro into the bowl",
+        "Small green pieces of chopped cilantro visible in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "53_1",
+          "text": "Chopped cilantro pieces are added into the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "45"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "42",
+      "text": "Mix-Mix in the flavour packet to the bowl",
+      "visible_evidence": [
+        "Hands opening a seasoning packet and pouring powder into the bowl",
+        "Seasoning powder visible on the surface of the ramen and broth"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "42_1",
+          "text": "The contents of the flavour packet are emptied into the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "45"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "43",
+      "text": "Stir-Stir noodles with a spoon or fork until the flavouring dissolves",
+      "visible_evidence": [
+        "Hand holding a spoon or fork moving through the noodles and broth",
+        "Uniformly colored broth with evenly distributed noodles and herbs"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "43_1",
+          "text": "A spoon or fork stirs the noodles and broth together",
+          "category": "technique"
+        },
+        {
+          "check_id": "43_2",
+          "text": "The seasoning powder dissolves completely into an evenly colored broth",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "42"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

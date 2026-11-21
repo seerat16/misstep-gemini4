@@ -1,0 +1,173 @@
+{
+  "procedure_id": "8",
+  "title": "Microwave Hot Chocolate",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "88",
+      "text": "Fill-Fill a microwave-safe mug with skimmed milk",
+      "visible_evidence": [
+        "skimmed milk container tilted over mug",
+        "white liquid pouring into mug",
+        "mug filled with milk"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "88_1",
+          "text": "Skimmed milk is poured into a microwave-safe mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "89",
+      "text": "Microwave-Microwave the contents of the mug for 1 minute",
+      "visible_evidence": [
+        "mug placed inside microwave",
+        "microwave door closed and running",
+        "mug removed from microwave"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "89_1",
+          "text": "The mug is heated in the microwave for 1 minute",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "88"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "90",
+      "text": "Add-Add 2 pieces of chocolate to the mug",
+      "visible_evidence": [
+        "hand holding chocolate over mug",
+        "chocolate pieces dropping into milk"
+      ],
+      "quantity": {
+        "item": "chocolate",
+        "amount": "2",
+        "unit": "pieces"
+      },
+      "checks": [
+        {
+          "check_id": "90_1",
+          "text": "Chocolate is placed into the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "89"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "84",
+      "text": "Add-Add 1/5 teaspoon cinnamon to the mug",
+      "visible_evidence": [
+        "measuring spoon with cinnamon held over mug",
+        "brown powder falling into mug"
+      ],
+      "quantity": {
+        "item": "cinnamon",
+        "amount": "1/5",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "84_1",
+          "text": "Cinnamon is added to the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "89"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "87",
+      "text": "Add-Add 1 teaspoon of white sugar to the mug",
+      "visible_evidence": [
+        "teaspoon scooping white sugar",
+        "white granules poured into mug"
+      ],
+      "quantity": {
+        "item": "white sugar",
+        "amount": "1",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "87_1",
+          "text": "White sugar is added to the mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "89"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "85",
+      "text": "Mix-Mix the contents of the mug",
+      "visible_evidence": [
+        "spoon stirring inside mug",
+        "liquid turning uniform brown"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "85_1",
+          "text": "A spoon stirs the contents of the mug until the ingredients blend",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "90",
+        "84",
+        "87"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "83",
+      "text": "Heat-Heat the contents of the mug for 1 minute and serve",
+      "visible_evidence": [
+        "mug placed into microwave and heated",
+        "mug removed and set down on serving surface"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "83_1",
+          "text": "The mug is heated for 1 minute",
+          "category": "timing"
+        },
+        {
+          "check_id": "83_2",
+          "text": "The mug is placed on a surface ready to serve",
+          "category": "other"
+        }
+      ],
+      "must_follow": [
+        "85"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

@@ -289,6 +289,17 @@ app.post('/api/report/generate', (req, res) => {
   }
 });
 
+app.get('/api/report/stills/:file', (req, res) => {
+  const { runsDir } = getEnvSettings();
+  const safeFile = req.params.file.replace(/[^a-zA-Z0-9._-]/g, '_');
+  const baseDir = path.join(runsDir, 'report', 'stills');
+  const target = path.join(baseDir, safeFile);
+  if (!isPathInside(baseDir, target) || !fs.existsSync(target)) {
+    return res.status(404).json({ error: 'Still not found' });
+  }
+  return res.sendFile(target);
+});
+
 interface EvalJob {
   job_id: string;
   system: EvalSystem;
@@ -310,7 +321,9 @@ app.post('/api/eval/run', async (req, res) => {
     const split = req.body?.split === 'test' ? 'test' : 'dev';
     const limit = typeof req.body?.limit === 'number' ? req.body.limit : undefined;
     const isFinal = Boolean(req.body?.final);
-    const out = await runEval({ system, split, limit, final: isFinal });
+    const configPath = typeof req.body?.configPath === 'string' ? req.body.configPath : undefined;
+    const rerunReason = typeof req.body?.rerunReason === 'string' ? req.body.rerunReason : undefined;
+    const out = await runEval({ system, split, limit, final: isFinal, configPath, rerunReason });
     res.json(out);
   } catch (err) {
     res.status(400).json({ error: err instanceof Error ? err.message : String(err) });
@@ -322,6 +335,8 @@ app.post('/api/eval/start', (req, res) => {
   const split = req.body?.split === 'test' ? 'test' : 'dev';
   const limit = typeof req.body?.limit === 'number' ? req.body.limit : undefined;
   const isFinal = Boolean(req.body?.final);
+  const configPath = typeof req.body?.configPath === 'string' ? req.body.configPath : undefined;
+  const rerunReason = typeof req.body?.rerunReason === 'string' ? req.body.rerunReason : undefined;
   const jobId = `job_${system}_${split}_${Date.now()}`;
   const job: EvalJob = {
     job_id: jobId,
@@ -333,7 +348,7 @@ app.post('/api/eval/start', (req, res) => {
   };
   evalJobs.set(jobId, job);
 
-  runEval({ system, split, limit, final: isFinal })
+  runEval({ system, split, limit, final: isFinal, configPath, rerunReason })
     .then((out) => {
       job.status = 'completed';
       job.finished_at = new Date().toISOString();
@@ -387,6 +402,30 @@ app.post('/api/agent/run', async (_req, res) => {
   }
 });
 
+app.post('/api/agent/start', (_req, res) => {
+  const jobId = `job_agent_${Date.now()}`;
+  const job: EvalJob = {
+    job_id: jobId,
+    system: 'misstep',
+    split: 'dev',
+    status: 'running',
+    started_at: new Date().toISOString(),
+  };
+  evalJobs.set(jobId, job);
+  runFailureAnalyst()
+    .then((out) => {
+      job.status = 'completed';
+      job.finished_at = new Date().toISOString();
+      job.scores = out;
+    })
+    .catch((err) => {
+      job.status = 'failed';
+      job.finished_at = new Date().toISOString();
+      job.error = err instanceof Error ? err.message : String(err);
+    });
+  res.json(job);
+});
+
 app.post('/api/config/freeze', (req, res) => {
   try {
     const configPath = typeof req.body?.config_path === 'string' ? req.body.config_path : undefined;
@@ -400,11 +439,95 @@ app.post('/api/config/freeze', (req, res) => {
 app.post('/api/stress/run', async (req, res) => {
   try {
     const limit = typeof req.body?.limit === 'number' ? req.body.limit : 6;
-    const out = await runStressLadder(undefined, limit);
+    const conditions = Array.isArray(req.body?.conditions) ? req.body.conditions : undefined;
+    const configPath = typeof req.body?.configPath === 'string' ? req.body.configPath : undefined;
+    const out = await runStressLadder(conditions, limit, configPath);
     res.json(out);
   } catch (err) {
     res.status(500).json({ error: err instanceof Error ? err.message : String(err) });
   }
+});
+
+app.post('/api/stress/start', (req, res) => {
+  const limit = typeof req.body?.limit === 'number' ? req.body.limit : 6;
+  const conditions = Array.isArray(req.body?.conditions) ? req.body.conditions : undefined;
+  const configPath = typeof req.body?.configPath === 'string' ? req.body.configPath : undefined;
+  const jobId = `job_stress_${Date.now()}`;
+  const job: EvalJob = {
+    job_id: jobId,
+    system: 'misstep',
+    split: 'dev',
+    limit,
+    status: 'running',
+    started_at: new Date().toISOString(),
+  };
+  evalJobs.set(jobId, job);
+  runStressLadder(conditions, limit, configPath)
+    .then((out) => {
+      job.status = 'completed';
+      job.finished_at = new Date().toISOString();
+      job.scores = out;
+    })
+    .catch((err) => {
+      job.status = 'failed';
+      job.finished_at = new Date().toISOString();
+      job.error = err instanceof Error ? err.message : String(err);
+    });
+  res.json(job);
+});
+
+app.post('/api/debug/upload-batch', (req, res) => {
+  const filePaths: string[] = Array.isArray(req.body?.filePaths) ? req.body.filePaths : [];
+  const concurrency = Math.max(1, Math.min(3, Number(req.body?.concurrency ?? 2)));
+  const jobId = `job_upload_${Date.now()}`;
+  const job: EvalJob = {
+    job_id: jobId,
+    system: 'misstep',
+    split: 'test',
+    limit: filePaths.length,
+    status: 'running',
+    started_at: new Date().toISOString(),
+  };
+  evalJobs.set(jobId, job);
+
+  (async () => {
+    const queue = [...filePaths];
+    const results: Array<{ filePath: string; ok: boolean; error?: string }> = [];
+    await Promise.all(
+      Array.from({ length: concurrency }).map(async () => {
+        while (queue.length > 0) {
+          const fp = queue.shift();
+          if (!fp) break;
+          const resolved = path.resolve(fp);
+          if (!isPathInside(process.cwd(), resolved) || !fs.existsSync(resolved)) {
+            results.push({ filePath: fp, ok: false, error: 'Invalid filePath' });
+            continue;
+          }
+          try {
+            await uploadFile(resolved, 'video/mp4');
+            results.push({ filePath: fp, ok: true });
+          } catch (err) {
+            results.push({
+              filePath: fp,
+              ok: false,
+              error: err instanceof Error ? err.message : String(err),
+            });
+          }
+        }
+      }),
+    );
+    const failed = results.filter((r) => !r.ok);
+    job.status = failed.length === 0 ? 'completed' : 'failed';
+    job.finished_at = new Date().toISOString();
+    job.scores = { total: results.length, ok: results.length - failed.length, failed };
+    if (failed.length > 0) job.error = `${failed.length} uploads failed`;
+  })().catch((err) => {
+    job.status = 'failed';
+    job.finished_at = new Date().toISOString();
+    job.error = err instanceof Error ? err.message : String(err);
+  });
+
+  res.json(job);
 });
 
 app.post('/api/smoke', async (_req, res) => {

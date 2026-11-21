@@ -1,0 +1,382 @@
+{
+  "procedure_id": "10",
+  "title": "Nut Butter and Jelly Tortilla Pinwheels",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "115",
+      "text": "Place-Place 8-inch flour tortilla on cutting board",
+      "visible_evidence": [
+        "Hand places a round flour tortilla on a cutting board",
+        "Flour tortilla lies flat on the cutting board"
+      ],
+      "quantity": {
+        "item": "flour tortilla",
+        "amount": "8",
+        "unit": "inch"
+      },
+      "checks": [
+        {
+          "check_id": "115_1",
+          "text": "The flour tortilla lies flat on the cutting board",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "113",
+      "text": "scoop-Use a butter knife to scoop nut butter from the jar",
+      "visible_evidence": [
+        "Hand dips a butter knife into a nut butter jar",
+        "Nut butter coats the blade of the butter knife"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "113_1",
+          "text": "A butter knife is used to scoop nut butter from the jar",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "112",
+      "text": "Spread-Spread nut butter onto the tortilla, leaving 1/2-inch uncovered at the edges",
+      "visible_evidence": [
+        "Butter knife spreads nut butter across the tortilla surface",
+        "Layer of nut butter covers the tortilla with a bare rim around the edge"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "112_1",
+          "text": "Nut butter is spread across the tortilla leaving an uncovered border about 1/2 inch wide around the edges",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "115",
+        "113"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "118",
+      "text": "Clean-Clean the knife by wiping it with a paper towel",
+      "visible_evidence": [
+        "Hand wipes the butter knife blade with a paper towel",
+        "Knife blade appears clean of nut butter"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "118_1",
+          "text": "The butter knife blade is wiped clean with a paper towel",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "112"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "111",
+      "text": "scoop-Use the knife to scoop jelly from the jar",
+      "visible_evidence": [
+        "Clean butter knife dips into a jelly jar",
+        "Jelly sits on the blade of the butter knife"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "111_1",
+          "text": "The butter knife scoops jelly from the jar",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "118"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "107",
+      "text": "Spread-Spread jelly over the nut butter",
+      "visible_evidence": [
+        "Butter knife spreads jelly across the nut butter layer",
+        "Jelly layer covers the nut butter on the tortilla"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "107_1",
+          "text": "Jelly is spread evenly over the nut butter layer on the tortilla",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "112",
+        "111"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "104",
+      "text": "Clean-Clean the knife by wiping it with a paper towel",
+      "visible_evidence": [
+        "Hand wipes the butter knife blade with a paper towel",
+        "Knife blade appears clean of jelly"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "104_1",
+          "text": "The butter knife blade is wiped clean with a paper towel",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "107"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "116",
+      "text": "Roll-Roll the tortilla from one end to the other into a log shape, about 1.5 inches thick. Roll it tight enough to prevent gaps, but not so tight that the filling leaks",
+      "visible_evidence": [
+        "Hands roll the filled tortilla from one end to the other",
+        "Tortilla forms a compact cylindrical log about 1.5 inches thick"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "116_1",
+          "text": "The tortilla is rolled into a cylindrical log about 1.5 inches thick",
+          "category": "technique"
+        },
+        {
+          "check_id": "116_2",
+          "text": "The roll is tightly formed with filling contained inside the tortilla",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "107"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "110",
+      "text": "Secure-Secure the rolled tortilla by inserting 5 toothpicks about 1 inch apart",
+      "visible_evidence": [
+        "Hands insert toothpicks vertically along the tortilla roll",
+        "Five toothpicks stand spaced along the length of the roll"
+      ],
+      "quantity": {
+        "item": "toothpicks",
+        "amount": "5",
+        "unit": "count"
+      },
+      "checks": [
+        {
+          "check_id": "110_1",
+          "text": "Toothpicks are inserted along the tortilla roll spaced about 1 inch apart",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "116"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "114",
+      "text": "Trim-Trim the ends of the tortilla roll with the butter knife, leaving 1/2 inch margin between the last toothpick and the end of the roll",
+      "visible_evidence": [
+        "Butter knife slices off both ends of the tortilla roll",
+        "Trimmed roll ends have about a 1/2 inch margin past the outermost toothpicks"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "114_1",
+          "text": "The butter knife trims both ends of the tortilla roll leaving about a 1/2 inch margin from the outermost toothpicks",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "110",
+        "104"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "103",
+      "text": "Discard-Discard ends of the tortilla",
+      "visible_evidence": [
+        "Hand picks up the trimmed tortilla ends from the cutting board",
+        "Trimmed tortilla ends are removed from the work surface"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "103_1",
+          "text": "The trimmed tortilla ends are removed from the cutting board",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "114"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "106",
+      "text": "Slide-Slide floss under the tortilla, perpendicular to the length of the roll",
+      "visible_evidence": [
+        "Hands hold dental floss taut and slide it beneath the tortilla roll",
+        "Floss lies under the roll perpendicular to its length"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "106_1",
+          "text": "The floss is positioned underneath the tortilla roll perpendicular to its length",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "110"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "117",
+      "text": "Place-Place the floss halfway between toothpicks",
+      "visible_evidence": [
+        "Hands adjust the floss position beneath the tortilla roll",
+        "Floss aligns midway between two adjacent toothpicks"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "117_1",
+          "text": "The floss is centered halfway between two adjacent toothpicks",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "106",
+        "110"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "105",
+      "text": "Cross-Cross the floss's two ends over the tortilla roll's top",
+      "visible_evidence": [
+        "Hands lift both ends of the floss up and cross them over the top of the roll",
+        "Floss loops around the tortilla roll with ends crossed on top"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "105_1",
+          "text": "Both ends of the floss are crossed over the top of the tortilla roll",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "117"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "108",
+      "text": "pull-pull the floss ends in opposite directions to slice",
+      "visible_evidence": [
+        "Hands pull the crossed floss ends outward in opposite directions",
+        "Floss slices cleanly through the tortilla roll to separate a pinwheel"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "108_1",
+          "text": "The floss ends are pulled in opposite directions to cleanly slice through the tortilla roll",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "105"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "102",
+      "text": "slicing-Continue slicing with floss to create 1 more pinwheel",
+      "visible_evidence": [
+        "Hands repeat the floss-slicing motion between another pair of toothpicks",
+        "An additional sliced pinwheel separates from the tortilla roll"
+      ],
+      "quantity": {
+        "item": "pinwheel",
+        "amount": "1",
+        "unit": "count"
+      },
+      "checks": [
+        {
+          "check_id": "102_1",
+          "text": "Floss is used to slice another pinwheel from the tortilla roll",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "108"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "109",
+      "text": "Place-Place the pinwheels on a plate",
+      "visible_evidence": [
+        "Hands transfer the sliced tortilla pinwheels from the cutting board to a plate",
+        "Pinwheels sit arranged on a plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "109_1",
+          "text": "The sliced pinwheels are placed on a plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "102",
+        "114"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

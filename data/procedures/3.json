@@ -1,0 +1,340 @@
+{
+  "procedure_id": "3",
+  "title": "Microwave Mug Pizza",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "36",
+      "text": "Take-Take a microwavable mug",
+      "visible_evidence": [
+        "A mug placed on the counter",
+        "Hands picking up and setting down a ceramic or glass mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "36_1",
+          "text": "The mug placed on the work surface is ceramic or glass",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "35",
+      "text": "add-Measure 1/16 teaspoon of baking soda and add it to the mug",
+      "visible_evidence": [
+        "A small measuring spoon scooping baking soda",
+        "Baking soda poured into the mug"
+      ],
+      "quantity": {
+        "item": "baking soda",
+        "amount": "1/16",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "35_1",
+          "text": "The baking soda is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "36"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "28",
+      "text": "add-Measure 1/8 teaspoon of salt and add it to the mug",
+      "visible_evidence": [
+        "A small measuring spoon scooping salt",
+        "Salt poured into the mug"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "1/8",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "28_1",
+          "text": "The salt is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "36"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "40",
+      "text": "add-Measure 1/8 teaspoon of baking powder and add it to the mug",
+      "visible_evidence": [
+        "A small measuring spoon scooping baking powder",
+        "Baking powder poured into the mug"
+      ],
+      "quantity": {
+        "item": "baking powder",
+        "amount": "1/8",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "40_1",
+          "text": "The baking powder is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "36"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "33",
+      "text": "add-Measure 4 tablespoons of flour and add it to the mug",
+      "visible_evidence": [
+        "A tablespoon scoop taking flour from a container",
+        "Flour tipped into the mug"
+      ],
+      "quantity": {
+        "item": "flour",
+        "amount": "4",
+        "unit": "tablespoons"
+      },
+      "checks": [
+        {
+          "check_id": "33_1",
+          "text": "The flour is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "36"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "38",
+      "text": "Stir-Stir the contents in the mug well",
+      "visible_evidence": [
+        "A spoon or fork stirring the dry powders inside the mug",
+        "Dry ingredients blended evenly at the bottom of the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "38_1",
+          "text": "A utensil stirs the dry ingredients in the mug until they appear evenly combined",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "35",
+        "28",
+        "40",
+        "33"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "41",
+      "text": "Add-Add in 3 tablespoons of milk to the mug",
+      "visible_evidence": [
+        "Milk poured into a tablespoon measure",
+        "Milk tipped into the mug over the dry mixture"
+      ],
+      "quantity": {
+        "item": "milk",
+        "amount": "3",
+        "unit": "tablespoons"
+      },
+      "checks": [
+        {
+          "check_id": "41_1",
+          "text": "The milk is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "38"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "34",
+      "text": "Add-1 tablespoon of olive oil to the mug",
+      "visible_evidence": [
+        "Olive oil poured into a tablespoon measure",
+        "Olive oil added into the mug"
+      ],
+      "quantity": {
+        "item": "olive oil",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "34_1",
+          "text": "The olive oil is poured into the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "38"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "37",
+      "text": "Mix-Mix the contents of the mug thoroughly. (There might be some lumps, but that is ok.)",
+      "visible_evidence": [
+        "A utensil stirring the wet and dry ingredients inside the mug",
+        "A thick wet batter formed in the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "37_1",
+          "text": "The wet and dry ingredients are mixed together into a cohesive batter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "41",
+        "34"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "30",
+      "text": "Take-Take 1 tablespoon of marinara sauce",
+      "visible_evidence": [
+        "A tablespoon scooping red marinara sauce from a jar or bowl"
+      ],
+      "quantity": {
+        "item": "marinara sauce",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "30_1",
+          "text": "The spoon holds marinara sauce",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "31",
+      "text": "spread-spread marinara sauce around the surface of the batter",
+      "visible_evidence": [
+        "A spoon spreading red sauce across the top of the batter in the mug",
+        "A layer of marinara sauce covering the batter surface"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "31_1",
+          "text": "The marinara sauce is spread evenly across the top surface of the batter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "37",
+        "30"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "39",
+      "text": "Sprinkle-Sprinkle 1 generous tablespoon of mozzarella cheese on top of the sauce",
+      "visible_evidence": [
+        "Shredded mozzarella cheese measured with a tablespoon",
+        "Mozzarella cheese scattered over the marinara sauce in the mug"
+      ],
+      "quantity": {
+        "item": "mozzarella cheese",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "39_1",
+          "text": "The mozzarella cheese rests on top of the marinara sauce layer",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "31"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "29",
+      "text": "Sprinkle-Sprinkle dried Italian herbs inside the mug",
+      "visible_evidence": [
+        "Fingers or a spice jar shaking dried herbs over the mug",
+        "Flecks of dried herbs visible on top of the ingredients in the mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "29_1",
+          "text": "Dried herbs are scattered over the top of the toppings inside the mug",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "31"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "32",
+      "text": "Microwave-Microwave for 1 minute 20 seconds, or until it rises and the toppings are bubbling",
+      "visible_evidence": [
+        "The mug placed inside a microwave with the door closed",
+        "The microwave running for about 1 minute 20 seconds",
+        "The cooked batter risen in the mug with melted bubbling cheese on top"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "32_1",
+          "text": "The mug is heated in the microwave for approximately 1 minute 20 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "32_2",
+          "text": "The batter has risen and the toppings are melted and bubbling",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "39",
+        "29"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

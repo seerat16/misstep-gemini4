@@ -1,0 +1,283 @@
+{
+  "procedure_id": "13",
+  "title": "Microwave Buttered Lime Corn",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "129",
+      "text": "Measure-Measure 2 cups of frozen corn",
+      "visible_evidence": [
+        "measuring cup filled with frozen corn",
+        "pouring frozen corn into a measuring cup"
+      ],
+      "quantity": {
+        "item": "frozen corn",
+        "amount": "2",
+        "unit": "cups"
+      },
+      "checks": [
+        {
+          "check_id": "129_1",
+          "text": "The frozen corn is measured using a measuring cup",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "137",
+      "text": "Thaw-Thaw the frozen corn by putting it in a sieve and running it under cold water",
+      "visible_evidence": [
+        "frozen corn placed in a sieve",
+        "water running from faucet over corn in sieve"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "137_1",
+          "text": "The corn is held inside a sieve under the faucet",
+          "category": "preparation"
+        },
+        {
+          "check_id": "137_2",
+          "text": "The faucet is turned to cold water while rinsing the corn",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "129"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "132",
+      "text": "Add-Add the corn into a microwave-safe bowl",
+      "visible_evidence": [
+        "corn transferred from sieve into a bowl",
+        "thawed corn resting in a microwave-safe bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "132_1",
+          "text": "The corn is placed in a glass, ceramic, or microwave-safe plastic bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "137"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "133",
+      "text": "Microwave-Microwave the corn for 2 minutes",
+      "visible_evidence": [
+        "bowl of corn placed inside microwave",
+        "microwave door closed and running"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "133_1",
+          "text": "The microwave timer is set to 2 minutes and runs to completion",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "132"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "138",
+      "text": "Add-Add 1 teaspoon of softened butter",
+      "visible_evidence": [
+        "teaspoon scooping softened butter",
+        "butter placed into the bowl of corn"
+      ],
+      "quantity": {
+        "item": "softened butter",
+        "amount": "1",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "138_1",
+          "text": "The butter yields easily to the spoon showing it is softened",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "133"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "130",
+      "text": "Add-1 teaspoon of pepper powder to the bowl",
+      "visible_evidence": [
+        "measuring spoon holding pepper powder",
+        "pepper powder sprinkled into the bowl of corn"
+      ],
+      "quantity": {
+        "item": "pepper powder",
+        "amount": "1",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "130_1",
+          "text": "Pepper powder is visible on top of the corn in the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "133"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "135",
+      "text": "stir-then stir the bowl",
+      "visible_evidence": [
+        "utensil stirring corn, butter, and pepper in the bowl",
+        "corn coated with butter and pepper"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "135_1",
+          "text": "The utensil moves through the corn to distribute the butter and pepper evenly",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "138",
+        "130"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "134",
+      "text": "Microwave-Microwave the corn for 3 more minutes",
+      "visible_evidence": [
+        "bowl returned to microwave",
+        "microwave running with bowl inside"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "134_1",
+          "text": "The microwave timer is set to 3 minutes and runs to completion",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "135"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "131",
+      "text": "Extract-Extract lime juice from 1/3 lime",
+      "visible_evidence": [
+        "squeezing a cut piece of lime",
+        "lime juice collecting in a container or spoon"
+      ],
+      "quantity": {
+        "item": "lime",
+        "amount": "1/3",
+        "unit": "lime"
+      },
+      "checks": [
+        {
+          "check_id": "131_1",
+          "text": "Juice is squeezed out of a cut lime section",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "136",
+      "text": "Add-Add 1 teaspoon salt to the bowl",
+      "visible_evidence": [
+        "measuring spoon holding salt",
+        "salt poured into the bowl of corn"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "1",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "136_1",
+          "text": "Salt is poured directly into the bowl containing the corn",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "134"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "128",
+      "text": "add-add lime juice to the bowl",
+      "visible_evidence": [
+        "pouring extracted lime juice into the bowl",
+        "liquid lime juice dripping onto the corn"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "128_1",
+          "text": "The extracted lime juice is poured into the bowl with the corn",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "134",
+        "131"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "76",
+      "text": "Mix-Mix the contents of the bowl well",
+      "visible_evidence": [
+        "spoon stirring all ingredients in the bowl",
+        "thoroughly mixed corn with seasonings"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "76_1",
+          "text": "The utensil stirs through the entire bowl so all corn kernels are coated",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "136",
+        "128"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}
