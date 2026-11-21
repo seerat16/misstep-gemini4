@@ -1,0 +1,95 @@
+{
+  "procedure_id": "upload_1795297471625",
+  "title": "Make Iced Coffee",
+  "source": "upload",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Put on gloves or sanitize hands.",
+      "visible_evidence": [
+        "Hands putting on disposable gloves",
+        "Hands rubbing sanitizer together",
+        "Gloved or sanitized hands ready to handle items"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S1_C1",
+          "text": "Both hands are covered with gloves or rubbed together with hand sanitizer",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Add ice cubes to a clear glass.",
+      "visible_evidence": [
+        "Clear glass placed on the work surface",
+        "Ice cubes dropped or scooped into the clear glass",
+        "Ice cubes resting inside the clear glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S2_C1",
+          "text": "Ice cubes are placed inside a clear glass",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Pour milk into the glass.",
+      "visible_evidence": [
+        "Milk container tilted over the glass",
+        "Stream of white milk entering the glass",
+        "Milk level rising inside the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S3_C1",
+          "text": "Milk is poured cleanly into the glass",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S1",
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S4",
+      "text": "Pour coffee into the glass.",
+      "visible_evidence": [
+        "Coffee vessel tilted over the glass",
+        "Stream of dark coffee entering the glass",
+        "Coffee mixing or layering inside the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S4_C1",
+          "text": "Coffee is poured cleanly into the glass",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S1",
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

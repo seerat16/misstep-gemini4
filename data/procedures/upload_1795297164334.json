@@ -1,0 +1,91 @@
+{
+  "procedure_id": "upload_1795297164334",
+  "title": "Iced Coffee Preparation",
+  "source": "upload",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Put on gloves or sanitize hands.",
+      "visible_evidence": [
+        "hands wearing gloves",
+        "hands rubbing together with sanitizer"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C1",
+          "text": "Hands are covered by gloves or rubbed with sanitizer.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Add ice cubes to a clear glass.",
+      "visible_evidence": [
+        "clear glass on counter",
+        "ice cubes placed into clear glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C2",
+          "text": "Ice cubes are inside a clear glass.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Pour milk into the glass.",
+      "visible_evidence": [
+        "milk container tilting over the glass",
+        "white liquid entering the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C3",
+          "text": "Milk is poured into the clear glass.",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S1",
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S4",
+      "text": "Pour coffee into the glass.",
+      "visible_evidence": [
+        "coffee container tilting over the glass",
+        "dark liquid entering the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C4",
+          "text": "Coffee is poured into the clear glass.",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S1",
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

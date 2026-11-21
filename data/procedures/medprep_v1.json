@@ -1,0 +1,174 @@
+{
+  "procedure_id": "medprep_v1",
+  "title": "MEDPREP CARD: Patient: Demo, Week 47",
+  "source": "medprep",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Sanitize your hands with the hand sanitizer.",
+      "visible_evidence": [
+        "Hand presses pump on sanitizer bottle",
+        "Hands rub together with liquid sanitizer"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C1_1",
+          "text": "Sanitizer is dispensed onto the hands and rubbed over both hands.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Place this card face-up to the LEFT of the organizer.",
+      "visible_evidence": [
+        "Hand places the medprep card on the work surface",
+        "Card rests face-up on the left side of the pill organizer"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C2_1",
+          "text": "The card lies face-up with its printed text visible.",
+          "category": "preparation"
+        },
+        {
+          "check_id": "C2_2",
+          "text": "The card sits to the left of the pill organizer.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Open the MON, TUE, WED and THU morning (AM) lids.",
+      "visible_evidence": [
+        "Fingers flip open four AM lids on the organizer",
+        "MON, TUE, WED, and THU AM compartments are open"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C3_1",
+          "text": "The MON, TUE, WED, and THU AM lids are flipped open.",
+          "category": "preparation"
+        },
+        {
+          "check_id": "C3_2",
+          "text": "All other organizer lids remain closed.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S4",
+      "text": "Put 2 BLUE tablets in each of MON, TUE, WED, THU (AM).",
+      "visible_evidence": [
+        "Hand drops blue tablets into MON, TUE, WED, and THU AM compartments",
+        "Blue tablets are visible inside each of the four open AM compartments"
+      ],
+      "quantity": {
+        "item": "BLUE tablets",
+        "amount": "2",
+        "unit": "tablets"
+      },
+      "checks": [
+        {
+          "check_id": "C4_1",
+          "text": "Blue tablets are placed into the MON, TUE, WED, and THU AM compartments.",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S3"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S5",
+      "text": "Put 1 RED tablet in MON and WED (AM) only.",
+      "visible_evidence": [
+        "Hand drops a red tablet into MON AM and WED AM compartments",
+        "Red tablets are visible inside MON AM and WED AM compartments"
+      ],
+      "quantity": {
+        "item": "RED tablet",
+        "amount": "1",
+        "unit": "tablet"
+      },
+      "checks": [
+        {
+          "check_id": "C5_1",
+          "text": "Red tablets are placed in the MON AM and WED AM compartments.",
+          "category": "technique"
+        },
+        {
+          "check_id": "C5_2",
+          "text": "The TUE AM and THU AM compartments hold only blue tablets.",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S3"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S6",
+      "text": "Close all four lids.",
+      "visible_evidence": [
+        "Hand presses down the open AM lids",
+        "MON, TUE, WED, and THU AM lids are shut"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C6_1",
+          "text": "The MON, TUE, WED, and THU AM lids are fully closed and latched.",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S4",
+        "S5"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S7",
+      "text": "Write your initials on the log sheet.",
+      "visible_evidence": [
+        "Hand moves a pen across the log sheet",
+        "Handwritten initials appear on the log sheet"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C7_1",
+          "text": "Handwritten initials are marked on the log sheet.",
+          "category": "other"
+        }
+      ],
+      "must_follow": [
+        "S6"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

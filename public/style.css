@@ -470,3 +470,75 @@ th {
   border-radius: 4px;
   border: 1px solid var(--border-hairline);
 }
+
+/* Projector-friendly live monitor enhancements (readable from 2m+ away) */
+.live-status-hero {
+  font-size: 34px !important;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+}
+
+.live-kpi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.live-kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 12px 18px;
+  min-width: 148px;
+}
+
+.live-kpi-card .kpi-value {
+  font-size: 26px;
+}
+
+.live-alert-hero {
+  font-size: 20px;
+  padding: 16px 20px;
+  border-width: 2px;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.14);
+}
+
+.live-page .step-card {
+  padding: 16px 18px;
+  border-width: 1.5px;
+}
+
+.live-page .step-title {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.live-page .state-label {
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.live-page .step-meta {
+  font-size: 14px;
+}
+
+.fallback-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-hairline);
+}
+
+.fallback-box-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}

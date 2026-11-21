@@ -1,0 +1,93 @@
+{
+  "procedure_id": "upload_1795297955830",
+  "title": "Prepare Iced Coffee",
+  "source": "upload",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Put on gloves or sanitize hands before touching the glass.",
+      "visible_evidence": [
+        "Hands putting on gloves",
+        "Hands applying and rubbing hand sanitizer",
+        "Gloved or sanitized hands prior to touching the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S1_C1",
+          "text": "Hands wear gloves or rub sanitizer before touching the glass",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Add ice cubes to a clear glass.",
+      "visible_evidence": [
+        "Clear glass on the counter",
+        "Ice cubes being dropped into the clear glass",
+        "Ice cubes visible inside the clear glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S2_C1",
+          "text": "Ice cubes are placed inside a clear glass",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Pour milk over the ice.",
+      "visible_evidence": [
+        "Milk container tilted above the glass",
+        "White liquid streaming onto the ice cubes",
+        "Milk pooled around the ice in the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S3_C1",
+          "text": "Milk is poured over the ice cubes in the glass",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S4",
+      "text": "Pour coffee into the glass.",
+      "visible_evidence": [
+        "Coffee container tilted above the glass",
+        "Dark liquid streaming into the glass",
+        "Coffee visible inside the glass"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S4_C1",
+          "text": "Coffee is poured into the glass",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

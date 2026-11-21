@@ -1,0 +1,72 @@
+{
+  "procedure_id": "upload_1795297404548",
+  "title": "Write Initials in Notebook",
+  "source": "upload",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Pick up a pen.",
+      "visible_evidence": [
+        "Hand grasps a pen",
+        "Pen is lifted off the surface and held in hand"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C1_1",
+          "text": "A pen is held in the person's hand.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Open a notebook.",
+      "visible_evidence": [
+        "Hand lifts the notebook cover",
+        "Notebook lies open exposing interior pages"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C2_1",
+          "text": "The notebook is open with its interior pages visible.",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Write initials.",
+      "visible_evidence": [
+        "Pen tip moves across the open notebook page",
+        "Handwritten initials appear on the page"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "C3_1",
+          "text": "The pen tip contacts and moves across the open notebook page to form letters.",
+          "category": "technique"
+        },
+        {
+          "check_id": "C3_2",
+          "text": "Handwritten initials are visible on the notebook page.",
+          "category": "other"
+        }
+      ],
+      "must_follow": [
+        "S1",
+        "S2"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

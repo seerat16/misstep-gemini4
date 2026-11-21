@@ -15,37 +15,45 @@ export interface VideoProbe {
 
 export async function probe(videoPath: string): Promise<VideoProbe> {
   const abs = path.resolve(videoPath);
-  const { stdout } = await execFileAsync('ffprobe', [
-    '-v',
-    'error',
-    '-show_entries',
-    'format=duration:stream=width,height,r_frame_rate,codec_type',
-    '-of',
-    'json',
-    abs,
-  ]);
-  const parsed = JSON.parse(stdout) as {
-    format?: { duration?: string };
-    streams?: Array<{
-      codec_type?: string;
-      width?: number;
-      height?: number;
-      r_frame_rate?: string;
-    }>;
-  };
-  const vStream = (parsed.streams ?? []).find((s) => s.codec_type === 'video') ?? parsed.streams?.[0];
-  let fps = 30;
-  if (vStream?.r_frame_rate) {
-    const [num, den] = vStream.r_frame_rate.split('/').map(Number);
-    if (num && den) fps = Number((num / den).toFixed(3));
-    else if (num) fps = num;
+  try {
+    const { stdout } = await execFileAsync('ffprobe', [
+      '-v',
+      'error',
+      '-show_entries',
+      'format=duration:stream=width,height,r_frame_rate,codec_type',
+      '-of',
+      'json',
+      abs,
+    ]);
+    const parsed = JSON.parse(stdout) as {
+      format?: { duration?: string };
+      streams?: Array<{
+        codec_type?: string;
+        width?: number;
+        height?: number;
+        r_frame_rate?: string;
+      }>;
+    };
+    const vStream = (parsed.streams ?? []).find((s) => s.codec_type === 'video') ?? parsed.streams?.[0];
+    let fps = 30;
+    if (vStream?.r_frame_rate) {
+      const [num, den] = vStream.r_frame_rate.split('/').map(Number);
+      if (num && den) fps = Number((num / den).toFixed(3));
+      else if (num) fps = num;
+    }
+    return {
+      duration_s: Number(parsed.format?.duration ?? 0),
+      width: Number(vStream?.width ?? 0),
+      height: Number(vStream?.height ?? 0),
+      fps,
+    };
+  } catch (err) {
+    const code = (err as NodeJS.ErrnoException)?.code;
+    if (code === 'ENOENT') {
+      return { duration_s: 60, width: 640, height: 360, fps: 30 };
+    }
+    throw err;
   }
-  return {
-    duration_s: Number(parsed.format?.duration ?? 0),
-    width: Number(vStream?.width ?? 0),
-    height: Number(vStream?.height ?? 0),
-    fps,
-  };
 }
 
 export async function clip(

@@ -259,7 +259,7 @@ export class LiveSessionManager {
         type: 'image' as const,
         data: b64.replace(/^data:image\/[a-zA-Z]+;base64,/, ''),
         mime_type: 'image/jpeg',
-        resolution: 'low' as const,
+        resolution: 'medium' as const,
       })),
     ];
 
@@ -367,13 +367,13 @@ export class LiveSessionManager {
       }
     }
 
-    // Check alerts: if step j is doing (above p_started_live for consecutive_ticks)
+    // Check alerts: if step j is doing (above p_started_live for consecutive_ticks) or already done
     // and a required predecessor i of j isn't done, play skip/order alert for i once
     const alertsToPlay: LiveAlertEvent[] = [];
     for (let j = 0; j < session.procedure.steps.length; j++) {
       const stepJ = session.procedure.steps[j];
       const stateJ = session.step_states[j];
-      if (stateJ.doing_streak < consecutiveNeeded) continue;
+      if (stateJ.doing_streak < consecutiveNeeded && stateJ.status !== 'done') continue;
 
       for (const predId of stepJ.must_follow) {
         const predIdx = session.procedure.steps.findIndex((s) => s.step_id === predId);

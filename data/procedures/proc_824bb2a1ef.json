@@ -1,0 +1,365 @@
+{
+  "procedure_id": "proc_824bb2a1ef",
+  "title": "Pour-Over Coffee",
+  "source": "upload",
+  "steps": [
+    {
+      "step_id": "S1",
+      "text": "Measure-Measure 12 ounces of cold water",
+      "visible_evidence": [
+        "Water being poured into a measuring cup",
+        "Measuring cup filled with water to the 12 oz mark"
+      ],
+      "quantity": {
+        "item": "cold water",
+        "amount": "12",
+        "unit": "ounces"
+      },
+      "checks": [],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S2",
+      "text": "Place-Place the dripper on top of a coffee mug",
+      "visible_evidence": [
+        "Hand placing a coffee dripper onto the rim of a mug",
+        "Dripper resting stably on top of the coffee mug"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S2_C1",
+          "text": "The dripper rests directly on top of the coffee mug",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S3",
+      "text": "Weigh-Weigh the coffee beans (0.8oz-0.12 oz) ",
+      "visible_evidence": [
+        "Coffee beans placed on a kitchen scale",
+        "Scale display showing the weight of the coffee beans"
+      ],
+      "quantity": {
+        "item": "coffee beans",
+        "amount": "0.8-0.12",
+        "unit": "oz"
+      },
+      "checks": [
+        {
+          "check_id": "S3_C1",
+          "text": "The coffee beans are placed on a scale",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S4",
+      "text": "Grind-Grind the coffee beans until the coffee grounds are the consistency of coarse sand, about 20 seconds",
+      "visible_evidence": [
+        "Coffee beans added to a grinder and grinder operating",
+        "Ground coffee with a coarse sand-like texture"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S4_C1",
+          "text": "The coffee grounds have a coarse sand-like texture",
+          "category": "technique"
+        },
+        {
+          "check_id": "S4_C2",
+          "text": "The grinder runs for approximately 20 seconds",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "S3"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S5",
+      "text": "Prepare-Prepare the filter insert by folding the paper filter in half to create a semi-circle, and in half again to create a quarter-circle",
+      "visible_evidence": [
+        "Hands folding a round paper filter in half",
+        "Paper filter folded twice into a quarter-circle shape"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S5_C1",
+          "text": "The paper filter is folded in half to form a semi-circle",
+          "category": "preparation"
+        },
+        {
+          "check_id": "S5_C2",
+          "text": "The paper filter is folded in half a second time to form a quarter-circle",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S6",
+      "text": "transfer-transfer water to a kettle",
+      "visible_evidence": [
+        "Water being poured from a measuring cup into a kettle",
+        "Kettle containing water"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S6_C1",
+          "text": "The measured water is poured into the kettle",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S7",
+      "text": "Place-Place the paper filter in the dripper",
+      "visible_evidence": [
+        "Hand inserting the folded paper filter into the dripper",
+        "Paper filter seated inside the dripper"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S7_C1",
+          "text": "The folded paper filter is seated inside the dripper",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S5"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S8",
+      "text": "Boil-Boil the water. (While the water is boiling, assemble the filter cone) ",
+      "visible_evidence": [
+        "Kettle turned on or placed on a heat source",
+        "Steam rising or bubbles forming in the kettle"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S8_C1",
+          "text": "The water in the kettle reaches a boil with visible steam or bubbling",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "S6"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S9",
+      "text": "spread-spread open filter in dripper to create a cone",
+      "visible_evidence": [
+        "Fingers opening the layers of the folded paper filter inside the dripper",
+        "Paper filter forming an open cone lining the dripper"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S9_C1",
+          "text": "The paper filter is opened into a cone shape lining the inside of the dripper",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S7"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S10",
+      "text": "check-Once the water has boiled, check the temperature of the water. (The water should be between 195-205 degrees Fahrenheit or between 91-96 degrees Celsius. If the water is too hot, let it cool briefly.) ",
+      "visible_evidence": [
+        "Thermometer probe inserted into the hot water in the kettle",
+        "Thermometer display showing the water temperature"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S10_C1",
+          "text": "A thermometer is used to measure the temperature of the boiled water",
+          "category": "temperature"
+        },
+        {
+          "check_id": "S10_C2",
+          "text": "The thermometer reads between 195 and 205 degrees Fahrenheit or between 91 and 96 degrees Celsius",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "S8"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S11",
+      "text": "Transfer-Transfer the grounds to the filter cone",
+      "visible_evidence": [
+        "Coffee grounds being poured or spooned into the paper filter cone",
+        "Coffee grounds sitting inside the open filter cone"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S11_C1",
+          "text": "The coffee grounds are placed inside the opened paper filter cone",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "S4",
+        "S9"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S12",
+      "text": "Pour-Pour a small amount of water into the filter to wet the grounds",
+      "visible_evidence": [
+        "Kettle pouring a small stream of hot water onto the coffee grounds",
+        "Coffee grounds visibly darkened and saturated with water"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S12_C1",
+          "text": "A small amount of water is poured over the grounds so they are evenly wetted",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S2",
+        "S10",
+        "S11"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S13",
+      "text": "Wait-Wait about 30 seconds for the coffee to bloom. (You will see small bubbles or foam on the coffee grounds during this step.) ",
+      "visible_evidence": [
+        "Pouring paused while wet grounds sit in the dripper",
+        "Small bubbles and foam rising on the surface of the wet coffee grounds"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S13_C1",
+          "text": "Pouring is paused for approximately 30 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "S13_C2",
+          "text": "Small bubbles or foam appear on the surface of the wet coffee grounds",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S12"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S14",
+      "text": "pour-Slowly pour the rest of the water over the grounds in a circular motion. Do not overfill beyond the top of the paper filter",
+      "visible_evidence": [
+        "Kettle moving in a circular motion while pouring a steady stream of water",
+        "Water level remaining below the top edge of the paper filter"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S14_C1",
+          "text": "The water is poured slowly in a circular motion over the coffee grounds",
+          "category": "technique"
+        },
+        {
+          "check_id": "S14_C2",
+          "text": "The water level stays below the top edge of the paper filter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "S13"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S15",
+      "text": "drain-Let the coffee drain completely into the mug before removing the dripper",
+      "visible_evidence": [
+        "Liquid level dropping in the dripper until only wet grounds remain",
+        "Dripper lifted off the mug after dripping stops"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S15_C1",
+          "text": "All liquid drains out of the dripper into the mug before the dripper is lifted",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "S14"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "S16",
+      "text": "Discard-Discard the paper filter and coffee grounds",
+      "visible_evidence": [
+        "Hand lifting the used paper filter containing wet grounds out of the dripper",
+        "Used filter and grounds placed into a trash bin or compost container"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "S16_C1",
+          "text": "The used paper filter and coffee grounds are removed from the dripper and disposed of",
+          "category": "other"
+        }
+      ],
+      "must_follow": [
+        "S15"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

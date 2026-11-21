@@ -20,26 +20,30 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container live-page">
     <section class="page-head">
       <div>
-        <h1 id="statusLine">Step 0 of 0 · Ready</h1>
+        <h1 id="statusLine" class="live-status-hero">Step 0 of 0 · Ready</h1>
         <p class="muted">Overhead webcam sends 640px JPEG frames every 500ms (3s ring buffer) to Gemini Decision 1 every 2s. Spoken alerts fire via 3.8 TTS or browser speechSynthesis.</p>
       </div>
-      <div class="btn-row">
-        <div class="kpi-card" style="padding:10px 14px;">
+      <div class="live-kpi-row">
+        <div class="live-kpi-card">
           <div class="kpi-label">Tick Latency</div>
-          <div id="latencyReadout" class="kpi-value" style="font-size:20px;">0 ms</div>
+          <div id="latencyReadout" class="kpi-value">0 ms</div>
         </div>
-        <div class="kpi-card" style="padding:10px 14px;">
+        <div class="live-kpi-card">
           <div class="kpi-label">Session Cost</div>
-          <div id="costReadout" class="kpi-value" style="font-size:20px;">$0.000</div>
+          <div id="costReadout" class="kpi-value">$0.000</div>
+        </div>
+        <div class="live-kpi-card">
+          <div class="kpi-label">Ticks / Buffer</div>
+          <div id="tickReadout" class="kpi-value">0 · 0/6</div>
         </div>
       </div>
     </section>
 
     <div id="liveError" class="alert-banner" hidden></div>
-    <div id="liveAlertBanner" class="alert-banner" hidden></div>
+    <div id="liveAlertBanner" class="alert-banner live-alert-hero" hidden></div>
 
     <section class="live-layout">
       <div>
@@ -49,12 +53,19 @@
           </div>
           <canvas id="captureCanvas" hidden></canvas>
           <div class="btn-row" style="margin-top:14px;">
-            <button id="startBtn" class="btn btn-primary" type="button" disabled>Start</button>
+            <button id="startBtn" class="btn btn-primary" type="button" disabled>Start Live Monitor</button>
             <button id="finishBtn" class="btn btn-secondary" type="button" disabled>Finish &amp; Verify Organizer</button>
-            <button id="record60Btn" class="btn btn-secondary" type="button" disabled>Record &amp; Analyze (Fallback)</button>
             <button id="resetBtn" class="btn btn-danger" type="button">Reset</button>
           </div>
-          <p id="sessionMeta" class="mono muted" style="font-size:12px;margin-top:10px;">No active session. Click "Load MedPrep Demo" or upload a procedure.</p>
+          <div class="fallback-box">
+            <div class="fallback-box-title">Offline / Wi-Fi Fallback (Record 60s or Upload Video → /api/analyze)</div>
+            <div class="btn-row">
+              <button id="record60Btn" class="btn btn-secondary" type="button" disabled>Record 60s &amp; Analyze</button>
+              <input id="fallbackVideoFile" type="file" accept="video/*,.mp4,.webm,.mov" style="flex:1;min-width:180px;" />
+              <button id="uploadFallbackBtn" class="btn btn-secondary" type="button" disabled>Analyze Uploaded Video</button>
+            </div>
+          </div>
+          <p id="sessionMeta" class="mono muted" style="font-size:13px;margin-top:10px;">No active session. Click "Load MedPrep Demo" or upload a procedure.</p>
         </div>
 
         <div class="panel">

@@ -3,6 +3,7 @@ const captureCanvas = document.getElementById('captureCanvas');
 const statusLine = document.getElementById('statusLine');
 const latencyReadout = document.getElementById('latencyReadout');
 const costReadout = document.getElementById('costReadout');
+const tickReadout = document.getElementById('tickReadout');
 const liveError = document.getElementById('liveError');
 const liveAlertBanner = document.getElementById('liveAlertBanner');
 const stepBoard = document.getElementById('stepBoard');
@@ -19,6 +20,8 @@ const liveProcFile = document.getElementById('liveProcFile');
 const startBtn = document.getElementById('startBtn');
 const finishBtn = document.getElementById('finishBtn');
 const record60Btn = document.getElementById('record60Btn');
+const fallbackVideoFile = document.getElementById('fallbackVideoFile');
+const uploadFallbackBtn = document.getElementById('uploadFallbackBtn');
 const resetBtn = document.getElementById('resetBtn');
 
 let mediaStream = null;
@@ -29,10 +32,14 @@ let frameBuffer = [];
 let frameTimer = null;
 let tickTimer = null;
 let tickInFlight = false;
+let tickCount = 0;
 let audioQueue = [];
 let audioPlaying = false;
+let audioUnlocked = false;
 let mediaRecorder = null;
 let recordedChunks = [];
+let recordCountdownTimer = null;
+let recordSecondsLeft = 60;
 
 function showError(msg) {
   liveError.textContent = msg;
@@ -77,6 +84,20 @@ function grabFullResStillBase64() {
   return captureCanvas.toDataURL('image/jpeg', 0.92);
 }
 
+function unlockAudio() {
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (AudioCtx) {
+      const ctx = new AudioCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+    }
+  } catch {
+    // ignore
+  }
+}
+
 function enqueueAlertAudio(alert) {
   liveAlertBanner.textContent = `ALERT: ${alert.text} (${alert.reason})`;
   liveAlertBanner.hidden = false;
@@ -91,15 +112,31 @@ function drainAudioQueue() {
 
   if (next.url) {
     const audio = new Audio(next.url);
-    audio.onended = () => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
       audioPlaying = false;
       drainAudioQueue();
     };
+    const guard = setTimeout(finish, 10000);
+    audio.onended = () => {
+      clearTimeout(guard);
+      finish();
+    };
     audio.onerror = () => {
-      speakFallback(next.text);
+      clearTimeout(guard);
+      if (!settled) {
+        settled = true;
+        speakFallback(next.text);
+      }
     };
     audio.play().catch(() => {
-      speakFallback(next.text);
+      clearTimeout(guard);
+      if (!settled) {
+        settled = true;
+        speakFallback(next.text);
+      }
     });
   } else {
     speakFallback(next.text);
@@ -108,16 +145,31 @@ function drainAudioQueue() {
 
 function speakFallback(text) {
   if ('speechSynthesis' in window) {
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.onend = () => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
       audioPlaying = false;
       drainAudioQueue();
     };
-    utter.onerror = () => {
-      audioPlaying = false;
-      drainAudioQueue();
-    };
-    window.speechSynthesis.speak(utter);
+    const guard = setTimeout(finish, 8000);
+    try {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.rate = 1.02;
+      utter.onend = () => {
+        clearTimeout(guard);
+        finish();
+      };
+      utter.onerror = () => {
+        clearTimeout(guard);
+        finish();
+      };
+      window.speechSynthesis.speak(utter);
+    } catch {
+      clearTimeout(guard);
+      finish();
+    }
   } else {
     audioPlaying = false;
     drainAudioQueue();
@@ -169,12 +221,15 @@ async function initSessionWithFormData(fd) {
 
     sessionId = data.session_id;
     currentProcedure = data.procedure;
+    tickCount = 0;
+    tickReadout.textContent = '0 · 0/6';
     renderStepBoard(data.step_states || []);
     costReadout.textContent = `$${Number(data.compile_cost_usd || 0).toFixed(4)}`;
     sessionMeta.textContent = `Session ${sessionId} · ${currentProcedure.title} (${currentProcedure.steps.length} steps)`;
     startBtn.disabled = false;
     finishBtn.disabled = false;
     record60Btn.disabled = false;
+    uploadFallbackBtn.disabled = false;
   } catch (err) {
     showError(err.message);
     sessionMeta.textContent = 'Procedure load failed.';
@@ -212,6 +267,10 @@ function stopLoops() {
     clearInterval(tickTimer);
     tickTimer = null;
   }
+  if (recordCountdownTimer) {
+    clearInterval(recordCountdownTimer);
+    recordCountdownTimer = null;
+  }
 }
 
 async function sendTick() {
@@ -230,9 +289,11 @@ async function sendTick() {
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Tick failed');
+    tickCount += 1;
     renderStepBoard(data.step_states || []);
     latencyReadout.textContent = `${data.latency_ms} ms`;
     costReadout.textContent = `$${Number(data.total_cost_usd || 0).toFixed(4)}`;
+    tickReadout.textContent = `${tickCount} · ${frameBuffer.length}/6`;
     for (const alert of data.alerts_to_play || []) {
       enqueueAlertAudio(alert);
     }
@@ -246,15 +307,18 @@ async function sendTick() {
 startBtn.addEventListener('click', async () => {
   showError('');
   if (!sessionId) return;
+  unlockAudio();
   try {
     await ensureCamera();
     stopLoops();
     frameBuffer = [];
+    tickCount = 0;
     frameTimer = setInterval(() => {
       const f = grabFrameBase64(640);
       if (f) {
         frameBuffer.push(f);
         if (frameBuffer.length > 6) frameBuffer.shift();
+        tickReadout.textContent = `${tickCount} · ${frameBuffer.length}/6`;
       }
     }, 500);
     tickTimer = setInterval(sendTick, 2000);
@@ -331,52 +395,123 @@ finishBtn.addEventListener('click', async () => {
   }
 });
 
-// Fallback: Record clip then run /api/analyze
+async function runAnalyzeFallback(videoBlobOrFile, filename) {
+  const fd = new FormData();
+  fd.append('video', videoBlobOrFile, filename);
+  if (currentProcedure && currentProcedure.source === 'medprep') {
+    fd.append('preset', 'medprep');
+  } else {
+    fd.append(
+      'procedure_text',
+      currentProcedure.steps.map((s, i) => `${i + 1}. ${s.text}`).join('\n'),
+    );
+  }
+  sessionMeta.textContent = 'Analyzing recorded/uploaded video via /api/analyze...';
+  const res = await fetch('/api/analyze', { method: 'POST', body: fd });
+  const data = await res.json();
+  if (!res.ok) {
+    showError(data.error || 'Fallback analyze failed');
+    return;
+  }
+
+  const verdicts = data.result.verdicts || [];
+  renderStepBoard(
+    verdicts.map((v, i) => ({
+      step_id: v.step_id,
+      step_num: i + 1,
+      text: currentProcedure.steps[i]?.text || v.step_id,
+      status: v.status === 'error' ? 'skipped' : v.status === 'ok' ? 'done' : 'pending',
+      late: false,
+      p_doing: 0,
+      p_done: 1 - v.p_error,
+    })),
+  );
+  costReadout.textContent = `$${Number(data.result.cost_usd || 0).toFixed(4)}`;
+  latencyReadout.textContent = `${Math.round((data.result.latency_s || 0) * 1000)} ms`;
+  const firstErr = verdicts.find((v) => v.status === 'error');
+  if (firstErr) {
+    enqueueAlertAudio({
+      text: `Detected ${firstErr.categories?.join(', ') || 'error'} on step ${firstErr.step_id}.`,
+      reason: firstErr.evidence?.[0]?.text || 'offline fallback',
+      url: null,
+    });
+  }
+  sessionMeta.textContent = `Fallback analysis complete · ${verdicts.filter((v) => v.status === 'error').length} error(s) · cost $${Number(data.result.cost_usd).toFixed(4)}`;
+}
+
+// Fallback: Record up to 60s clip then run /api/analyze
 record60Btn.addEventListener('click', async () => {
   showError('');
   if (!currentProcedure) return;
+  unlockAudio();
   if (mediaRecorder && mediaRecorder.state === 'recording') {
+    if (recordCountdownTimer) {
+      clearInterval(recordCountdownTimer);
+      recordCountdownTimer = null;
+    }
     mediaRecorder.stop();
-    record60Btn.textContent = 'Record & Analyze (Fallback)';
+    record60Btn.textContent = 'Record 60s & Analyze';
     return;
   }
   try {
+    stopLoops();
     const stream = await ensureCamera();
     recordedChunks = [];
-    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+    const preferredMime = MediaRecorder.isTypeSupported('video/webm;codecs=vp8')
+      ? 'video/webm;codecs=vp8'
+      : MediaRecorder.isTypeSupported('video/webm')
+        ? 'video/webm'
+        : '';
+    mediaRecorder = preferredMime ? new MediaRecorder(stream, { mimeType: preferredMime }) : new MediaRecorder(stream);
     mediaRecorder.ondataavailable = (e) => {
       if (e.data.size > 0) recordedChunks.push(e.data);
     };
     mediaRecorder.onstop = async () => {
-      const blob = new Blob(recordedChunks, { type: 'video/webm' });
-      const fd = new FormData();
-      fd.append('video', blob, 'live_fallback.webm');
-      fd.append('procedure_text', currentProcedure.steps.map((s, i) => `${i + 1}. ${s.text}`).join('\n'));
-      sessionMeta.textContent = 'Analyzing recorded clip via /api/analyze...';
-      const res = await fetch('/api/analyze', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) {
-        showError(data.error || 'Fallback analyze failed');
-        return;
+      if (recordCountdownTimer) {
+        clearInterval(recordCountdownTimer);
+        recordCountdownTimer = null;
       }
-      renderStepBoard(
-        (data.result.verdicts || []).map((v, i) => ({
-          step_id: v.step_id,
-          step_num: i + 1,
-          text: currentProcedure.steps[i]?.text || v.step_id,
-          status: v.status === 'error' ? 'skipped' : v.status === 'ok' ? 'done' : 'pending',
-          late: false,
-          p_doing: 0,
-          p_done: 1 - v.p_error,
-        })),
-      );
-      sessionMeta.textContent = `Fallback analysis complete · cost $${Number(data.result.cost_usd).toFixed(4)}`;
+      record60Btn.textContent = 'Record 60s & Analyze';
+      const blob = new Blob(recordedChunks, { type: preferredMime || 'video/webm' });
+      await runAnalyzeFallback(blob, 'live_fallback.webm');
     };
+    recordSecondsLeft = 60;
     mediaRecorder.start();
-    record60Btn.textContent = 'Stop Recording & Analyze';
-    sessionMeta.textContent = 'Recording fallback video... click Stop Recording & Analyze when done.';
+    record60Btn.textContent = `Stop & Analyze (${recordSecondsLeft}s)`;
+    sessionMeta.textContent = 'Recording 60s fallback clip... click Stop & Analyze anytime.';
+    recordCountdownTimer = setInterval(() => {
+      recordSecondsLeft -= 1;
+      if (recordSecondsLeft <= 0) {
+        clearInterval(recordCountdownTimer);
+        recordCountdownTimer = null;
+        if (mediaRecorder && mediaRecorder.state === 'recording') {
+          mediaRecorder.stop();
+        }
+      } else {
+        record60Btn.textContent = `Stop & Analyze (${recordSecondsLeft}s)`;
+      }
+    }, 1000);
   } catch (err) {
     showError(err.message);
+  }
+});
+
+uploadFallbackBtn.addEventListener('click', async () => {
+  showError('');
+  if (!currentProcedure) return;
+  const file = fallbackVideoFile.files && fallbackVideoFile.files[0];
+  if (!file) {
+    showError('Choose a video file to analyze first.');
+    return;
+  }
+  unlockAudio();
+  uploadFallbackBtn.disabled = true;
+  try {
+    await runAnalyzeFallback(file, file.name || 'upload.mp4');
+  } catch (err) {
+    showError(err.message);
+  } finally {
+    uploadFallbackBtn.disabled = false;
   }
 });
 
@@ -384,17 +519,21 @@ resetBtn.addEventListener('click', () => {
   stopLoops();
   frameBuffer = [];
   audioQueue = [];
+  tickCount = 0;
   sessionId = null;
   currentProcedure = null;
   statusLine.textContent = 'Step 0 of 0 · Ready';
   latencyReadout.textContent = '0 ms';
   costReadout.textContent = '$0.000';
+  tickReadout.textContent = '0 · 0/6';
   liveAlertBanner.hidden = true;
   finalReportPanel.hidden = true;
   stepBoard.replaceChildren(createEl('p', 'muted', 'Compile a procedure or load MedPrep to populate steps.'));
   startBtn.disabled = true;
   finishBtn.disabled = true;
   record60Btn.disabled = true;
+  uploadFallbackBtn.disabled = true;
+  record60Btn.textContent = 'Record 60s & Analyze';
   sessionMeta.textContent = 'Reset complete.';
   showError('');
 });
