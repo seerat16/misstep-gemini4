@@ -1,0 +1,387 @@
+{
+  "procedure_id": "28",
+  "title": "Spicy Tuna Avocado Lettuce Wraps",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "335",
+      "text": "Take-Take 1 ripe avocado",
+      "visible_evidence": [
+        "Hand picks up an avocado",
+        "Avocado placed on the work surface"
+      ],
+      "quantity": {
+        "item": "ripe avocado",
+        "amount": "1",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "335_c1",
+          "text": "An avocado is placed on the work surface or cutting board",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "336",
+      "text": "Open-Open a can of tuna",
+      "visible_evidence": [
+        "Hand opens a tuna can using a can opener or pull tab",
+        "Opened tuna can with lid removed or peeled back"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "336_c1",
+          "text": "The lid of the tuna can is opened",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "328",
+      "text": "drain-drain excess water from can",
+      "visible_evidence": [
+        "Opened tuna can tilted over a sink or container",
+        "Liquid pouring out as the lid is pressed against the tuna"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "328_c1",
+          "text": "Liquid is poured out from the opened tuna can",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "336"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "329",
+      "text": "Lay-Lay out 2 large lettuce leaves",
+      "visible_evidence": [
+        "Hands placing lettuce leaves flat on a plate or board",
+        "Large lettuce leaves spread open side by side"
+      ],
+      "quantity": {
+        "item": "large lettuce leaves",
+        "amount": "2",
+        "unit": "leaves"
+      },
+      "checks": [
+        {
+          "check_id": "329_c1",
+          "text": "The lettuce leaves are laid flat on the work surface or plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "341",
+      "text": "cut-cut avocado into thin slices",
+      "visible_evidence": [
+        "Knife slicing peeled avocado flesh on a cutting board",
+        "Avocado separated into thin slices"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "341_c1",
+          "text": "The avocado is cut into thin slices",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "335"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "327",
+      "text": "Add-1/4 cup mayonnaise to the bowl",
+      "visible_evidence": [
+        "Measuring cup or spoon transferring mayonnaise into a bowl",
+        "White mayonnaise visible inside the bowl"
+      ],
+      "quantity": {
+        "item": "mayonnaise",
+        "amount": "1/4",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "327_c1",
+          "text": "Mayonnaise is placed into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "340",
+      "text": "Chop-Chop 1 scallion",
+      "visible_evidence": [
+        "Knife chopping a scallion on a cutting board",
+        "Small chopped green scallion pieces on the board"
+      ],
+      "quantity": {
+        "item": "scallion",
+        "amount": "1",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "340_c1",
+          "text": "The scallion is cut into small chopped pieces",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "325",
+      "text": "place-place avocado slices on each leaf",
+      "visible_evidence": [
+        "Hand placing avocado slices onto the lettuce leaves",
+        "Avocado slices resting on each laid-out lettuce leaf"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "325_c1",
+          "text": "Avocado slices are placed on top of each lettuce leaf",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "329",
+        "341"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "339",
+      "text": "Add-1 tsp Sriracha sauce to the bowl",
+      "visible_evidence": [
+        "Spoon or squeeze bottle adding red Sriracha sauce to the bowl",
+        "Red Sriracha sauce visible inside the bowl"
+      ],
+      "quantity": {
+        "item": "Sriracha sauce",
+        "amount": "1",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "339_c1",
+          "text": "Sriracha sauce is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "333",
+      "text": "Add-add chopped scallion to the bowl",
+      "visible_evidence": [
+        "Hand or knife scraping chopped scallions into the bowl",
+        "Chopped green scallion pieces visible inside the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "333_c1",
+          "text": "Chopped scallion pieces are transferred into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "340"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "334",
+      "text": "Add-Add 1 can drained tuna to the bowl",
+      "visible_evidence": [
+        "Scooping or tipping drained tuna from the can into the bowl",
+        "Flaked tuna visible inside the bowl"
+      ],
+      "quantity": {
+        "item": "drained tuna",
+        "amount": "1",
+        "unit": "can"
+      },
+      "checks": [
+        {
+          "check_id": "334_c1",
+          "text": "Drained tuna is transferred from the can into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "328"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "331",
+      "text": "Mix-Mix the contents of the bowl",
+      "visible_evidence": [
+        "Spoon or fork stirring ingredients inside the bowl",
+        "Tuna, mayonnaise, Sriracha, and scallions combined into a uniform mixture"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "331_c1",
+          "text": "The contents of the bowl are stirred together into an even mixture",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "327",
+        "339",
+        "333",
+        "334"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "338",
+      "text": "Season-Season bowl with 1/4 tsp salt",
+      "visible_evidence": [
+        "Measuring spoon or hand sprinkling salt into the bowl",
+        "Salt dispensed over the contents of the bowl"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "338_c1",
+          "text": "Salt is added to the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "326",
+      "text": "Season-season 1/4 tsp pepper on the bowl",
+      "visible_evidence": [
+        "Measuring spoon or hand sprinkling pepper into the bowl",
+        "Pepper specks visible on the contents of the bowl"
+      ],
+      "quantity": {
+        "item": "pepper",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "326_c1",
+          "text": "Pepper is added to the bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "332",
+      "text": "top-top lettuce leaves with the tuna mixture",
+      "visible_evidence": [
+        "Spoon scooping tuna mixture from the bowl onto the lettuce leaves",
+        "Tuna mixture resting on top of the lettuce leaves and avocado slices"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "332_c1",
+          "text": "The tuna mixture is spooned onto the prepared lettuce leaves",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "325",
+        "331",
+        "338",
+        "326"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "330",
+      "text": "Roll-Roll up the lettuce wraps",
+      "visible_evidence": [
+        "Hands folding and rolling each filled lettuce leaf",
+        "Lettuce leaves rolled tightly around the tuna and avocado filling"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "330_c1",
+          "text": "Each filled lettuce leaf is rolled up around the filling",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "332"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "337",
+      "text": "secure-secure the wrap with a toothpick",
+      "visible_evidence": [
+        "Hand inserting a toothpick through the rolled lettuce wrap",
+        "Toothpick sticking through the rolled wrap holding it closed"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "337_c1",
+          "text": "A toothpick is pierced through the rolled lettuce wrap to hold it closed",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "330"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

@@ -1,0 +1,271 @@
+{
+  "procedure_id": "17",
+  "title": "Cucumber Raita",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "183",
+      "text": "whisk-In a mixing bowl, whisk 1 cup of chilled curd until smooth. Use fresh homemade or packaged curd",
+      "visible_evidence": [
+        "Curd is placed in a mixing bowl",
+        "Hand whisks the curd using a whisk or spoon",
+        "Curd has a smooth, uniform texture"
+      ],
+      "quantity": {
+        "item": "chilled curd",
+        "amount": "1",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "183_c1",
+          "text": "The curd in the mixing bowl has a smooth, uniform consistency",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "181",
+      "text": "Add-1/4 teaspoon of red chilli powder to the bowl",
+      "visible_evidence": [
+        "Red chilli powder is measured with a spoon",
+        "Red chilli powder is poured into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "red chilli powder",
+        "amount": "1/4",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "181_c1",
+          "text": "Red chilli powder is visible inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "189",
+      "text": "Rinse-Rinse 1 medium sized cucumber",
+      "visible_evidence": [
+        "A cucumber is held under running water or dipped in water",
+        "Hands rub the surface of the cucumber while rinsing"
+      ],
+      "quantity": {
+        "item": "cucumber",
+        "amount": "1",
+        "unit": "medium sized"
+      },
+      "checks": [
+        {
+          "check_id": "189_c1",
+          "text": "Water flows over the entire surface of the cucumber",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "191",
+      "text": "Add-1/2 teaspoon of chaat masala powder to the bowl",
+      "visible_evidence": [
+        "Chaat masala powder is measured with a spoon",
+        "Chaat masala powder is added into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "chaat masala powder",
+        "amount": "1/2",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "191_c1",
+          "text": "Chaat masala powder is visible inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "182",
+      "text": "peel-peel the cucumber",
+      "visible_evidence": [
+        "A peeler or knife removes the green skin from the cucumber",
+        "Strips of cucumber peel accumulate on the work surface",
+        "The pale cucumber flesh is exposed"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "182_c1",
+          "text": "The outer green skin is removed from the cucumber, exposing the pale flesh",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "189"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "188",
+      "text": "Add-Add 1 teaspoon of cumin powder to the bowl",
+      "visible_evidence": [
+        "Cumin powder is measured with a spoon",
+        "Cumin powder is poured into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "cumin powder",
+        "amount": "1",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "188_c1",
+          "text": "Cumin powder is visible inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "185",
+      "text": "chop or grate-chop or grate the cucumber",
+      "visible_evidence": [
+        "Hands cut the cucumber with a knife on a board or rub it against a grater",
+        "Cucumber is reduced into small chopped pieces or grated strands"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "185_c1",
+          "text": "The peeled cucumber is cut into small pieces or shredded into grated strands",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "182"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "187",
+      "text": "add-add 1 tablespoon of chopped cilantro leaves to the bowl",
+      "visible_evidence": [
+        "Chopped green cilantro leaves are measured with a spoon",
+        "Cilantro leaves are placed into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "chopped cilantro leaves",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "187_c1",
+          "text": "The cilantro leaves added to the bowl are chopped into small pieces",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "184",
+      "text": "Add-1/4 teaspoon salt to the bowl",
+      "visible_evidence": [
+        "Salt is measured with a spoon",
+        "Salt is sprinkled into the mixing bowl"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "1/4",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "184_c1",
+          "text": "Salt is deposited inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "190",
+      "text": "Add-Add the chopped or grated cucumber to the whisked curd",
+      "visible_evidence": [
+        "Chopped or grated cucumber is transferred from the cutting board or grater",
+        "Cucumber pieces or shreds land inside the mixing bowl of whisked curd"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "190_c1",
+          "text": "The chopped or grated cucumber is inside the mixing bowl with the whisked curd",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "183",
+        "185"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "186",
+      "text": "Combine-Combine all the ingredients in the bowl",
+      "visible_evidence": [
+        "A spoon or whisk stirs the contents of the mixing bowl",
+        "Cucumber, spices, cilantro, and curd are mixed together in the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "186_c1",
+          "text": "The spices, cilantro, and cucumber are evenly distributed throughout the curd",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "183",
+        "181",
+        "191",
+        "188",
+        "187",
+        "184",
+        "190"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

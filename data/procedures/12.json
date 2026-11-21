@@ -1,0 +1,202 @@
+{
+  "procedure_id": "12",
+  "title": "Tomato and Mozzarella Platter",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "125",
+      "text": "Rinse-Rinse a tomato",
+      "visible_evidence": [
+        "tomato held under running water",
+        "hands washing tomato at sink"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "125_1",
+          "text": "The tomato is rinsed under running water",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "122",
+      "text": "dry-gently dry it with a paper/tea towel",
+      "visible_evidence": [
+        "paper towel or tea towel wiping the tomato",
+        "tomato surface appears dry"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "122_1",
+          "text": "A paper towel or tea towel is used to gently wipe moisture from the tomato",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "125"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "119",
+      "text": "Slice-Slice one tomato into about 1/2 inch thick slices",
+      "visible_evidence": [
+        "knife slicing tomato on a cutting board",
+        "multiple thick round tomato slices"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "119_1",
+          "text": "The tomato is cut into slices about 1/2 inch thick",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "122"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "120",
+      "text": "Place-Place the thick slices of tomatoes on a platter, ensuring they only make a single layer",
+      "visible_evidence": [
+        "tomato slices arranged flat on a platter",
+        "single layer of tomato slices visible"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "120_1",
+          "text": "The tomato slices are arranged on the platter in a single layer",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "119"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "124",
+      "text": "Sprinkle-Sprinkle mozzarella cheese on top of the tomato throughout the platter",
+      "visible_evidence": [
+        "hand sprinkling mozzarella cheese over tomato slices",
+        "white mozzarella pieces distributed across the platter"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "124_1",
+          "text": "Mozzarella cheese is sprinkled on top of the tomato slices throughout the platter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "120"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "123",
+      "text": "Season-Season the tomato slices with salt",
+      "visible_evidence": [
+        "salt shaker or fingers sprinkling salt over the tomato slices"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "123_1",
+          "text": "Salt is sprinkled over the tomato slices",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "120"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "126",
+      "text": "Season-Season platter with 1/4 teaspoon black pepper",
+      "visible_evidence": [
+        "spoon or grinder adding black pepper over the platter",
+        "dark specks of black pepper visible on top"
+      ],
+      "quantity": {
+        "item": "black pepper",
+        "amount": "1/4",
+        "unit": "teaspoon"
+      },
+      "checks": [
+        {
+          "check_id": "126_1",
+          "text": "Black pepper is sprinkled across the platter",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "120"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "127",
+      "text": "Garnish-Garnish platter with italian seasoning",
+      "visible_evidence": [
+        "hand or container sprinkling dried herbs over the platter",
+        "flecks of Italian seasoning visible on the platter"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "127_1",
+          "text": "Italian seasoning is sprinkled over the platter",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "120"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "121",
+      "text": "Add-Add a drizzle of extra-virgin olive oil, about 1 tablespoon, over the entire platter",
+      "visible_evidence": [
+        "bottle or spoon drizzling olive oil across the platter",
+        "glossy oil sheen over the tomatoes and cheese"
+      ],
+      "quantity": {
+        "item": "extra-virgin olive oil",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "121_1",
+          "text": "Olive oil is drizzled evenly over the entire platter",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "120",
+        "124"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

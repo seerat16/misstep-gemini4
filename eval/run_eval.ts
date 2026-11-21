@@ -81,9 +81,14 @@ export function verifyTestLock(
   }
 
   const testMisstepDir = path.join(getEnvSettings().runsDir, 'test', system);
-  if (fs.existsSync(testMisstepDir) && fs.readdirSync(testMisstepDir).length > 0 && !rerunReason) {
+  const hasCompletedTestRun =
+    fs.existsSync(testMisstepDir) &&
+    fs
+      .readdirSync(testMisstepDir, { withFileTypes: true })
+      .some((d) => d.isDirectory() && fs.existsSync(path.join(testMisstepDir, d.name, 'results.jsonl')));
+  if (hasCompletedTestRun && !rerunReason) {
     throw new Error(
-      `TEST LOCK: runs/test/${system}/ already contains a run. Pass --rerun-reason "<text>" to rerun.`,
+      `TEST LOCK: runs/test/${system}/ already contains a completed run. Pass --rerun-reason "<text>" to rerun.`,
     );
   }
   if (rerunReason) {
@@ -106,6 +111,16 @@ export function findLatestRunDir(split: 'dev' | 'test', system: string): string 
     .map((d) => d.name)
     .sort();
   if (dirs.length === 0) return null;
+  // Prefer latest completed run (contains scores.json or results.jsonl)
+  for (let i = dirs.length - 1; i >= 0; i--) {
+    const candidate = path.join(base, dirs[i]);
+    if (
+      fs.existsSync(path.join(candidate, 'scores.json')) ||
+      fs.existsSync(path.join(candidate, 'results.jsonl'))
+    ) {
+      return candidate;
+    }
+  }
   return path.join(base, dirs[dirs.length - 1]);
 }
 

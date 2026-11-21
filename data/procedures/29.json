@@ -1,0 +1,276 @@
+{
+  "procedure_id": "29",
+  "title": "Tomato Mozzarella Bruschetta",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "342",
+      "text": "add-1/8 cup shredded mozzarella to a bowl",
+      "visible_evidence": [
+        "hand pouring shredded mozzarella from measuring cup into bowl",
+        "shredded white cheese visible inside the bowl"
+      ],
+      "quantity": {
+        "item": "shredded mozzarella",
+        "amount": "1/8",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "342_1",
+          "text": "Shredded mozzarella is placed inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "343",
+      "text": "add-1/4 tsp salt to a bowl",
+      "visible_evidence": [
+        "measuring spoon holding salt tilted over bowl",
+        "salt sprinkled onto ingredients in the bowl"
+      ],
+      "quantity": {
+        "item": "salt",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "343_1",
+          "text": "Salt is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "346",
+      "text": "add-1/4 tsp pepper to a bowl",
+      "visible_evidence": [
+        "measuring spoon holding pepper tilted over bowl",
+        "dark pepper flecks visible in the bowl"
+      ],
+      "quantity": {
+        "item": "pepper",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "346_1",
+          "text": "Pepper is added into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "344",
+      "text": "Slice-Slice two 1/2 inch thick rounds from a baguette (slice slanted) ",
+      "visible_evidence": [
+        "serrated knife slicing baguette at an angle on cutting board",
+        "two slanted baguette rounds resting on cutting board"
+      ],
+      "quantity": {
+        "item": "baguette",
+        "amount": "two",
+        "unit": "rounds"
+      },
+      "checks": [
+        {
+          "check_id": "344_1",
+          "text": "The knife cuts through the baguette at a diagonal slant",
+          "category": "technique"
+        },
+        {
+          "check_id": "344_2",
+          "text": "The sliced baguette rounds are roughly 1/2 inch thick",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "349",
+      "text": "Brush-Brush 2 slices of baguette with olive oil on both sides",
+      "visible_evidence": [
+        "pastry brush spreading olive oil across bread surface",
+        "baguette slices flipped and brushed on the opposite side",
+        "glossy oil sheen visible on both sides of the slices"
+      ],
+      "quantity": {
+        "item": "baguette",
+        "amount": "2",
+        "unit": "slices"
+      },
+      "checks": [
+        {
+          "check_id": "349_1",
+          "text": "Both sides of each baguette slice are coated with olive oil using a brush",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "344"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "352",
+      "text": "Toast-Toast both sides of the slices on the pan for 2 to 3 minutes until lightly charred and crispy and transfer the slices to a plate",
+      "visible_evidence": [
+        "oiled baguette slices placed flat on heated pan",
+        "slices flipped in the pan showing lightly charred brown marks",
+        "toasted baguette slices resting on a plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "352_1",
+          "text": "Both sides of the baguette slices are toasted in the pan until lightly charred",
+          "category": "technique"
+        },
+        {
+          "check_id": "352_2",
+          "text": "The slices cook on the pan for 2 to 3 minutes",
+          "category": "timing"
+        },
+        {
+          "check_id": "352_3",
+          "text": "The toasted slices are transferred from the pan onto a plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "349"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "350",
+      "text": "Cut-Cut 1/4 cup of cherry tomatoes into halves",
+      "visible_evidence": [
+        "knife slicing cherry tomatoes on cutting board",
+        "halved cherry tomatoes with cut sides exposed on board"
+      ],
+      "quantity": {
+        "item": "cherry tomatoes",
+        "amount": "1/4",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "350_1",
+          "text": "Each cherry tomato is sliced cleanly into two halves",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "347",
+      "text": "add-1/16 cup basil to a bowl",
+      "visible_evidence": [
+        "hand adding green basil leaves from measuring cup into bowl",
+        "basil pieces visible inside the bowl"
+      ],
+      "quantity": {
+        "item": "basil",
+        "amount": "1/16",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "347_1",
+          "text": "Basil is placed inside the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "351",
+      "text": "add-In a bowl, add the cut cherry tomatoes",
+      "visible_evidence": [
+        "hand scooping halved cherry tomatoes from cutting board into bowl",
+        "halved cherry tomatoes visible inside the bowl"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "351_1",
+          "text": "The halved cherry tomatoes are transferred into the mixing bowl",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "350"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "348",
+      "text": "Combine-Combine the contents of the bowl",
+      "visible_evidence": [
+        "spoon stirring ingredients inside the bowl",
+        "tomatoes, mozzarella, basil, and seasonings evenly distributed together"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "348_1",
+          "text": "The tomatoes, mozzarella, basil, salt, and pepper are evenly mixed together in the bowl",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "342",
+        "343",
+        "346",
+        "347",
+        "351"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "345",
+      "text": "Spoon-Spoon the mixture from the bowl onto the bread",
+      "visible_evidence": [
+        "spoon lifting tomato mozzarella mixture from bowl",
+        "mixture piled on top of toasted baguette slices on the plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "345_1",
+          "text": "A spoon scoops the tomato and mozzarella mixture from the bowl onto the toasted baguette slices",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "352",
+        "348"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

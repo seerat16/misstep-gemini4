@@ -1,0 +1,292 @@
+{
+  "procedure_id": "1",
+  "title": "Microwave Egg and Cheese English Muffin",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "3",
+      "text": "Coat -Coat a 6-oz. ramekin cup with cooking spray",
+      "visible_evidence": [
+        "hand holding cooking spray can over ramekin cup",
+        "spray mist coating inside of ramekin",
+        "glistening interior surface of ramekin cup"
+      ],
+      "quantity": {
+        "item": "ramekin cup",
+        "amount": "6",
+        "unit": "oz."
+      },
+      "checks": [
+        {
+          "check_id": "3_1",
+          "text": "Cooking spray is directed into the interior of the ramekin cup",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "1",
+      "text": "Pour-Pour 1 egg into the ramekin cup",
+      "visible_evidence": [
+        "cracking or pouring raw egg into ramekin cup",
+        "raw egg yolk and white inside ramekin cup"
+      ],
+      "quantity": {
+        "item": "egg",
+        "amount": "1",
+        "unit": "count"
+      },
+      "checks": [
+        {
+          "check_id": "1_1",
+          "text": "The raw egg contents sit inside the ramekin cup",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "3"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "4",
+      "text": "Microwave-Microwave the ramekin cup uncovered on high for 30 seconds",
+      "visible_evidence": [
+        "placing open ramekin cup into microwave",
+        "closing microwave door and pressing buttons",
+        "microwave running and timer counting down"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "4_1",
+          "text": "The ramekin cup is placed inside the microwave with its top open",
+          "category": "preparation"
+        },
+        {
+          "check_id": "4_2",
+          "text": "The microwave runs for 30 seconds",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "1"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "12",
+      "text": "Cut -Cut the English muffin into two pieces with a knife",
+      "visible_evidence": [
+        "hand slicing English muffin with a knife",
+        "English muffin separated into top and bottom halves"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "12_1",
+          "text": "A knife slices the English muffin horizontally into a top half and a bottom half",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "11",
+      "text": "stir-stir the ramekin cup",
+      "visible_evidence": [
+        "hand holding fork or spoon inside ramekin cup",
+        "circular stirring motion mixing the egg"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "11_1",
+          "text": "A utensil mixes the partially cooked egg inside the ramekin cup",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "4"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "8",
+      "text": "Microwave -Continue to Microwave for 15-30 more seconds or until the egg is almost set",
+      "visible_evidence": [
+        "returning ramekin cup to microwave",
+        "microwave running",
+        "egg in ramekin cup looking mostly solid"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "8_1",
+          "text": "The microwave runs for 15 to 30 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "8_2",
+          "text": "The egg inside the ramekin cup appears mostly solidified",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "11"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "6",
+      "text": "Top -Top cup with 1 tablespoon of salsa",
+      "visible_evidence": [
+        "spooning salsa into ramekin cup",
+        "red salsa layer resting on top of cooked egg"
+      ],
+      "quantity": {
+        "item": "salsa",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "6_1",
+          "text": "Salsa rests on top of the cooked egg inside the ramekin cup",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "8"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "5",
+      "text": "sprinkle -sprinkle 1 tablespoon of cheese on cup",
+      "visible_evidence": [
+        "hand or spoon sprinkling cheese over ramekin cup",
+        "shredded cheese resting on top of contents in cup"
+      ],
+      "quantity": {
+        "item": "cheese",
+        "amount": "1",
+        "unit": "tablespoon"
+      },
+      "checks": [
+        {
+          "check_id": "5_1",
+          "text": "Shredded cheese is scattered over the top of the contents in the ramekin cup",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "8"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "10",
+      "text": "Microwave -Microwave just until cheese melts, about 10 seconds",
+      "visible_evidence": [
+        "placing topped ramekin cup in microwave",
+        "microwave running briefly",
+        "melted cheese visible on top of egg"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "10_1",
+          "text": "The microwave runs for approximately 10 seconds",
+          "category": "timing"
+        },
+        {
+          "check_id": "10_2",
+          "text": "The cheese on top of the egg is visibly melted",
+          "category": "temperature"
+        }
+      ],
+      "must_follow": [
+        "6",
+        "5"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "9",
+      "text": "Line -Line the bottom piece of the English muffin with lettuce",
+      "visible_evidence": [
+        "hand placing lettuce leaf on bottom muffin half",
+        "lettuce resting on cut surface of bottom English muffin half"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "9_1",
+          "text": "Lettuce covers the cut surface of the bottom English muffin half",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "12"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "2",
+      "text": "Place -Place the egg from the cup over the lettuce",
+      "visible_evidence": [
+        "scooping or tipping cooked egg out of ramekin cup",
+        "egg with salsa and melted cheese resting on top of lettuce"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "2_1",
+          "text": "The cooked egg with salsa and melted cheese rests on top of the lettuce on the bottom muffin half",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "10",
+        "9"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "7",
+      "text": "replace -replace the top of the English muffin",
+      "visible_evidence": [
+        "hand placing top English muffin half onto the egg",
+        "assembled English muffin sandwich"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "7_1",
+          "text": "The top half of the English muffin sits over the egg to close the sandwich",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "2"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}

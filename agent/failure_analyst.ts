@@ -160,9 +160,17 @@ function extractCombinedModelText(interaction: Record<string, unknown>): string 
   return combined.trim();
 }
 
+const CUSTOM_TOOL_NAMES = new Set(AGENT_TOOLS.map((t) => t.name));
+
 function extractFunctionCalls(interaction: Record<string, unknown>): Array<Record<string, unknown>> {
   const steps = (interaction.steps as Array<Record<string, unknown>> | undefined) ?? [];
   const outputs = (interaction.outputs as Array<Record<string, unknown>> | undefined) ?? [];
+  const answeredIds = new Set<string>();
+  for (const s of [...steps, ...outputs]) {
+    if (s.type === 'function_result' && s.call_id) {
+      answeredIds.add(String(s.call_id));
+    }
+  }
   const calls: Array<Record<string, unknown>> = [];
   for (const s of [...steps, ...outputs]) {
     if (s.type === 'function_call') {
@@ -173,11 +181,13 @@ function extractFunctionCalls(interaction: Record<string, unknown>): Array<Recor
       }
     }
   }
-  // Deduplicate by id if present
+  // Deduplicate by id, exclude already-answered calls and built-in sandbox tools
   const seen = new Set<string>();
   return calls.filter((c) => {
-    const id = String(c.id ?? `${c.name}_${JSON.stringify(c.arguments ?? {})}`);
-    if (seen.has(id)) return false;
+    const name = String(c.name ?? '');
+    if (!CUSTOM_TOOL_NAMES.has(name)) return false;
+    const id = String(c.id ?? `${name}_${JSON.stringify(c.arguments ?? {})}`);
+    if (answeredIds.has(id) || seen.has(id)) return false;
     seen.add(id);
     return true;
   });
@@ -196,7 +206,10 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
   let currentConfigPath = env.configPath;
   let currentConfig = loadConfig(currentConfigPath);
   const initialScores = readDevScores();
-  let bestF1 = initialScores?.f1.value ?? 0;
+  if (!initialScores) {
+    throw new Error('No completed dev run found for misstep. Run misstep dev eval first.');
+  }
+  let bestF1 = initialScores.f1.value;
   let bestConfigPath = currentConfigPath;
   let evalCallsUsed = 0;
   let nextVersionNum = 2;
@@ -245,7 +258,6 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
     agent_config: {
       type: 'antigravity',
       model: 'gemini-4-neon',
-      max_total_tokens: '400000',
     },
     environment: 'remote',
     tools: AGENT_TOOLS,
@@ -255,10 +267,11 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
   transcript.push(interaction);
   appendDebugLog(`[agent] turn 0 status=${String(interaction.status)} id=${String(interaction.id)}`);
 
-  let maxTurns = 12;
+  let maxTurns = 16;
   while (interaction.status === 'requires_action' && maxTurns-- > 0) {
     const fnCalls = extractFunctionCalls(interaction);
     appendDebugLog(`[agent] requires_action fnCalls=${fnCalls.map((c) => c.name).join(', ')}`);
+    if (fnCalls.length === 0) break;
     const resultsToReturn: Array<Record<string, unknown>> = [];
 
     for (const call of fnCalls) {
@@ -271,7 +284,14 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
         const curFailures = readDevFailures();
         const counts: Record<string, number> = {};
         for (const f of curFailures) {
-          const cats = f.gold_categories.length > 0 ? f.gold_categories : ['none'];
+          const cats =
+            f.kind === 'FP'
+              ? f.pred_categories.length > 0
+                ? f.pred_categories
+                : ['unknown']
+              : f.gold_categories.length > 0
+                ? f.gold_categories
+                : ['none'];
           for (const c of cats) {
             const k = `${f.kind}:${c}`;
             counts[k] = (counts[k] ?? 0) + 1;
@@ -307,7 +327,12 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
             question_texts: f.question_texts,
             clip_summary: `Window ${f.start_s ?? '?'}s to ${f.end_s ?? '?'}s in ${f.recording_id}`,
           }));
-        resultObj = matched;
+        resultObj = {
+          category: cat,
+          kind,
+          count: matched.length,
+          failures: matched,
+        };
       } else if (name === 'get_config') {
         resultObj = { yaml: dumpConfigYaml(currentConfig) };
       } else if (name === 'run_dev_eval') {
@@ -368,6 +393,10 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
 
     interaction = await agentInteraction({
       agent: 'antigravity-preview-09-2026',
+      agent_config: {
+        type: 'antigravity',
+        model: 'gemini-4-neon',
+      },
       previous_interaction_id: interaction.id,
       environment: interaction.environment_id || 'remote',
       tools: AGENT_TOOLS,
@@ -375,6 +404,7 @@ export async function runFailureAnalyst(): Promise<AgentRunSummary> {
       store: true,
     });
     transcript.push(interaction);
+    appendDebugLog(`[agent] next turn status=${String(interaction.status)} id=${String(interaction.id)} evalCallsUsed=${evalCallsUsed} bestF1=${bestF1}`);
   }
 
   const ts = new Date().toISOString().replace(/[:.]/g, '-');

@@ -119,7 +119,8 @@ export async function runPipeline(
     },
   );
   totalCost += checkOut.costUsd;
-  appendDebugLog(`[pipeline] ${recordingId} stage=checkSteps_done cost=$${checkOut.costUsd.toFixed(4)}`);
+  errors.push(...checkOut.errors);
+  appendDebugLog(`[pipeline] ${recordingId} stage=checkSteps_done cost=$${checkOut.costUsd.toFixed(4)} errors=${checkOut.errors.length}`);
 
   // 6. Deterministic rules
   let verdicts = evaluateSteps(procedure, windows, checkOut.checks, config);

@@ -1,0 +1,356 @@
+{
+  "procedure_id": "2",
+  "title": "Sweet-and-Sour Meatballs",
+  "source": "cc4d",
+  "steps": [
+    {
+      "step_id": "21",
+      "text": "Place-Place 5 meatballs in a Microwave-safe plate",
+      "visible_evidence": [
+        "Hands placing meatballs onto a plate",
+        "Five meatballs resting on a microwave-safe plate"
+      ],
+      "quantity": {
+        "item": "meatballs",
+        "amount": "5",
+        "unit": "pieces"
+      },
+      "checks": [
+        {
+          "check_id": "21_1",
+          "text": "The meatballs are placed on a microwave-safe plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "14",
+      "text": "Peel-Peel 1 garlic clove",
+      "visible_evidence": [
+        "Hands removing skin from a garlic clove",
+        "Peeled garlic clove and discarded garlic skin on the work surface"
+      ],
+      "quantity": {
+        "item": "garlic clove",
+        "amount": "1",
+        "unit": "clove"
+      },
+      "checks": [
+        {
+          "check_id": "14_1",
+          "text": "The outer skin is completely removed from the garlic clove",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "23",
+      "text": "Mix-Mix 1/4 cup sweet-and-sour sauce and 1/2 teaspoon soy sauce in a small bowl",
+      "visible_evidence": [
+        "Pouring sweet-and-sour sauce and soy sauce into a small bowl",
+        "Stirring the two sauces together until combined"
+      ],
+      "quantity": {
+        "item": "sweet-and-sour sauce",
+        "amount": "1/4",
+        "unit": "cup"
+      },
+      "checks": [
+        {
+          "check_id": "23_1",
+          "text": "Both sweet-and-sour sauce and soy sauce are added to a small bowl",
+          "category": "preparation"
+        },
+        {
+          "check_id": "23_2",
+          "text": "The sauces are stirred together into a uniform mixture",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "17",
+      "text": "Peel-Peel one medium onion",
+      "visible_evidence": [
+        "Hands peeling papery skin off a medium onion",
+        "Peeled onion and separated onion skins on the work surface"
+      ],
+      "quantity": {
+        "item": "medium onion",
+        "amount": "one",
+        "unit": "whole"
+      },
+      "checks": [
+        {
+          "check_id": "17_1",
+          "text": "The outer papery skin is removed from the onion",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "16",
+      "text": "Cut-Cut 1/8 garlic clove",
+      "visible_evidence": [
+        "Knife cutting a small portion off the peeled garlic clove",
+        "A small cut piece of garlic separated from the rest of the clove"
+      ],
+      "quantity": {
+        "item": "garlic clove",
+        "amount": "1/8",
+        "unit": "clove"
+      },
+      "checks": [
+        {
+          "check_id": "16_1",
+          "text": "A small portion is cut off the peeled garlic clove with a knife",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "14"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "26",
+      "text": "Mince-Mince 1/8 garlic clove",
+      "visible_evidence": [
+        "Knife repeatedly chopping the cut garlic piece finely",
+        "Finely minced garlic bits on the cutting board"
+      ],
+      "quantity": {
+        "item": "garlic clove",
+        "amount": "1/8",
+        "unit": "clove"
+      },
+      "checks": [
+        {
+          "check_id": "26_1",
+          "text": "The cut garlic piece is chopped into very fine minced bits",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "16"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "27",
+      "text": "cut-Cut onion into two pieces",
+      "visible_evidence": [
+        "Knife slicing the peeled onion in half",
+        "Two onion halves resting on the cutting board"
+      ],
+      "quantity": {
+        "item": "onion",
+        "amount": "two",
+        "unit": "pieces"
+      },
+      "checks": [
+        {
+          "check_id": "27_1",
+          "text": "The peeled onion is cut into two separate halves",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "17"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "22",
+      "text": "Cut-Cut 1/4 medium carrot into short, thin strips",
+      "visible_evidence": [
+        "Knife slicing a carrot piece into thin strips on a cutting board",
+        "Pile of short, thin carrot strips on the cutting board"
+      ],
+      "quantity": {
+        "item": "medium carrot",
+        "amount": "1/4",
+        "unit": "carrot"
+      },
+      "checks": [
+        {
+          "check_id": "22_1",
+          "text": "The carrot is cut into short, thin strips",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "19",
+      "text": "Slice-Slice 1/8 medium onion",
+      "visible_evidence": [
+        "Knife slicing a portion of onion on a cutting board",
+        "Thin onion slices resting on the cutting board"
+      ],
+      "quantity": {
+        "item": "medium onion",
+        "amount": "1/8",
+        "unit": "onion"
+      },
+      "checks": [
+        {
+          "check_id": "19_1",
+          "text": "The onion portion is cut into thin slices",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "27"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "24",
+      "text": "Top-Top the plate with the carrots, onion, garlic and 1/4 tsp pepper powder",
+      "visible_evidence": [
+        "Hands placing carrot strips, sliced onion, and minced garlic onto the plate of meatballs",
+        "Sprinkling pepper powder over the ingredients on the plate"
+      ],
+      "quantity": {
+        "item": "pepper powder",
+        "amount": "1/4",
+        "unit": "tsp"
+      },
+      "checks": [
+        {
+          "check_id": "24_1",
+          "text": "The carrot strips, sliced onion, and minced garlic are placed on top of the meatballs",
+          "category": "preparation"
+        },
+        {
+          "check_id": "24_2",
+          "text": "Pepper powder is sprinkled over the ingredients on the plate",
+          "category": "preparation"
+        }
+      ],
+      "must_follow": [
+        "21",
+        "22",
+        "19",
+        "26"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "15",
+      "text": "Pour-Pour the sauces over the meatballs",
+      "visible_evidence": [
+        "Tilting the small bowl of mixed sauce over the plate",
+        "Mixed sauce coating the meatballs on the plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "15_1",
+          "text": "The mixed sauce from the small bowl is poured over the meatballs",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "21",
+        "23"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "20",
+      "text": "Microwave-Microwave the plate, covered, on high for 1.5 minutes",
+      "visible_evidence": [
+        "Covering the plate and placing it inside the microwave",
+        "Closing the microwave door and setting the timer for 1.5 minutes on high"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "20_1",
+          "text": "The plate is covered before microwaving",
+          "category": "preparation"
+        },
+        {
+          "check_id": "20_2",
+          "text": "The microwave is set to high power",
+          "category": "temperature"
+        },
+        {
+          "check_id": "20_3",
+          "text": "The microwave runs for 1.5 minutes",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "24",
+        "15"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "18",
+      "text": "Stir-Stir the contents in the microwave with a spoon",
+      "visible_evidence": [
+        "Opening the microwave and uncovering the plate",
+        "Using a spoon to stir the meatballs, vegetables, and sauce on the plate"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "18_1",
+          "text": "A spoon is used to stir the meatballs, vegetables, and sauce together",
+          "category": "technique"
+        }
+      ],
+      "must_follow": [
+        "20"
+      ],
+      "optional": false,
+      "checkable": true
+    },
+    {
+      "step_id": "25",
+      "text": "Microwave-Microwave for 1 more minute",
+      "visible_evidence": [
+        "Closing the microwave door and starting the timer for 1 minute",
+        "Plate remaining in the running microwave for 1 minute"
+      ],
+      "quantity": null,
+      "checks": [
+        {
+          "check_id": "25_1",
+          "text": "The microwave runs for 1 additional minute",
+          "category": "timing"
+        }
+      ],
+      "must_follow": [
+        "18"
+      ],
+      "optional": false,
+      "checkable": true
+    }
+  ]
+}
